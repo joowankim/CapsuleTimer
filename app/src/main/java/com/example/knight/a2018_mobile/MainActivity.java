@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button medicine_search_btn;
     EditText medicine_name_edt;
+    String res;
 //    String Server_IP="192.168.0.122";
 //    private int Server_PORT=9999;
     String Server_IP="118.36.9.247";
@@ -49,12 +50,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String medicine_name = medicine_name_edt.getText().toString();
+                String result = "";
 
                 if(medicine_name.compareTo("") == 0){
                     return;
                 }else {
                     MySocket sock = new MySocket(Server_IP, Server_PORT);
-                    Toast.makeText(getApplicationContext(), sock.request(medicine_name), Toast.LENGTH_LONG).show();
+                    try {
+                        result = sock.request(medicine_name);
+                        sock.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                 }
             }
         });
