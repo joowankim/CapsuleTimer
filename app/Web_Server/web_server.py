@@ -25,25 +25,25 @@ def search_medicine():
     # if type(result) == list:
     return render_template('home.html')
 
+# if __name__ == '__main__':
+#     app.run()
 
-if __name__ == '__main__':
-    app.run()
 
 
-# sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# sock.bind(("192.168.0.122", 11114))
-# sock.listen(5)
-# try:
-#     while True:
-#         client, addr = sock.accept()
-#         print client.recv(1024)
-#         client.send("Hello")
-#         client.close()
-# except:
-#     sock.close()
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(("192.168.0.122", 11114))
+sock.listen(5)
+try:
+    while True:
+        client, addr = sock.accept()
+        print client.recv(1024)
+        client.send("Hello")
+        client.close()
+except:
+    sock.close()
 
 # Search list of medicine with medicine name
-MedicineSearch.crawler("타이레놀")
+# MedicineSearch.crawler("타이레놀")
 
 # Search specific information of medicine with url
-MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=199303109")
+# MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=199303109")
