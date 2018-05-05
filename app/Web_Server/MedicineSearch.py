@@ -5,8 +5,8 @@ sys.setdefaultencoding('utf-8')
 
 import BeautifulSoup
 import requests
-
-
+import json
+import pprint
 
 # Method to parse medicine info list from webpage
 # Parameter html: HTML page which includes list of medicine user typed
@@ -14,7 +14,8 @@ import requests
 # Information format [ Sequence, Medicine name, Link which leads to specific information, Cheif ingredient, Number of cheif ingredient, Company, Expert/Daily]
 # Dependency: Python BeautifulSoap package
 def medicine_list_info_parser(html):
-    res = []
+    name = [ "Sequence", "name", "link", "ingredient", "ningredient", "company", "type"]
+    res = {"medicine":[]}
     soup = BeautifulSoup.BeautifulSoup(html)
     lines = soup.findAll('tr', attrs={'class':'s_result_list'})
     for line in lines:
@@ -25,9 +26,9 @@ def medicine_list_info_parser(html):
                 res_line.append(item.getText())
             if idx == 3:
                 res_line.append(item.findAll('a')[0]['href'])
-        print
-        res.append(res_line)
-    return res
+        # print res_line
+        res["medicine"].append(dict(zip(name, res_line)))
+    return json.dumps(res)
 
 # Method to parse medicine information from webpage
 # Parameter html: HTML page which includes information of medicine user typed
@@ -55,4 +56,5 @@ def crawler(medicine_name):
     else:
         result = requests.get("http://drug.mfds.go.kr/html"+medicine_name[1:])
         information = medicine_info_parser(result.text)['usage']
+    pprint.pprint(information)
     return information

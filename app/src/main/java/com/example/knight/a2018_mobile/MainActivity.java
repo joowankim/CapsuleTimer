@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 String medicine_name = medicine_name_edt.getText().toString();  // Get medicine name from edit text widget
                 String result = "";  // String to result
                 JSONObject request = new JSONObject();  // JSON Object to send request to server
+                MedicineListAdapter medicineList;
 
                 if(medicine_name.compareTo("") == 0){
                     return;
@@ -79,13 +80,14 @@ public class MainActivity extends AppCompatActivity {
                         request.put("Type", "Search_Medicine");  // Put data to create JSON
                         request.put("Name", medicine_name);
                         result = sock.request(request.toString());
-                        sock.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(getApplicationContext(), Show_medicine_list.class);
+                    intent.putExtra("json", result);
+                    startActivity(intent);
                 }
             }
         });

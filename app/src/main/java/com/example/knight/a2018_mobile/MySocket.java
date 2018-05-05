@@ -48,6 +48,12 @@ public class MySocket extends Thread {
     public String request(String request){
         this.request = request;
         this.start();
+        try {
+            this.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("result", res);
         return res;
     }
 
@@ -63,7 +69,6 @@ public class MySocket extends Thread {
             networkWriter.write(request);
             networkWriter.flush();
             res = networkReader.readLine();
-            Log.d("result", res);
             successive = 1;
         } catch (IOException e) {
             Log.d("Socket", "Socket initialization is failed, " + e.getMessage());
