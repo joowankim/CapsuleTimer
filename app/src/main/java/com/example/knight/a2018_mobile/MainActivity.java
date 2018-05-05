@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button to_memo;
     EditText medicine_name_edt;
     String res;
-    String Server_IP="118.36.9.247";
+    String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
 
     /**
