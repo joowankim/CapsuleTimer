@@ -32,7 +32,7 @@ public class writing_memo extends AppCompatActivity {
     EditText memo_content;
     Button memo_submit;
     public static final int PICK_IMAGE = 1;
-    private String Server_IP="118.36.9.247";
+    private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private Uri selectedimg;
 

@@ -34,23 +34,23 @@ import java.net.Socket;
 
 /**
  * Created by Knight on 2018. 4. 30..
- * <p>
+ *
  * Main activity
+ *
  */
 
 public class MainActivity extends AppCompatActivity {
 
     Button medicine_search_btn;
     Button to_memo;
-    Button to_report;
     EditText medicine_name_edt;
     String res;
-    String Server_IP = "118.36.9.247";
-    private int Server_PORT = 6000;
+    String Server_IP="118.36.9.247";
+    private int Server_PORT=6000;
 
     /**
-     * @param savedInstanceState
      * @description java class of main activity
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         medicine_name_edt = (EditText) findViewById(R.id.medicine_name);  // Find edit text widget in layout
         medicine_search_btn = (Button) findViewById(R.id.medicine_search_btn);  // Find button widget in layout
-        to_report = (Button) findViewById(R.id.to_report);
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
 
         /**
@@ -73,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject request = new JSONObject();  // JSON Object to send request to server
                 MedicineListAdapter medicineList;
 
-                if (medicine_name.compareTo("") == 0) {
+                if(medicine_name.compareTo("") == 0){
                     return;
-                } else {
+                }else {
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
                     try {
                         request.put("Type", "Search_Medicine");  // Put data to create JSON
@@ -93,18 +92,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        to_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                Intent intent = new Intent(getApplicationContext(), showGraph.class);
-                startActivity(intent);
-            }
-
-        });
-
         /**
          * @description add button event click listener
          */
@@ -115,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 }

@@ -96,7 +96,7 @@ public class MedicineListAdapter extends BaseAdapter {
                     try {
                         Intent intent = new Intent(myContext, Show_medicine_info.class);
                         intent.putExtra("link", medicine.getString("link"));
-//                        startActivity(intent);
+                        startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

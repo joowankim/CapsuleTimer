@@ -42,7 +42,7 @@ def medicine_info_parser(html):
     res['effect'] = soup.findAll('div', attrs={'id': 'scroll_03'})[0].findAll('div', attrs={'class':'_preview __doc'})[0].findAll('div')[0].getText()
     res['usage'] = soup.findAll('div', attrs={'id': 'scroll_04'})[0].findAll('div', attrs={'class': '_preview __doc'})[0].findAll('div')[0].getText()
     res['notice'] = soup.findAll('div', attrs={'id': 'scroll_05'})[0].findAll('div', attrs={'class': '_preview'})[0].findAll('div')[0].getText()
-    return res
+    return json.dumps(res)
 
 
 # Receive medicine name from user and return information(list or specific information) of medicine
