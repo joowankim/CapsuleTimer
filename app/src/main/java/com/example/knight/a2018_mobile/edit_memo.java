@@ -75,6 +75,8 @@ public class edit_memo extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     sock.request(request.toString());  // Send request
                     sock.join();
+
+
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                     Log.d("Memo", "Send to server error");

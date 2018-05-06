@@ -55,6 +55,14 @@
                 android:id="@+id/to_report"/>
 
         </TableRow>
+        <TableRow><!-- 임시 memo list button-->
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="메모 리스트"
+                android:id="@+id/to_memo_list"/>
+
+        </TableRow>
     </TableLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -68,4 +76,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
+
+
 </android.support.constraint.ConstraintLayout>

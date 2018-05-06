@@ -1,16 +1,17 @@
 package com.example.knight.a2018_mobile;
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,37 +19,45 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class memo_list extends AppCompatActivity {
+/**
+ * Created by Kim on 2018-05-06.
+ */
+
+public class FragmentMemoList extends Fragment {
 
     TextView textView;
     SwipeMenuListView listView;
-    Context context = this;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memo_list);
 
-        textView = (TextView) findViewById(R.id.textView);
-        textView.setText("무슨 약 메모");
+    public FragmentMemoList () { }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_memo_list, container, false);
+
+        textView = (TextView) view.findViewById(R.id.textView);
+        textView.setVisibility(View.INVISIBLE);
+        textView.setHeight(0);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
                 // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(context);
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getActivity());
                 // set item background
                 openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE)));
                 // set item width
                 openItem.setWidth(dp2px(90));
                 // set item title
-                openItem.setTitle("Edit");  //메모 수정 버튼 추후에 없애도 상관 없을듯
+                openItem.setTitle("Edit");      // 메모 수정버튼
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color
@@ -57,7 +66,8 @@ public class memo_list extends AppCompatActivity {
                 menu.addMenuItem(openItem);
 
                 // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(context);
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getActivity());
                 // set item background
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
                 // set item width
@@ -70,7 +80,7 @@ public class memo_list extends AppCompatActivity {
         };
 
         // 리스트 생성
-        listView = (SwipeMenuListView) findViewById(R.id.listView);
+        listView = (SwipeMenuListView) view.findViewById(R.id.listView);
         final ArrayList<String> list = new ArrayList<>();
         list.add("asvd");
         list.add("aasd");
@@ -93,7 +103,7 @@ public class memo_list extends AppCompatActivity {
         list.add("aAA11d");
         list.add("as323vd");
 
-        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, list);
+        final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
 
         listView.setAdapter(adapter);
         // set creator
@@ -126,7 +136,7 @@ public class memo_list extends AppCompatActivity {
                         break;
                     case 1:
                         // delete
-                        Toast.makeText(getApplicationContext(), list.get(position) + " 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), list.get(position) + " 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         list.remove(position);
                         listView.clearChoices();
                         adapter.notifyDataSetChanged();
@@ -138,54 +148,12 @@ public class memo_list extends AppCompatActivity {
             }
         });
 
-        // in Activity Context
-        ImageView icon = new ImageView(this); // Create an icon
-        icon.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.ic_add_memo));
 
-        // set action button
-        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
-                .setContentView(icon)
-                .build();
-
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-
-        // menus in action button
-        ImageView text = new ImageView(this);
-        text.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.ic_add_text));
-        SubActionButton addText = itemBuilder.setContentView(text).build();
-
-        ImageView photo = new ImageView(this);
-        photo.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.ic_add_photo));
-        SubActionButton addPhoto = itemBuilder.setContentView(photo).build();
-
-        // show action menu
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(addText)
-                .addSubActionView(addPhoto)
-                .attachTo(actionButton)
-                .build();
-
-        text.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), edit_memo.class);
-                startActivity(intent);
-            }
-        });
-
-        photo.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), edit_memo.class);
-                startActivity(intent);
-            }
-        });
-
+        return view;
     }
-
 
     private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getApplicationContext().getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getActivity().getResources().getDisplayMetrics());
     }
-
 }
