@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     Button medicine_search_btn;
     Button to_memo;
+    Button to_report;
     EditText medicine_name_edt;
     String res;
-    String Server_IP="106.10.40.50";
+    String Server_IP="118.36.9.247";
     private int Server_PORT=6000;
 
     /**
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         medicine_name_edt = (EditText) findViewById(R.id.medicine_name);  // Find edit text widget in layout
         medicine_search_btn = (Button) findViewById(R.id.medicine_search_btn);  // Find button widget in layout
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
+        to_report = (Button) findViewById(R.id.to_report);
 
         /**
          * @description add button event click listener
@@ -99,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), writing_memo.class);  // Create intent and move to memo activity
+                startActivity(intent);
+            }
+        });
+
+        /**
+         * @brief GO TO REPORT ACTIVITY@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+         */
+
+        to_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), showGraph.class);
                 startActivity(intent);
             }
         });

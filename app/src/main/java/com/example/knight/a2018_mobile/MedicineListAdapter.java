@@ -96,7 +96,7 @@ public class MedicineListAdapter extends BaseAdapter {
                     try {
                         Intent intent = new Intent(myContext, Show_medicine_info.class);
                         intent.putExtra("link", medicine.getString("link"));
-                        myContext.startActivity(intent);
+                        //startActivity(intent);    // 얘 땜에 앱 자체가 실행이 안되서 주석처리 해놨습니다. by 주완
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
