@@ -27,6 +27,7 @@
         <activity android:name=".Alarm_main"></activity>
         <activity android:name =".Login"></activity>
         <activity android:name=".Register"></activity>
+        <receiver android:name=".AlertReceiver"></receiver>
     </application>
 
 </manifest>
