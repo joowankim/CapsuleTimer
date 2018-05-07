@@ -2,6 +2,7 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,6 @@ public class MedicineListAdapter extends BaseAdapter {
             TextView company = new TextView(myContext);
             TextView ingredient = new TextView(myContext);
             TextView type = new TextView(myContext);
-//            ImageView img = new ImageView(myContext);
 
             name.setText(medicine.getString("name"));
             company.setText(medicine.getString("company"));
