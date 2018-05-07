@@ -24,8 +24,6 @@
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
         <activity android:name=".showGraph"></activity>
-        <activity android:name=".Alarm_main"></activity>
-        <receiver android:name=".AlertReceiver"/>
     </application>
 
 </manifest>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/register_table">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/id_label" />
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/register_id_placeholder"
+                android:gravity="center"
+                android:id="@+id/register_id" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pw_label" />
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/register_pw_placeholder"
+                android:gravity="center"
+                android:id="@+id/register_pw" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pw_label" />
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/register_re_pw_placeholder"
+                android:gravity="center"
+                android:id="@+id/register_re_pw" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:layout_alignRight="@+id/register_table"
+        android:layout_below="@+id/register_table"
+        android:id="@+id/register"/>
+</RelativeLayout>

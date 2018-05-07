@@ -11,7 +11,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web_server.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="web_server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web_server.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="293">
@@ -38,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DB.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DB.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DB.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="329">
@@ -466,13 +466,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="70" column="30" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
@@ -480,6 +473,13 @@
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="70" column="30" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
         </state>
       </provider>
     </entry>
