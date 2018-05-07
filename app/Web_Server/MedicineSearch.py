@@ -22,11 +22,9 @@ def medicine_list_info_parser(html):
         res_line = []
         for idx, item in enumerate(line):
             if type(item) != BeautifulSoup.NavigableString:
-                print item.getText(),
                 res_line.append(item.getText())
             if idx == 3:
                 res_line.append(item.findAll('a')[0]['href'])
-        # print res_line
         res["medicine"].append(dict(zip(name, res_line)))
     return json.dumps(res)
 
@@ -55,6 +53,6 @@ def crawler(medicine_name):
         information = medicine_list_info_parser(result.text)
     else:
         result = requests.get("http://drug.mfds.go.kr/html"+medicine_name[1:])
-        information = medicine_info_parser(result.text)['usage']
-    pprint.pprint(information)
+        information = medicine_info_parser(result.text)
+        print 1
     return information
