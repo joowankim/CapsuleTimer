@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -22,10 +23,13 @@ public class edit_memo extends AppCompatActivity {
     ImageView memo_edit_image;
     EditText memo_edit_content;
     Button memo_edit_submit;
+    int position;
+    String writer;
     public static final int PICK_IMAGE = 1;
-    private String Server_IP="118.36.9.247";
+    private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private Uri selectedimg;
+    MySocket sock = new MySocket(Server_IP, Server_PORT);
 
     /**
      * @description java class of writing memo activity
@@ -35,10 +39,24 @@ public class edit_memo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_memo);
+        Intent intent = getIntent();
 
         memo_edit_image = (ImageView)findViewById(R.id.memo_image);
         memo_edit_content = (EditText)findViewById(R.id.memo_content);
         memo_edit_submit = (Button)findViewById(R.id.memo_upload);
+        position = intent.getIntExtra("position", 0);
+        writer = intent.getStringExtra("writer");
+        try {
+            JSONObject request = new JSONObject();
+            request.put("Type", "Edit_Memo");
+            request.put("Id", writer);
+            request.put("Position", position);
+            JSONObject result = new JSONObject(sock.request(request.toString()));
+            memo_edit_content.setText(result.getString("text"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         /**
          * @description add button event click listener
@@ -60,6 +78,7 @@ public class edit_memo extends AppCompatActivity {
         memo_edit_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 try {
                     JSONObject request = new JSONObject();  // Create JSON Object to send request
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
@@ -75,10 +94,12 @@ public class edit_memo extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     sock.request(request.toString());  // Send request
                     sock.join();
+                    finish();
 
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                    Log.d("Memo", e.toString());
                     Log.d("Memo", "Send to server error");
                 }
             }

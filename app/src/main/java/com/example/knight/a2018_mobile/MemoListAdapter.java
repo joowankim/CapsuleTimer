@@ -66,14 +66,30 @@ public class MemoListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        try{
+            JSONObject memo = memos.getJSONObject(i);
+            return memo.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public String getWriter(int i) {
+        try{
+            JSONObject memo = memos.getJSONObject(i);
+            return memo.get("user").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout view = null;
         try {
             Log.d("1234", "1234");
-            final JSONObject medicine = memos.getJSONObject(position);
+            final JSONObject memo = memos.getJSONObject(position);
             view = new LinearLayout(myContext);
             TextView text = new TextView(myContext);
             TextView date = new TextView(myContext);
@@ -81,14 +97,15 @@ public class MemoListAdapter extends BaseAdapter {
 //            TextView type = new TextView(myContext);
 //            ImageView img = new ImageView(myContext);
 
-            text.setText(medicine.getString("text"));
-            date.setText(medicine.getString("time"));
+            text.setText(memo.getString("text"));
+            date.setText(memo.getString("time"));
 //            ingredient.setText(medicine.getString("ingredient"));
 //            type.setText(medicine.getString("type"));
 
             view.setOrientation(LinearLayout.VERTICAL);
             view.addView(text);
             view.addView(date);
+            view.setId(memo.getInt("id"));
 //            view.addView(ingredient);
 //            view.addView(type);
 //            view.setOnClickListener(new View.OnClickListener() {

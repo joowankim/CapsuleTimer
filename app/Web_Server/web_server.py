@@ -74,6 +74,10 @@ if __name__ == '__main__':
                 client.send(DB.user_validation(req['Id']))
             if req['Type'] == 'Login':
                 client.send(DB.user_login(req['Id'], req['Password']))
+            if req['Type'] == 'Edit_Memo':
+                client.send(DB.search_memo(req['Id'], req['Position']))
+            if req['Type'] == 'Delete_Memo':
+                client.send(DB.delete_memo(req['Id'], req['Position']))
             client.close()
     except Exception, e:
         print e

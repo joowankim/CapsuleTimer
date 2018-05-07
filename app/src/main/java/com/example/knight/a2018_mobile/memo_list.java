@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,9 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class memo_list extends AppCompatActivity {
@@ -30,6 +34,9 @@ public class memo_list extends AppCompatActivity {
     SwipeMenuListView listView;
     MemoListAdapter memoListAdapter;
     Context context = this;
+    private String Server_IP="106.10.40.50";
+    private int Server_PORT=6000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,12 +132,32 @@ public class memo_list extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         // open
-                        Log.d("open", position + " item selected ");
+                        Log.d("open", String.valueOf(memoListAdapter.getItemId(position)) + " " + String.valueOf(position) + " item selecteds ");
+                        Intent intent = new Intent(getApplicationContext(), edit_memo.class);
+                        intent.putExtra("position", Integer.parseInt(String.valueOf(memoListAdapter.getItemId(position))));
+                        intent.putExtra("writer", memoListAdapter.getWriter(position));
+                        startActivity(intent);
+                        listView.clearChoices();
+                        memoListAdapter.notifyDataSetChanged();
                         break;
                     case 1:
                         // delete
-//                        Toast.makeText(getApplicationContext(), list.get(position) + " 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-//                        list.remove(position);
+                        MySocket sock = new MySocket(Server_IP, Server_PORT);
+                        try {
+                            JSONObject request = new JSONObject();
+                            request.put("Type", "Delete_Memo");
+                            request.put("Position", Integer.parseInt(String.valueOf(memoListAdapter.getItemId(position))));
+                            request.put("Id", memoListAdapter.getWriter(position));
+                            JSONObject result = new JSONObject(sock.request(request.toString()));
+                            if (result.get("result").toString().compareTo("No") == 0) {
+                                Toast.makeText(getApplicationContext(), "Deleting failed", Toast.LENGTH_LONG).show();
+                                break;
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         listView.clearChoices();
                         memoListAdapter.notifyDataSetChanged();
                         Log.d("delete", position + " item deleted ");
@@ -171,7 +198,7 @@ public class memo_list extends AppCompatActivity {
         text.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), edit_memo.class);
+                Intent intent = new Intent(getApplicationContext(), writing_memo.class);
                 startActivity(intent);
             }
         });
@@ -179,7 +206,7 @@ public class memo_list extends AppCompatActivity {
         photo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), edit_memo.class);
+                Intent intent = new Intent(getApplicationContext(), writing_memo.class);
                 startActivity(intent);
             }
         });

@@ -4,6 +4,8 @@ import datetime
 
 memo_insert_sql = "insert into Memo (User, Date, Text, Image) values (?, ?, ?, ?)"
 memo_search_sql = "select * from Memo where User=?"
+memo_position_search_sql = "select * from Memo where User=? and id=?"
+memo_delete_sql = "delete from memo where user=? and id=?"
 
 register = "insert into User (Id, Password) values (?, ?)"
 validation = "select * from User where id=?"
@@ -36,6 +38,33 @@ def search_memo(user):
         d[2] = ''.join(datetime.datetime.fromtimestamp(d[2]).strftime('%Y-%m-%d %H:%M:%S'))
         result["memo"].append(dict(zip(index, list(d))))
     return json.dumps(result)
+
+def search_memos(user, position):
+    result = {}
+    index = ["id", "user", "time", "text", "image"]
+
+    print memo_position_search_sql, user, position
+    cur.execute(memo_position_search_sql, (user, position))
+    data = cur.fetchall()
+    for d in data:
+        # print type(''.join(datetime.datetime.fromtimestamp(d[2]).strftime('%Y-%m-%d %H:%M:%S')))
+        d = list(d)
+        d[2] = ''.join(datetime.datetime.fromtimestamp(d[2]).strftime('%Y-%m-%d %H:%M:%S'))
+        result = dict(zip(index, list(d)))
+    return json.dumps(result)
+
+def delete_memo(user, position):
+    result = {}
+    try:
+        cur.execute(memo_delete_sql, (user, position))
+        conn.commit()
+        result['result'] = 'Yes'
+    except:
+        result['result'] = 'No'
+    return json.dumps(result)
+
+
+
 
 def user_validation(id):
     result = {}
