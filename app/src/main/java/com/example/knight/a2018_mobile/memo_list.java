@@ -28,12 +28,15 @@ public class memo_list extends AppCompatActivity {
 
     TextView textView;
     SwipeMenuListView listView;
+    MemoListAdapter memoListAdapter;
     Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_list);
 
+        Intent intent = getIntent();
+        memoListAdapter = new MemoListAdapter(this, intent.getStringExtra("json"));
         textView = (TextView) findViewById(R.id.textView);
         textView.setText("무슨 약 메모");
 
@@ -71,31 +74,31 @@ public class memo_list extends AppCompatActivity {
 
         // 리스트 생성
         listView = (SwipeMenuListView) findViewById(R.id.listView);
-        final ArrayList<String> list = new ArrayList<>();
-        list.add("asvd");
-        list.add("aasd");
-        list.add("asvd11");
-        list.add("aAA11d");
-        list.add("as323vd");
-        list.add("asvd");
-        list.add("aasd");
-        list.add("asvd11");
-        list.add("aAA11d");
-        list.add("as323vd");
-        list.add("asvd");
-        list.add("aasd");
-        list.add("asvd11");
-        list.add("aAA11d");
-        list.add("as323vd");
-        list.add("asvd");
-        list.add("aasd");
-        list.add("asvd11");
-        list.add("aAA11d");
-        list.add("as323vd");
+//        final ArrayList<String> list = new ArrayList<>();
+//        list.add("asvd");
+//        list.add("aasd");
+//        list.add("asvd11");
+//        list.add("aAA11d");
+//        list.add("as323vd");
+//        list.add("asvd");
+//        list.add("aasd");
+//        list.add("asvd11");
+//        list.add("aAA11d");
+//        list.add("as323vd");
+//        list.add("asvd");
+//        list.add("aasd");
+//        list.add("asvd11");
+//        list.add("aAA11d");
+//        list.add("as323vd");
+//        list.add("asvd");
+//        list.add("aasd");
+//        list.add("asvd11");
+//        list.add("aAA11d");
+//        list.add("as323vd");
+//
+//        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, list);
 
-        final ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, list);
-
-        listView.setAdapter(adapter);
+        listView.setAdapter(memoListAdapter);
         // set creator
         listView.setMenuCreator(creator);
 
@@ -126,10 +129,10 @@ public class memo_list extends AppCompatActivity {
                         break;
                     case 1:
                         // delete
-                        Toast.makeText(getApplicationContext(), list.get(position) + " 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        list.remove(position);
+//                        Toast.makeText(getApplicationContext(), list.get(position) + " 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//                        list.remove(position);
                         listView.clearChoices();
-                        adapter.notifyDataSetChanged();
+                        memoListAdapter.notifyDataSetChanged();
                         Log.d("delete", position + " item deleted ");
                         break;
                 }

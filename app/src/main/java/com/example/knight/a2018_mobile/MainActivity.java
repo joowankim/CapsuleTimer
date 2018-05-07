@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Button to_memoList;
     EditText medicine_name_edt;
     String res;
-    String Server_IP="118.36.9.247";
+    String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
 
     /**
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 String medicine_name = medicine_name_edt.getText().toString();  // Get medicine name from edit text widget
                 String result = "";  // String to result
                 JSONObject request = new JSONObject();  // JSON Object to send request to server
-                MedicineListAdapter medicineList;
 
                 if(medicine_name.compareTo("") == 0){
                     return;
@@ -102,7 +101,19 @@ public class MainActivity extends AppCompatActivity {
         to_memo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), writing_memo.class);  // Create intent and move to memo activity
+                Intent intent = new Intent(getApplicationContext(), memo_list.class);  // Create intent and move to memo activity
+                String result = "";  // String to result
+                JSONObject request = new JSONObject();  // JSON Object to send request to server
+                MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
+                try {
+                    request.put("Type", "Search_Memo");  // Put data to create JSON
+                    request.put("User", "TEST");
+                    Log.d("TEST", request.toString());
+                    result = sock.request(request.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                intent.putExtra("json", result);
                 startActivity(intent);
             }
         });
