@@ -25,6 +25,8 @@
         <activity android:name=".Show_medicine_info" />
         <activity android:name=".showGraph"></activity>
         <activity android:name=".Alarm_main"></activity>
+        <activity android:name =".Login"></activity>
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>
