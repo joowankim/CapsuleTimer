@@ -1,36 +1,16 @@
 package com.example.knight.a2018_mobile;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Date;
-import java.net.Socket;
 
 /**
  * Created by Knight on 2018. 4. 30..
@@ -45,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button to_memo;
     Button to_report;
     Button to_memoList;
+    Button to_alarmList;
     EditText medicine_name_edt;
     String res;
     String Server_IP="106.10.40.50";
@@ -64,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
         to_report = (Button) findViewById(R.id.to_report);
         to_memoList = (Button) findViewById(R.id.to_memo_list);
+        to_alarmList = findViewById(R.id.to_alarm_list);
 
         /**
          * @description add button event click listener
@@ -137,6 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
+        to_alarmList.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), Alarm_main.class);
+                startActivity(intent);
+            }
+        });
+    }
 }

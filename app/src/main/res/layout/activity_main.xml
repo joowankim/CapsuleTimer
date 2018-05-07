@@ -63,6 +63,15 @@
                 android:id="@+id/to_memo_list"/>
 
         </TableRow>
+        <TableRow><!-- 임시 alarm list button-->
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="알람 리스트"
+                android:id="@+id/to_alarm_list"/>
+
+        </TableRow>
+
     </TableLayout>
 
     <android.support.design.widget.BottomNavigationView
