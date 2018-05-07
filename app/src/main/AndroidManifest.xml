@@ -23,7 +23,9 @@
         <activity android:name=".edit_memo" />
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
-        <activity android:name=".showGraph"></activity>
+        <activity android:name=".showGraph" />
+        <activity android:name=".Login" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>

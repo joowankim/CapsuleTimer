@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Button medicine_search_btn;
     Button to_memo;
     Button to_report;
-    Button to_memoList;
+    Button login;
     EditText medicine_name_edt;
     String res;
     String Server_IP="106.10.40.50";
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         medicine_search_btn = (Button) findViewById(R.id.medicine_search_btn);  // Find button widget in layout
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
         to_report = (Button) findViewById(R.id.to_report);
-        to_memoList = (Button) findViewById(R.id.to_memo_list);
+        login = (Button) findViewById(R.id.login);
 
         /**
          * @description add button event click listener
@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        to_memoList.setOnClickListener(new View.OnClickListener(){
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(), memo_list.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
         });

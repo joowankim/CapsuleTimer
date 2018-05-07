@@ -14,4 +14,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--For login and register-->
+    <string name="login">Login</string>
+    <string name="id_label">ID</string>
+    <string name="pw_label">Password</string>
+    <string name="login_id_placeholder">Please type your ID</string>
+    <string name="login_pw_placeholder">Please type your PW</string>
+    <string name="register">Register</string>
+    <string name="register_id_placeholder">Please type your ID</string>
+    <string name="register_pw_placeholder">Please type your PW</string>
+    <string name="register_re_pw_placeholder">Please type your PW again</string>
 </resources>
