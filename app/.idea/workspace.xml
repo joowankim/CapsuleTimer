@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d1ece769-6870-4588-a7d9-e4015cecff05" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,15 +37,14 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1309">
-              <caret line="66" column="53" lean-forward="false" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+            <state relative-caret-position="186">
+              <caret line="131" column="13" lean-forward="true" selection-start-line="131" selection-start-column="13" selection-end-line="131" selection-end-column="13" />
               <folding>
                 <element signature="e#2207#3495#0" expanded="true" />
                 <element signature="e#3494#3495#0" expanded="true" />
                 <element signature="e#3614#4593#0" expanded="true" />
                 <element signature="e#4592#4593#0" expanded="true" />
                 <element signature="e#4731#4972#0" expanded="true" />
-                <element signature="e#4971#4972#0" expanded="true" />
                 <element signature="e#5015#5254#0" expanded="true" />
                 <element signature="e#5253#5254#0" expanded="true" />
                 <element signature="e#5298#5543#0" expanded="true" />
@@ -2259,7 +2256,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665135754" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665372262" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2307,7 +2304,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665135754" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665372262" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2469,7 +2466,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665135755" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525665372263" />
       </method>
     </configuration>
     <list size="1">
@@ -2578,7 +2575,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525656218696</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add Alarm">
+      <created>1525665157882</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1525665157882</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2670,7 +2674,8 @@
     <MESSAGE value="그래프 꺾은선 fragment 4개&#10;&#10;달력 복용 횟수에 따른 색깔표시 4개랑 달력 밑에 약간 색깔별 설명이랑&#10;색깔 표시 위한 drawable .xml파일 4개 추가했습니다. &#10;&#10;MedicineListAdapter.java 에 99번째 줄 에러떠서 주석 처리 하고 올렸으니 &#10;풀고 코딩하면 됩니다.&#10;&#10;현재시각 6:00am 수고요" />
     <MESSAGE value="showGraph.java, FragmentCalendar.java, FragmentSingle.java 추가" />
     <MESSAGE value="쓰레기통 아이콘" />
-    <option name="LAST_COMMIT_MESSAGE" value="쓰레기통 아이콘" />
+    <MESSAGE value="add Alarm" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Alarm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3057,15 +3062,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1309">
-          <caret line="66" column="53" lean-forward="false" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+        <state relative-caret-position="186">
+          <caret line="131" column="13" lean-forward="true" selection-start-line="131" selection-start-column="13" selection-end-line="131" selection-end-column="13" />
           <folding>
             <element signature="e#2207#3495#0" expanded="true" />
             <element signature="e#3494#3495#0" expanded="true" />
             <element signature="e#3614#4593#0" expanded="true" />
             <element signature="e#4592#4593#0" expanded="true" />
             <element signature="e#4731#4972#0" expanded="true" />
-            <element signature="e#4971#4972#0" expanded="true" />
             <element signature="e#5015#5254#0" expanded="true" />
             <element signature="e#5253#5254#0" expanded="true" />
             <element signature="e#5298#5543#0" expanded="true" />
