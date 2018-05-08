@@ -52,7 +52,7 @@ def search_medicine():
     return render_template('Medicine_list.html', medicines=result)
 
 # if __name__ == '__main__':
-#     app.run()
+#     # app.run()
 #     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #     sock.bind(("", 6000))
 #     sock.listen(5)
@@ -76,8 +76,12 @@ def search_medicine():
 #                 client.send(DB.user_login(req['Id'], req['Password']))
 #             if req['Type'] == 'Edit_Memo':
 #                 client.send(DB.search_memo(req['Id'], req['Position']))
+#             if req['Type'] == 'Edit_Content':
+#                 client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image']))
 #             if req['Type'] == 'Delete_Memo':
 #                 client.send(DB.delete_memo(req['Id'], req['Position']))
+#             if req['Type'] == 'Medicine_Record':
+#                 client.send(DB.medicine_taking(req['Id'], req['Medicine_Name'], req['From'], req['To']))
 #             client.close()
 #     except Exception, e:
 #         print e
@@ -91,5 +95,7 @@ def search_medicine():
 # print repr(MedicineSearch.crawler("타이레놀"))
 #
 # # Search specific information of medicine with url
-print MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=200302348")
+# print MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=200302348")
 
+# print DB.medicine_taking("TEST", "Tylenol", "20180507", "20180509")
+# print DB.change_memo("Test", "3", "Hello", "It's me")

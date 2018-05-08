@@ -31,6 +31,7 @@ public class MemoListAdapter extends BaseAdapter {
             Log.d("TEST", jsonString);
             myMemo = new JSONObject(jsonString);
             memos = myMemo.getJSONArray("memo");
+
 //            for (int i = 0; i < medicines.length(); i++) {
 //
 //                JSONObject medicine = medicines.getJSONObject(i);
@@ -83,6 +84,20 @@ public class MemoListAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void change(int position, String text) {
+        try {
+            JSONObject tmp = memos.getJSONObject(position);
+            tmp.put("text", text);
+//            tmp.put("image", image);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int position) {
+        Object trash = memos.remove(position);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

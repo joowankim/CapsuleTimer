@@ -36,6 +36,7 @@ public class memo_list extends AppCompatActivity {
     Context context = this;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
+    private int Edit_Request = 666;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +137,8 @@ public class memo_list extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), edit_memo.class);
                         intent.putExtra("position", Integer.parseInt(String.valueOf(memoListAdapter.getItemId(position))));
                         intent.putExtra("writer", memoListAdapter.getWriter(position));
-                        startActivity(intent);
+                        intent.putExtra("index", position);
+                        startActivityForResult(intent, Edit_Request);
                         listView.clearChoices();
                         memoListAdapter.notifyDataSetChanged();
                         break;
@@ -158,6 +160,7 @@ public class memo_list extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        memoListAdapter.delete(position);
                         listView.clearChoices();
                         memoListAdapter.notifyDataSetChanged();
                         Log.d("delete", position + " item deleted ");
@@ -213,6 +216,19 @@ public class memo_list extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("TEST", String.valueOf(resultCode));
+        if (requestCode == Edit_Request && resultCode == 231) {
+            Log.d("TEST", String.valueOf(data.getIntExtra("position", 0)));
+            int position = data.getIntExtra("position", 0);
+            String text = data.getStringExtra("text");
+//            String image = data.getStringExtra("image");
+            memoListAdapter.change(position, text);
+            listView.clearChoices();
+            memoListAdapter.notifyDataSetChanged();
+        }
+    }
 
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getApplicationContext().getResources().getDisplayMetrics());

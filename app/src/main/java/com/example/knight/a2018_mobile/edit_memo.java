@@ -29,6 +29,7 @@ public class edit_memo extends AppCompatActivity {
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private Uri selectedimg;
+    private int index;
     MySocket sock = new MySocket(Server_IP, Server_PORT);
 
     /**
@@ -46,6 +47,7 @@ public class edit_memo extends AppCompatActivity {
         memo_edit_submit = (Button)findViewById(R.id.memo_upload);
         position = intent.getIntExtra("position", 0);
         writer = intent.getStringExtra("writer");
+        index = intent.getIntExtra("index", 0);
         try {
             JSONObject request = new JSONObject();
             request.put("Type", "Edit_Memo");
@@ -78,7 +80,6 @@ public class edit_memo extends AppCompatActivity {
         memo_edit_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 try {
                     JSONObject request = new JSONObject();  // Create JSON Object to send request
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
@@ -88,12 +89,19 @@ public class edit_memo extends AppCompatActivity {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte array [] = baos.toByteArray();
-                    request.put("Type", "Write_Memo");  // Add data to create request
+                    request.put("Type", "Edit_Content");  // Add data to create request
+                    request.put("Id", "TEST");
+                    request.put("Position", position);
                     request.put("Text", memo_text);
                     request.put("Image", array);
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     sock.request(request.toString());  // Send request
                     sock.join();
+                    Intent result = new Intent();
+                    result.putExtra("position", index);
+                    result.putExtra("text", memo_text);
+                    result.putExtra("image", array);
+                    setResult(231, result);
                     finish();
 
 
