@@ -3,13 +3,11 @@ package com.example.knight.a2018_mobile;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
@@ -17,7 +15,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class FragmentCalendar extends Fragment {
@@ -83,6 +80,7 @@ public class FragmentCalendar extends Fragment {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
                     calendarView.addDecorator(new takingDecoratorSingle(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
                 }
                 greenText.setText("복용 완료");
                 yellow.setVisibility(View.INVISIBLE);
@@ -97,6 +95,7 @@ public class FragmentCalendar extends Fragment {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
                     calendarView.addDecorator(new takingDecoratorDouble(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
                 }
                 greenText.setText("복용 완료");
                 yellowText.setText("1회 복용");
@@ -110,6 +109,7 @@ public class FragmentCalendar extends Fragment {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
                     calendarView.addDecorator(new takingDecoratorTriple(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
                 }
                 greenText.setText("복용 완료");
                 yellowText.setText("2회 복용");
@@ -120,10 +120,7 @@ public class FragmentCalendar extends Fragment {
             case 4:
                 for(int i=0; i<Day.size(); i++) {
                     time = 0;
-                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) {
-                        Log.d("TEST", String.valueOf(i)+" "+String.valueOf(j) + " " + String.valueOf(time));
-                        time++;
-                    }
+                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
                     calendarView.addDecorator(new takingDecoratorQuad(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
                     i += (time - 1);
                 }
