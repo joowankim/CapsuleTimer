@@ -11,6 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class showGraph extends AppCompatActivity {
 
@@ -22,8 +30,10 @@ public class showGraph extends AppCompatActivity {
     // graph fragments
     FragmentSingle  singleLine;
     FragmentDouble  doubleLine;
-    FragmentTriple  TripleLine;
+    FragmentTriple  tripleLine;
     FragmentQuad    quadLine;
+
+    Fragment selectedLine;
 
     // calendar fragments
     FragmentCalendar singleCalendar;
@@ -32,36 +42,95 @@ public class showGraph extends AppCompatActivity {
     FragmentMemoList memoList;
 
 
+    String from = "20180508", to = "20180515";    //20180508 form
+    int times = 4;
+    List list = new ArrayList();    // report information
+    ArrayList<Integer[]> day  = new ArrayList<Integer[]>();
+    ArrayList<Integer[]> time = new ArrayList<Integer[]>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graph);
-/*
-//서버 닫혀있으면 걍 꺼짐미다
+
+        //서버 닫혀있으면 걍 꺼짐미다
         JSONObject request = new JSONObject();  // JSON Object to send request to server
         MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
         String result = "";
 
         try {
-            request.put("Type", "graph_data");  // Put data to create JSON
-            request.put("start", "0401");       // 시작 날짜
-            request.put("end", "0501");         // 종료 날짜
+            request.put("Type", "Medicine_Record");  // Put data to create JSON
+            request.put("Id", "TEST");
+            request.put("Medicine_Name", "Tylenol");       // 시작 날짜
+            request.put("From", from);         // 종료 날짜
+            request.put("To", to);
+
+            /**
+             * getString("Date") : "2018-05-09 01:18:24"
+             *            User   : "TEST"
+             *            Medicine_Name : "Tylenol"
+             */
             result = sock.request(request.toString());
+
+            if(result != null) {
+                JSONObject res = new JSONObject(result);
+                JSONArray res_arr = res.getJSONArray("record");
+                JSONObject report_info;
+
+                for (int i = 0; i < res_arr.length(); i++) {
+                    report_info = res_arr.getJSONObject(i);
+                    list.add(report_info.getString("Date"));
+                }
+
+            } else {
+                Toast.makeText(getApplicationContext(), "정보를 받아오지 못했습니다", Toast.LENGTH_SHORT).show();
+            }
+
         } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), "서버와 연결할 수 없습니다", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-*/
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
 
-        // 약 먹는 횟수에 따라 그래프의 선의 개수가 달라진다
         singleLine  = new FragmentSingle();
         doubleLine  = new FragmentDouble();
-        TripleLine  = new FragmentTriple();
+        tripleLine  = new FragmentTriple();
         quadLine    = new FragmentQuad();
+
+
+        for (Object object : list) {
+            String element = (String) object;
+            String[] t = element.split(" ");
+
+            String[] temp_day = t[0].split("-");
+            String[] temp_time = t[1].split(":");
+
+            day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
+            time.add(new Integer[]{Integer.parseInt(temp_time[0]),Integer.parseInt(temp_time[1]),Integer.parseInt(temp_time[2])});
+        }
+
+        // 약 먹는 횟수에 따라 그래프의 선의 개수가 달라진다
+        switch(times) {
+            case 1:
+                selectedLine = singleLine;
+                break;
+            case 2:
+                selectedLine = doubleLine;
+                break;
+            case 3:
+                selectedLine = tripleLine;
+                break;
+            case 4:
+                selectedLine = quadLine;
+                break;
+            default:
+                selectedLine = singleLine;
+        }
 
         // calendars
         singleCalendar = new FragmentCalendar();
@@ -70,7 +139,7 @@ public class showGraph extends AppCompatActivity {
         memoList = new FragmentMemoList();
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, singleLine).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedLine).commit();
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("그래프"));
@@ -87,7 +156,7 @@ public class showGraph extends AppCompatActivity {
                 // 임시로 전체다 single line
                 Fragment selected = null;
                 if(position == 0) {
-                    selected = singleLine;
+                    selected = selectedLine;
                 } else if (position == 1) {
                     selected = singleCalendar;
                 } else if (position == 2) {

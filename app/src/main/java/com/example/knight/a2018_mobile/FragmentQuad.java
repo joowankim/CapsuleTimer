@@ -34,37 +34,35 @@ public class FragmentQuad extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_single, container, false);
 
+        ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
+        ArrayList<Integer[]> Time = ((showGraph)getActivity()).time;
+
         lineChart = (LineChart) view.findViewById(R.id.chart);
 
         List<Entry> entries1 = new ArrayList<>();
-        entries1.add(new Entry(1, 1));
-        entries1.add(new Entry(2, 2));
-        entries1.add(new Entry(3, 0));
-        entries1.add(new Entry(4, 4));
-        entries1.add(new Entry(5, 3));
-
         List<Entry> entries2 = new ArrayList<>();
-        entries2.add(new Entry(1, 3));
-        entries2.add(new Entry(2, 2));
-        entries2.add(new Entry(3, 1));
-        entries2.add(new Entry(4, 5));
-        entries2.add(new Entry(5, 0));
-
         List<Entry> entries3 = new ArrayList<>();
-        entries3.add(new Entry(1, 1));
-        entries3.add(new Entry(2, 1));
-        entries3.add(new Entry(3, 1));
-        entries3.add(new Entry(4, 1));
-        entries3.add(new Entry(5, 10));
-
         List<Entry> entries4 = new ArrayList<>();
-        entries4.add(new Entry(1, 7));
-        entries4.add(new Entry(2, 7));
-        entries4.add(new Entry(3, 7));
-        entries4.add(new Entry(4, 7));
-        entries4.add(new Entry(5, 7));
 
-        LineDataSet lineDataSet1 = new LineDataSet(entries1, "속성명1");
+        int i = 0;
+        while (i < Day.size()) {
+            entries1.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
+            i++;
+            if(i < Day.size() && Day.get(i-1)[2] == Day.get(i)[2]) {
+                entries2.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
+                i++;
+                if(i < Day.size() && Day.get(i-1)[2] == Day.get(i)[2]) {
+                    entries3.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
+                    i++;
+                    if(i < Day.size() && Day.get(i-1)[2] == Day.get(i)[2]) {
+                        entries4.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
+                        i++;
+                    }
+                }
+            }
+        }
+
+        LineDataSet lineDataSet1 = new LineDataSet(entries1, "1차 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
         lineDataSet1.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -73,7 +71,7 @@ public class FragmentQuad extends Fragment {
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 
-        LineDataSet lineDataSet2 = new LineDataSet(entries2, "속성명2");
+        LineDataSet lineDataSet2 = new LineDataSet(entries2, "2차 복용");
         lineDataSet2.setLineWidth(2);
         lineDataSet2.setCircleRadius(6);
         lineDataSet2.setCircleColor(Color.parseColor("#FF00B4DC"));
@@ -82,7 +80,7 @@ public class FragmentQuad extends Fragment {
         lineDataSet2.setDrawCircleHole(true);
         lineDataSet2.setDrawCircles(true);
 
-        LineDataSet lineDataSet3 = new LineDataSet(entries3, "속성명3");
+        LineDataSet lineDataSet3 = new LineDataSet(entries3, "3차 복용");
         lineDataSet3.setLineWidth(2);
         lineDataSet3.setCircleRadius(6);
         lineDataSet3.setCircleColor(Color.parseColor("#FF00B4FF"));
@@ -91,7 +89,7 @@ public class FragmentQuad extends Fragment {
         lineDataSet3.setDrawCircleHole(true);
         lineDataSet3.setDrawCircles(true);
 
-        LineDataSet lineDataSet4 = new LineDataSet(entries4, "속성명4");
+        LineDataSet lineDataSet4 = new LineDataSet(entries4, "4차 복용");
         lineDataSet4.setLineWidth(2);
         lineDataSet4.setCircleRadius(6);
         lineDataSet4.setCircleColor(Color.parseColor("#FFA3FF3C"));

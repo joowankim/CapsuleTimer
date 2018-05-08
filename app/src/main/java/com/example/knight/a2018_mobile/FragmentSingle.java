@@ -33,16 +33,19 @@ public class FragmentSingle extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_single, container, false);
 
+        ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
+        ArrayList<Integer[]> Time = ((showGraph)getActivity()).time;
+
         lineChart = (LineChart) view.findViewById(R.id.chart);
 
-        List<Entry> entries1 = new ArrayList<>();
-        entries1.add(new Entry(1, 1));
-        entries1.add(new Entry(2, 2));
-        entries1.add(new Entry(3, 0));
-        entries1.add(new Entry(4, 4));
-        entries1.add(new Entry(5, 3));
+        List<Entry> entries = new ArrayList<>();
+        int i = 0;
+        while(i < Day.size()) {
+            entries.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
+            i++;
+        }
 
-        LineDataSet lineDataSet1 = new LineDataSet(entries1, "속성명1");
+        LineDataSet lineDataSet1 = new LineDataSet(entries, "1차 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
         lineDataSet1.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -67,7 +70,7 @@ public class FragmentSingle extends Fragment {
         yRAxis.setDrawGridLines(false);
 
         Description description = new Description();
-        description.setText("");
+        description.setText("아아아아ㅏ");
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDrawGridBackground(false);
