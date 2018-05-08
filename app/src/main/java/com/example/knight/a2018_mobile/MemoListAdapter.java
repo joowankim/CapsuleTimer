@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.support.v4.content.ContextCompat.startActivity;
+//import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by Knight on 2018. 5. 4..

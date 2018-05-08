@@ -4,35 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context="com.example.knight.a2018_mobile.Alarm_main">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="31dp"
-        android:text="@string/No_Alarm_set"
-        android:textSize="30sp" />
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="16dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimary"
+        />
+    <ListView
+        android:id="@+id/list"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/btn"
+    <RelativeLayout
+        android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/open_time_picker" />
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/btn_cancel"
+        <TextView
+            android:id="@+id/no_reminder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="16dp"
+            android:gravity="center"
+            android:text="@string/no_cardetails"/>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:text="@string/cancel_alarm" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"/>
 
 </RelativeLayout>
