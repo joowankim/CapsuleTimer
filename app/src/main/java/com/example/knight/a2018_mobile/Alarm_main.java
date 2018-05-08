@@ -1,92 +1,108 @@
 package com.example.knight.a2018_mobile;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Context;
+import android.app.LoaderManager;
+import android.app.ProgressDialog;
+import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.NotificationCompat;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 
-public class Alarm_main extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
-    private TextView mTextView;
+public class Alarm_main extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private FloatingActionButton mAddReminderButton;
+    private Toolbar mToolbar;
+    AlarmCursorAdapter mCursorAdapter;
+    AlarmReminderDbHelper alarmReminderDbHelper = new AlarmReminderDbHelper(this);
+    ListView reminderListView;
+    ProgressDialog prgDialog;
+
+    private static final int VEHICLE_LOADER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        mTextView = findViewById(R.id.textView);
+        // toolbar title setting
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.app_name);
 
-        Button button = findViewById(R.id.btn);
-        button.setOnClickListener(new View.OnClickListener() {
+        // 참조할 뷰 가져오기
+        reminderListView = (ListView) findViewById(R.id.list);
+        View emptyView = findViewById(R.id.empty_view); // relative layout
+        // setEmptyview --> list가 비어있으면 eptyView를 보여주고 item이 있으면 item 보여줌
+        reminderListView.setEmptyView(emptyView);
+
+        mCursorAdapter = new AlarmCursorAdapter(this, null);
+        reminderListView.setAdapter(mCursorAdapter);
+
+        reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Intent intent = new Intent(Alarm_main.this, AddReminderActivity.class);
+
+                Uri currentVehicleUri = ContentUris.withAppendedId(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, id);
+
+                // Set the URI on the data field of the intent
+                intent.setData(currentVehicleUri);
+
+                startActivity(intent);
             }
         });
 
-        Button buttonCancelAlarm = findViewById(R.id.btn_cancel);
-        buttonCancelAlarm.setOnClickListener(new View.OnClickListener() {
+
+        mAddReminderButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        mAddReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                cancelAlarm();
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddReminderActivity.class);
+                startActivity(intent);
             }
         });
+        getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = {
+                AlarmReminderContract.AlarmReminderEntry._ID,
+                AlarmReminderContract.AlarmReminderEntry.KEY_TITLE,
+                AlarmReminderContract.AlarmReminderEntry.KEY_DATE,
+                AlarmReminderContract.AlarmReminderEntry.KEY_TIME,
+                AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT,
+                AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO,
+                AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE,
+                AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE
+        };
 
-        updateTimeText(c);
-        startAlarm(c);
+        return new CursorLoader(this,   // Parent activity context
+                AlarmReminderContract.AlarmReminderEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
     }
 
-    private void updateTimeText(Calendar c) {
-        String timeText = "Alarm set for: ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
-
-        mTextView.setText(timeText);
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void startAlarm(Calendar c){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1,intent,0);
-
-        if (c.before(Calendar.getInstance())){
-            c.add(Calendar.DATE,1);
-        }
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
     }
-
-    private void cancelAlarm(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1,intent,0);
-
-        alarmManager.cancel(pendingIntent);
-        mTextView.setText("Alarm canceled");
-    }
-
 }
