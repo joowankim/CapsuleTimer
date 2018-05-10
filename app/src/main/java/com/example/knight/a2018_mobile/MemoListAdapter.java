@@ -23,14 +23,20 @@ import org.json.JSONObject;
 public class MemoListAdapter extends BaseAdapter {
     public JSONObject myMemo;
     public JSONArray memos;
+    private String Server_IP="106.10.40.50";
+    private int Server_PORT=6000;
+    String request;
+    MySocket sock;
 
     Context myContext;
 
     public MemoListAdapter(Context context, String jsonString) {
         try {
-            Log.d("TEST", jsonString);
-            myMemo = new JSONObject(jsonString);
+            request = jsonString;
+            sock = new MySocket(Server_IP, Server_PORT);
+            myMemo = new JSONObject(sock.request(request));
             memos = myMemo.getJSONArray("memo");
+            Log.d("MemoList", myMemo.toString());
 
 //            for (int i = 0; i < medicines.length(); i++) {
 //
@@ -86,11 +92,11 @@ public class MemoListAdapter extends BaseAdapter {
         return "";
     }
 
-    public void change(int position, String text) {
+    public void change() {
         try {
-            JSONObject tmp = memos.getJSONObject(position);
-            tmp.put("text", text);
-//            tmp.put("image", image);
+            myMemo = new JSONObject(sock.request(request));
+            memos = myMemo.getJSONArray("memo");
+            Log.d("MemoList", myMemo.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

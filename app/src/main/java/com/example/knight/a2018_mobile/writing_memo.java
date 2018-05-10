@@ -1,12 +1,12 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -33,6 +32,8 @@ public class writing_memo extends AppCompatActivity {
     EditText memo_edit_content;
     Button memo_edit_submit;
     int position;
+    String user_id;
+    SharedPreferences sharedPreferences;
     public static final int PICK_IMAGE = 1;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
@@ -50,6 +51,8 @@ public class writing_memo extends AppCompatActivity {
         memo_edit_image = (ImageView)findViewById(R.id.memo_image);
         memo_edit_content = (EditText)findViewById(R.id.memo_content);
         memo_edit_submit = (Button)findViewById(R.id.memo_upload);
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        user_id = sharedPreferences.getString("Id", "None");
 
         /**
          * @description add button event click listener
@@ -82,6 +85,7 @@ public class writing_memo extends AppCompatActivity {
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte array [] = baos.toByteArray();
                     request.put("Type", "Write_Memo");  // Add data to create request
+                    request.put("Id", user_id);
                     request.put("Text", memo_text);
                     request.put("Image", array);
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();

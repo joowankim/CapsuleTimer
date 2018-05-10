@@ -1,6 +1,7 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ public class Login extends AppCompatActivity {
     EditText pw;
     Button login;
     Button register;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
 
@@ -53,6 +56,12 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
+                        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+                        editor = sharedPreferences.edit();
+                        editor.putString("Id", id.getText().toString());
+                        editor.putString("Password", pw.getText().toString());
+                        editor.commit();
+                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

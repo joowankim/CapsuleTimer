@@ -55,12 +55,19 @@
                 android:id="@+id/to_report"/>
 
         </TableRow>
+        <!--<TableRow>-->
+            <!--<Button-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:text="@string/login"-->
+                <!--android:id="@+id/login"/>-->
+        <!--</TableRow>-->
         <TableRow>
             <Button
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/login"
-                android:id="@+id/login"/>
+                android:text="Logout"
+                android:id="@+id/logout"/>
         </TableRow>
         <TableRow><!-- 임시 alarm list button-->
             <Button

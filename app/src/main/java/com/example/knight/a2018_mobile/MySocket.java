@@ -1,8 +1,6 @@
 package com.example.knight.a2018_mobile;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -38,6 +36,7 @@ public class MySocket extends Thread {
     public MySocket(String new_Server_IP, int new_Server_PORT){
         Server_IP = new_Server_IP;
         Server_PORT = new_Server_PORT;
+//        sharedPreferences = getSharedPreferences("test", MODE_
     }
 
     /**

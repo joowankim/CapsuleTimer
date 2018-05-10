@@ -1,6 +1,7 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -25,6 +26,8 @@ public class edit_memo extends AppCompatActivity {
     Button memo_edit_submit;
     int position;
     String writer;
+    String user_id;
+    SharedPreferences sharedPreferences;
     public static final int PICK_IMAGE = 1;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
@@ -48,6 +51,9 @@ public class edit_memo extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
         writer = intent.getStringExtra("writer");
         index = intent.getIntExtra("index", 0);
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        user_id = sharedPreferences.getString("Id", "None");
+
         try {
             JSONObject request = new JSONObject();
             request.put("Type", "Edit_Memo");
@@ -90,7 +96,7 @@ public class edit_memo extends AppCompatActivity {
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte array [] = baos.toByteArray();
                     request.put("Type", "Edit_Content");  // Add data to create request
-                    request.put("Id", "TEST");
+                    request.put("Id", user_id);
                     request.put("Position", position);
                     request.put("Text", memo_text);
                     request.put("Image", array);

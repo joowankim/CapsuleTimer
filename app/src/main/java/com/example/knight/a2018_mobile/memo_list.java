@@ -2,16 +2,15 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +25,15 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class memo_list extends AppCompatActivity {
 
     TextView textView;
     SwipeMenuListView listView;
     MemoListAdapter memoListAdapter;
     Context context = this;
+    String request;
+    String user_id;
+    SharedPreferences sharedPreferences;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private int Edit_Request = 666;
@@ -44,9 +44,11 @@ public class memo_list extends AppCompatActivity {
         setContentView(R.layout.activity_memo_list);
 
         Intent intent = getIntent();
-        memoListAdapter = new MemoListAdapter(this, intent.getStringExtra("json"));
+        request = intent.getStringExtra("json");
+        memoListAdapter = new MemoListAdapter(this,  request);
         textView = (TextView) findViewById(R.id.textView);
         textView.setText("무슨 약 메모");
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -216,18 +218,28 @@ public class memo_list extends AppCompatActivity {
 
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d("TEST", String.valueOf(resultCode));
+//        if (requestCode == Edit_Request && resultCode == 231) {
+//            Log.d("TESTSSS", String.valueOf(data.getIntExtra("position", 0)));
+//            int position = data.getIntExtra("position", 0);
+//            String text = data.getStringExtra("text");
+////            String image = data.getStringExtra("image");
+////            memoListAdapter.change();
+////            listView.clearChoices();
+////            memoListAdapter.notifyDataSetChanged();
+//
+//        }
+//    }
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("TEST", String.valueOf(resultCode));
-        if (requestCode == Edit_Request && resultCode == 231) {
-            Log.d("TEST", String.valueOf(data.getIntExtra("position", 0)));
-            int position = data.getIntExtra("position", 0);
-            String text = data.getStringExtra("text");
-//            String image = data.getStringExtra("image");
-            memoListAdapter.change(position, text);
-            listView.clearChoices();
-            memoListAdapter.notifyDataSetChanged();
-        }
+    protected void onResume() {
+        super.onResume();
+        listView.clearChoices();
+        listView = (SwipeMenuListView) findViewById(R.id.listView);
+        listView.setAdapter(new MemoListAdapter(getApplicationContext(), request));
     }
 
     private int dp2px(int dp) {

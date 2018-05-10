@@ -1,36 +1,16 @@
 package com.example.knight.a2018_mobile;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Date;
-import java.net.Socket;
 
 /**
  * Created by Knight on 2018. 4. 30..
@@ -45,11 +25,16 @@ public class MainActivity extends AppCompatActivity {
     Button to_memo;
     Button to_report;
     Button login;
+    Button logout;
     Button to_alarmList;
     EditText medicine_name_edt;
     String res;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
+    String user_id;
+    String user_pw;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     /**
      * @description java class of main activity
@@ -64,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
         medicine_search_btn = (Button) findViewById(R.id.medicine_search_btn);  // Find button widget in layout
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
         to_report = (Button) findViewById(R.id.to_report);
-        login = (Button) findViewById(R.id.login);
+//        login = (Button) findViewById(R.id.login);
+        logout = (Button) findViewById(R.id.logout);
         to_alarmList = findViewById(R.id.to_alarm_list);
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        user_id = sharedPreferences.getString("Id", "None");
+        user_pw = sharedPreferences.getString("Password", "None");
 
         /**
          * @description add button event click listener
@@ -106,16 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), memo_list.class);  // Create intent and move to memo activity
                 String result = "";  // String to result
                 JSONObject request = new JSONObject();  // JSON Object to send request to server
-                MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
                 try {
                     request.put("Type", "Search_Memo");  // Put data to create JSON
-                    request.put("User", "TEST");
-                    Log.d("TEST", request.toString());
-                    result = sock.request(request.toString());
+                    request.put("User", user_id);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                intent.putExtra("json", result);
+                intent.putExtra("json", request.toString());
                 startActivity(intent);
             }
         });
@@ -132,9 +120,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener(){
+//        login.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                Intent intent = new Intent(getApplicationContext(), Login.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
+                editor.clear();
+                editor.commit();
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
@@ -150,4 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+        }
+    }
 }
