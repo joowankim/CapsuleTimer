@@ -15,7 +15,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class FragmentCalendar extends Fragment {
@@ -36,17 +35,13 @@ public class FragmentCalendar extends Fragment {
         // Required empty public constructor
     }
 
-    List dates = new ArrayList();
-    List times = new ArrayList();
-
-    int numOfTaking = 3;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        int numOfTaking = ((showGraph)getActivity()).times;
 
         calendarView = (MaterialCalendarView) view.findViewById(R.id.calendarView);
         // selected date's color change
@@ -76,12 +71,17 @@ public class FragmentCalendar extends Fragment {
         grayText = (TextView) view.findViewById(R.id.grayText);
 
         // decorate days of taking medicine
-        String date = "20180512";
-        int time = 1;
+        ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
+        int time;   // 몇번 먹었는지
 
         switch(numOfTaking) {// 각 case에 루프 추가해서 모든 약먹은 날짜에 대해 decorate 해야함
             case 1:
-                calendarView.addDecorator(new takingDecoratorSingle(date, time, getActivity()));
+                for(int i=0; i<Day.size(); i++) {
+                    time = 0;
+                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
+                    calendarView.addDecorator(new takingDecoratorSingle(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
+                }
                 greenText.setText("복용 완료");
                 yellow.setVisibility(View.INVISIBLE);
                 yellowText.setVisibility(View.INVISIBLE);
@@ -91,7 +91,12 @@ public class FragmentCalendar extends Fragment {
                 grayText.setVisibility(View.INVISIBLE);
                 break;
             case 2:
-                calendarView.addDecorator(new takingDecoratorDouble(date, time, getActivity()));
+                for(int i=0; i<Day.size(); i++) {
+                    time = 0;
+                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
+                    calendarView.addDecorator(new takingDecoratorDouble(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
+                }
                 greenText.setText("복용 완료");
                 yellowText.setText("1회 복용");
                 red.setVisibility(View.INVISIBLE);
@@ -100,7 +105,12 @@ public class FragmentCalendar extends Fragment {
                 grayText.setVisibility(View.INVISIBLE);
                 break;
             case 3:
-                calendarView.addDecorator(new takingDecoratorTriple(date, time, getActivity()));
+                for(int i=0; i<Day.size(); i++) {
+                    time = 0;
+                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
+                    calendarView.addDecorator(new takingDecoratorTriple(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    i += (time - 1);
+                }
                 greenText.setText("복용 완료");
                 yellowText.setText("2회 복용");
                 redText.setText("1회 복용");
@@ -108,15 +118,18 @@ public class FragmentCalendar extends Fragment {
                 grayText.setVisibility(View.INVISIBLE);
                 break;
             case 4:
-                calendarView.addDecorator(new takingDecoratorQuad(date, time, getActivity()));
+                for(int i=0; i<Day.size(); i++) {
+                    time = 0;
+                    for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
+                    calendarView.addDecorator(new takingDecoratorQuad(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
+                    i += (time - 1);
+                }
                 greenText.setText("복용 완료");
                 yellowText.setText("3회 복용");
                 redText.setText("2회 복용");
                 grayText.setText("1회 복용");
                 break;
         }
-
-
 
         return view;
     }

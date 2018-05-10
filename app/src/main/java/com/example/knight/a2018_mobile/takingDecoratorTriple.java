@@ -24,15 +24,16 @@ class takingDecoratorTriple implements DayViewDecorator {
 
     private Drawable drawable;
 
-    public takingDecoratorTriple(String dates, int times, Activity cont) {
-        if (times >= 0 && times < 4) {
-            year = Integer.parseInt(dates.substring(0, 4));
-            month = Integer.parseInt(dates.substring(4, 6));
-            date = Integer.parseInt(dates.substring(6));
+    public takingDecoratorTriple(int year, int month, int day, int times, Activity cont) {
+        if (times >= 0 && times <= 3) {
+            this.year = year;
+            this.month = month;
+            date = day;
             time = times;
             if (time == 1) drawable = cont.getResources().getDrawable(R.drawable.two_more);
             else if (time == 2) drawable = cont.getResources().getDrawable(R.drawable.one_more);
             else if (time == 3) drawable = cont.getResources().getDrawable(R.drawable.take_all);
+            else drawable = cont.getResources().getDrawable(R.drawable.none);
         } else {
             Toast.makeText(cont, "먹는 횟수 3회일 때만 가능합니다", Toast.LENGTH_SHORT).show();
         }

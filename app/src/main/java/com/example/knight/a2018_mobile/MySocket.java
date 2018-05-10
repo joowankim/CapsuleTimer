@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by Knight on 2018. 4. 30..
  *
@@ -52,7 +54,9 @@ public class MySocket extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.d("result", res);
+        if (res == null) Log.d("result", "null");
+        else Log.d("result", res);
+
         return res;
     }
 
