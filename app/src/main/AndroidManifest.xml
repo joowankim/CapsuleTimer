@@ -29,23 +29,27 @@
         <activity android:name=".Alarm_main"/>
         <activity android:name =".Login"/>
         <activity android:name=".Register"/>
-        <activity android:name = ".AddReminderActivity"
+        <activity android:name=".AddReminderActivity"
             android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".Alarm_main"
-            android:theme="@style/AppTheme">>
+            android:theme="@style/AppTheme">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Alarm_main"
                 />
         </activity>
+
         <provider
-            android:name=".AlarmReminderProvider"
+            android:name=".data.AlarmReminderProvider"
             android:authorities="com.example.knight.a2018_mobile"
             android:exported="false" />
 
+
         <service
-            android:name=".ReminderAlarmService"
+            android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
+
     </application>
 
 </manifest>

@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.knight.a2018_mobile.data.AlarmReminderContract;
+import com.example.knight.a2018_mobile.data.AlarmReminderDbHelper;
 
 public class Alarm_main extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -33,15 +35,13 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        // toolbar title setting
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
 
-        // 참조할 뷰 가져오기
+
         reminderListView = (ListView) findViewById(R.id.list);
-        View emptyView = findViewById(R.id.empty_view); // relative layout
-        // setEmptyview --> list가 비어있으면 eptyView를 보여주고 item이 있으면 item 보여줌
+        View emptyView = findViewById(R.id.empty_view);
         reminderListView.setEmptyView(emptyView);
 
         mCursorAdapter = new AlarmCursorAdapter(this, null);
@@ -59,6 +59,7 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 intent.setData(currentVehicleUri);
 
                 startActivity(intent);
+
             }
         });
 
@@ -72,7 +73,10 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 startActivity(intent);
             }
         });
+
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
+
+
     }
 
     @Override
@@ -86,6 +90,7 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO,
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE,
                 AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE
+
         };
 
         return new CursorLoader(this,   // Parent activity context
@@ -94,15 +99,18 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 null,                   // No selection clause
                 null,                   // No selection arguments
                 null);                  // Default sort order
+
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mCursorAdapter.swapCursor(cursor);
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);
+
     }
 }

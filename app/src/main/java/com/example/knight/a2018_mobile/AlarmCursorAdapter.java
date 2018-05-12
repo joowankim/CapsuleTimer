@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.example.knight.a2018_mobile.data.AlarmReminderContract;
 
 /**
  * Created by delaroy on 10/27/17.
@@ -58,10 +59,15 @@ public class AlarmCursorAdapter extends CursorAdapter {
 
         String dateTime = date + " " + time;
 
+
         setReminderTitle(title);
         setReminderDateTime(dateTime);
         setReminderRepeatInfo(repeat, repeatNo, repeatType);
         setActiveImage(active);
+
+
+
+
     }
 
     // Set reminder title view
@@ -98,7 +104,7 @@ public class AlarmCursorAdapter extends CursorAdapter {
     // Set active image as on or off
     public void setActiveImage(String active){
         if(active.equals("true")){
-            mActiveImage.setImageResource(R.drawable.ic_notifications_active_black_24dp);
+            mActiveImage.setImageResource(R.drawable.ic_notifications_black_24dp);
         }else if (active.equals("false")) {
             mActiveImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
         }
