@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
+//            Intent intent = new Intent(getApplicationContext(), Login.class);
+//            startActivity(intent);
+//        }
+//    }
 }
