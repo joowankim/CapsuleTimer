@@ -25,6 +25,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.knight.a2018_mobile.data.AlarmReminderContract;
+import com.example.knight.a2018_mobile.reminder.AlarmScheduler;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
@@ -42,19 +44,16 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     private static final int EXISTING_VEHICLE_LOADER = 0;
 
+
     private Toolbar mToolbar;
     private EditText mTitleText;
     private TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText;
-
     private FloatingActionButton mFAB1;
     private FloatingActionButton mFAB2;
-
     private Calendar mCalendar;
     private int mYear, mMonth, mHour, mMinute, mDay;
     private long mRepeatTime;
-
     private Switch mRepeatSwitch;
-
     private String mTitle;
     private String mTime;
     private String mDate;
@@ -681,7 +680,10 @@ public class AddReminderActivity extends AppCompatActivity implements
             } else if (repeat.equals("true")) {
                 mRepeatSwitch.setChecked(true);
             }
+
         }
+
+
     }
 
     @Override

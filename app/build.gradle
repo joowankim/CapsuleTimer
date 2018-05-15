@@ -43,8 +43,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.getbase:floatingactionbutton:1.9.0'
     compile 'com.wdullaer:materialdatetimepicker:1.2.1'
+    compile 'com.bignerdranch.android:recyclerview-multiselect:+'
     compile 'com.wrapp.floatlabelededittext:library:0.0.6'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    testCompile 'junit:junit:4.12'
 
 }
 
