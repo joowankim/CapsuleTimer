@@ -3,6 +3,7 @@ import json
 import datetime
 import time
 import calendar
+import base64
 
 memo_insert_sql = "insert into Memo (User, Date, Text, Image) values (?, ?, ?, ?)"
 memo_search_sql = "select * from Memo where User=?"
@@ -25,8 +26,10 @@ def insert_memo(user, date, text="", image=""):
     if text == "" and image == "":
         result['result'] = 'No'
     else:
-        cur.execute(memo_insert_sql, (user, date, text, image))
+        cur.execute(memo_insert_sql, (user, date, text, "/image/"+user+datetime.datetime.fromtimestamp(date).strftime("%Y-%m-%d-%H-%M-%S")))
         conn.commit()
+        with open("/image/"+user+datetime.datetime.fromtimestamp(date).strftime("%Y-%m-%d-%H-%M-%S"), 'wb') as f:
+            f.write(base64.decodestring(image))
         result['result'] = 'Yes'
     return json.dumps(result)
 

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -80,6 +81,8 @@ public class writing_memo extends AppCompatActivity {
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
                     String memo_text = memo_edit_content.getText().toString();  // Get memo text from edit text widget
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedimg);  // Get Image from gallery
+                    String jpeg = "";
+                    int idx = 0;
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -87,10 +90,15 @@ public class writing_memo extends AppCompatActivity {
                     request.put("Type", "Write_Memo");  // Add data to create request
                     request.put("Id", user_id);
                     request.put("Text", memo_text);
-                    request.put("Image", array);
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     sock.request(request.toString());  // Send request
-                    sock.join();
+                    jpeg = Base64.encodeToString(array, Base64.DEFAULT);
+                    Log.d("LENGTH", String.valueOf(jpeg.length()));
+                    sock.request(String.valueOf(jpeg.length()), 0);
+                    for (idx = 0; idx < jpeg.length()/1024; idx++)
+                        sock.request(jpeg.substring(idx*1024, idx*1024+1024), 0);
+                    if (jpeg.length()%1024 != 0)
+                        sock.request(jpeg.substring(idx*1024), 0);
                     finish();
 
 
@@ -110,6 +118,8 @@ public class writing_memo extends AppCompatActivity {
      * @param resultCode unique ID to identify result is ok or not
      * @param data data send by other activity
      */
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @SuppressLint("NewApi")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -117,10 +127,36 @@ public class writing_memo extends AppCompatActivity {
             try {
                 selectedimg = data.getData();  // Get image from received intent
                 memo_edit_image.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedimg));  // Change image view which is selected by gallery
+                Log.d("IMAGE", selectedimg.toString());
+//                Log.d("Base64", Base64.encodeToString("Hello".getBytes(), Base64.DEFAULT));
+
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
                 Log.d("Memo", "Get image error");
             }
         }
     }
+
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @SuppressLint("NewApi")
+//    private String getRealPathFromURI(Uri contentUri) {
+//        if (contentUri.getPath().startsWith("/storage")) {
+//            return contentUri.getPath();
+//        }
+//        String id = DocumentsContract.getDocumentId(contentUri).split(":")[1];
+//        String[] columns = { MediaStore.Files.FileColumns.DATA };
+//        String selection = MediaStore.Files.FileColumns._ID + " = " + id;
+//        Cursor cursor = getContentResolver().query(MediaStore.Files.getContentUri("external"), columns, selection, null, null);
+//        try {
+//            int columnIndex = cursor.getColumnIndex(columns[0]);
+//            if (cursor.moveToFirst()) {
+//                return cursor.getString(columnIndex);
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        return null;
+//    }
+
 }

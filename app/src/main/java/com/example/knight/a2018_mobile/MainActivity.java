@@ -55,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        user_id = sharedPreferences.getString("Id", "None");
-        user_pw = sharedPreferences.getString("Password", "None");
-
         /**
          * @description add button event click listener
          */
@@ -131,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.clear();
+                editor.remove("Id");
+                editor.remove("Password");
                 editor.commit();
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
@@ -151,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        user_id = sharedPreferences.getString("Id", "None");
+        user_pw = sharedPreferences.getString("Password", "None");
+
         if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);

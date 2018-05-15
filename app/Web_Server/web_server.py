@@ -51,41 +51,41 @@ def search_medicine():
     pprint.pprint(result)
     return render_template('Medicine_list.html', medicines=result)
 
-# if __name__ == '__main__':
-#     # app.run()
-#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     sock.bind(("", 6000))
-#     sock.listen(5)
-#     try:
-#         while True:
-#             client, addr = sock.accept()
-#             req = client.recv(1024)
-#             print req
-#             req = json.loads(req)
-#             if req['Type'] == 'Search_Medicine':
-#                 client.send(MedicineSearch.crawler(req["Name"]))
-#             if req['Type'] == 'Write_Memo':
-#                 client.send(DB.insert_memo("TEST", time.time(), req['Text'], req['Image']))
-#             if req['Type'] == 'Search_Memo':
-#                 client.send(DB.search_memo(req['User']))
-#             if req['Type'] == "Register":
-#                 client.send(DB.user_register(req['Id'], req['Password']))
-#             if req['Type'] == "Validation":
-#                 client.send(DB.user_validation(req['Id']))
-#             if req['Type'] == 'Login':
-#                 client.send(DB.user_login(req['Id'], req['Password']))
-#             if req['Type'] == 'Edit_Memo':
-#                 client.send(DB.search_memo(req['Id'], req['Position']))
-#             if req['Type'] == 'Edit_Content':
-#                 client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image']))
-#             if req['Type'] == 'Delete_Memo':
-#                 client.send(DB.delete_memo(req['Id'], req['Position']))
-#             if req['Type'] == 'Medicine_Record':
-#                 client.send(DB.medicine_taking(req['Id'], req['Medicine_Name'], req['From'], req['To']))
-#             client.close()
-#     except Exception, e:
-#         print e
-#         sock.close()
+if __name__ == '__main__':
+    # app.run()
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(("", 6000))
+    sock.listen(5)
+    try:
+        while True:
+            client, addr = sock.accept()
+            req = client.recv(1024)
+            print req
+            req = json.loads(req)
+            if req['Type'] == 'Search_Medicine':
+                client.send(MedicineSearch.crawler(req["Name"]))
+            if req['Type'] == 'Write_Memo':
+                client.send(DB.insert_memo("TEST", time.time(), req['Text'], req['Image']))
+            if req['Type'] == 'Search_Memo':
+                client.send(DB.search_memo(req['User']))
+            if req['Type'] == "Register":
+                client.send(DB.user_register(req['Id'], req['Password']))
+            if req['Type'] == "Validation":
+                client.send(DB.user_validation(req['Id']))
+            if req['Type'] == 'Login':
+                client.send(DB.user_login(req['Id'], req['Password']))
+            if req['Type'] == 'Edit_Memo':
+                client.send(DB.search_memo(req['Id'], req['Position']))
+            if req['Type'] == 'Edit_Content':
+                client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image']))
+            if req['Type'] == 'Delete_Memo':
+                client.send(DB.delete_memo(req['Id'], req['Position']))
+            if req['Type'] == 'Medicine_Record':
+                client.send(DB.medicine_taking(req['Id'], req['Medicine_Name'], req['From'], req['To']))
+            client.close()
+    except Exception, e:
+        print e
+        sock.close()
 
 # print DB.insert_memo("Tester", time.time(), "Test", "Test")
 # DB.search_memo("Tester")
