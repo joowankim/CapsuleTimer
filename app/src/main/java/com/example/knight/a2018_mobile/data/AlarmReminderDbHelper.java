@@ -5,16 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-/**
- * Created by delaroy on 10/25/17.
- */
-
 public class AlarmReminderDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "alarm.db";
 
     private static final int DATABASE_VERSION = 1;
 
+    // DB 생성
     public AlarmReminderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

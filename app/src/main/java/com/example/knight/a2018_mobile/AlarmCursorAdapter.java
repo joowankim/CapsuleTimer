@@ -13,9 +13,6 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.knight.a2018_mobile.data.AlarmReminderContract;
 
-/**
- * Created by delaroy on 10/27/17.
- */
 
 public class AlarmCursorAdapter extends CursorAdapter {
 
@@ -24,14 +21,21 @@ public class AlarmCursorAdapter extends CursorAdapter {
     private ColorGenerator mColorGenerator = ColorGenerator.DEFAULT;
     private TextDrawable mDrawableBuilder;
 
+    // constructor
     public AlarmCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
     }
+
+
+    // 화면에 뷰를 출력해줌  -> alarm_items.xml과 연결
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(R.layout.alarm_items, parent, false);
     }
 
+    // bindView --> 출력할 뷰와 content provider의 column을 연결하는 역할
+    // 인자로 전달받은 cursor로 DB를 참조해서 해당하는 row의 data를 가져와 string에 저장하고
+    // 저장된 value를 각 set 메소드 호출을 통해 view를 초기화 시킴
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
@@ -64,10 +68,6 @@ public class AlarmCursorAdapter extends CursorAdapter {
         setReminderDateTime(dateTime);
         setReminderRepeatInfo(repeat, repeatNo, repeatType);
         setActiveImage(active);
-
-
-
-
     }
 
     // Set reminder title view
