@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.knight.a2018_mobile.R;
+import com.example.knight.a2018_mobile.data.medicineReportProvider;
 
 import java.util.Calendar;
 
@@ -52,8 +53,9 @@ public class AlarmCheckActivity extends AppCompatActivity{
 
                 Calendar now = Calendar.getInstance();
 
+                medicineReportProvider temp = new medicineReportProvider();
 
-
+                temp.itemInsert(uri, title, now.getTimeInMillis());
 
                 flag = 1;
                 finish();
