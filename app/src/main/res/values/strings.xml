@@ -72,5 +72,11 @@
     <string name="editor_update_reminder_failed">Error with updating reminder</string>
 
     <string name="capsule_timer">Capsule Alarm</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- calendar widget string-->
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
 
 </resources>

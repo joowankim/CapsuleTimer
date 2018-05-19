@@ -17,7 +17,7 @@
         android:layout_height="10dp"
         android:background="@drawable/take_all"
         android:layout_below="@+id/calendarView"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
     <TextView
@@ -35,7 +35,7 @@
         android:background="@drawable/one_more"
         android:layout_toRightOf="@+id/greenText"
         android:layout_below="@+id/calendarView"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
     <TextView
@@ -53,7 +53,7 @@
         android:background="@drawable/two_more"
         android:layout_toRightOf="@+id/yellowText"
         android:layout_below="@+id/calendarView"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
     <TextView
@@ -71,7 +71,7 @@
         android:background="@drawable/three_more"
         android:layout_toRightOf="@id/redText"
         android:layout_below="@+id/calendarView"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
     <TextView
