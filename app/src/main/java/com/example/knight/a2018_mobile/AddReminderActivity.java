@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -51,7 +52,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     private FloatingActionButton mFAB2;
     private Calendar mCalendar;
     private int mYear, mMonth, mHour, mMinute, mDay;
-    private long mRepeatTime;
+    public long mRepeatTime;
     private Switch mRepeatSwitch;
     private String mTitle;
     private String mTime;
@@ -61,8 +62,12 @@ public class AddReminderActivity extends AppCompatActivity implements
     private String mRepeatType;
     private String mActive;
 
-    private Uri mCurrentReminderUri;
+    public Uri mCurrentReminderUri;
     private boolean mVehicleHasChanged = false;
+
+    public long for_repeat_alarm;
+    public int minute_repeat;
+    public Uri for_reminder_uri;
 
     // Values for orientation change
     private static final String KEY_TITLE = "title_key";
@@ -129,6 +134,8 @@ public class AddReminderActivity extends AppCompatActivity implements
         mRepeatSwitch = (Switch) findViewById(R.id.repeat_switch);
         mFAB1 = (FloatingActionButton) findViewById(R.id.starred1);
         mFAB2 = (FloatingActionButton) findViewById(R.id.starred2);
+        // auto/manual button 만들 것
+
 
         // Initialize default values
         mActive = "true";
@@ -221,8 +228,6 @@ public class AddReminderActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle(R.string.title_activity_add_reminder);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-
     }
 
     // activity가 종료될 때 bundle에 데이터를 저장하고 activity를 재생성할 때 해당 bundle을 onCreate와 onSaveInstanceState에 모두 전달
@@ -546,6 +551,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     // On clicking the save button
     public void saveReminder(){
 
+
      /*   if (mCurrentReminderUri == null ) {
             // Since no fields were modified, we can return early without creating a new reminder.
             // No need to create ContentValues and no need to do any ContentProvider operations.
@@ -574,6 +580,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         mCalendar.set(Calendar.SECOND, 0);
 
         long selectedTimestamp =  mCalendar.getTimeInMillis();
+        for_repeat_alarm = selectedTimestamp;
 
         // Check repeat type
         if (mRepeatType.equals("Minute")) {
@@ -587,6 +594,11 @@ public class AddReminderActivity extends AppCompatActivity implements
         } else if (mRepeatType.equals("Month")) {
             mRepeatTime = Integer.parseInt(mRepeatNo) * milMonth;
         }
+
+        Log.i("repeat Number: ", mRepeatNo);
+        Log.i("test add", Integer.toString(Integer.parseInt(mRepeatNo)));
+        minute_repeat = Integer.parseInt(mRepeatNo);
+        for_reminder_uri = mCurrentReminderUri;
 
         // 알람 처음 setting하는 경우
         if (mCurrentReminderUri == null) {
@@ -633,13 +645,14 @@ public class AddReminderActivity extends AppCompatActivity implements
             if (mRepeat.equals("true")) {
                 //반복 알람설정하는 경우
                 new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
+
             } else if (mRepeat.equals("false")) {
                 // 그냥 알람 설정하는 경우
                 new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri);
             }
 
-            Toast.makeText(this, "Alarm time is " + selectedTimestamp,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Alarm time is " + selectedTimestamp,
+//                    Toast.LENGTH_LONG).show();
         }
 
         // Create toast to confirm new reminder
@@ -734,6 +747,10 @@ public class AddReminderActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    public int getRepeatNo(){
+        return  Integer.parseInt(mRepeatNo);
     }
 
 }

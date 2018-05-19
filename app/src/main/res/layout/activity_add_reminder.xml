@@ -154,6 +154,64 @@
 
             </RelativeLayout>
 
+            <!--자동 / 수동 버튼 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/auto_manual_btn"
+                android:layout_height="72dp">
+
+                <ImageView
+                    android:id="@+id/auto_manual_btn_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/ic_alarm_on_black_24dp"
+                    android:layout_centerVertical="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/auto_manual_btn_ll"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/auto_manual_btn_icon"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/auto_manual_btn_text"
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:textSize="15dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/auto_mode" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/set_auto_manual_btn"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/auto_manual_btn_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:onClick="onSwitchRepeat"
+                    android:checked="true"
+                    android:textOn="On"
+                    android:textOff="Off"/>
+
+            </RelativeLayout>
+
+            <!--자동 / 수동 버튼 -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/repeat"
@@ -208,6 +266,53 @@
                     android:textOff="Off"/>
 
             </RelativeLayout>
+
+            <!--요일 반복 구현 -->
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:id="@+id/RepeatDate"-->
+                <!--android:clickable="true"-->
+                <!--android:onClick="setRepeatNo"-->
+                <!--android:background="?android:attr/selectableItemBackground"-->
+                <!--android:layout_height="72dp">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/repeat_date_icon"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_marginLeft="16dp"-->
+                    <!--android:layout_marginRight="32dp"-->
+                    <!--android:src="@drawable/ic_date_range_black_24dp"-->
+                    <!--android:layout_centerVertical="true" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_toRightOf="@id/repeat_date_icon"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/repeat_date_text"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:textSize="15dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/repeat_date" />-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:id="@+id/set_repeat_date"-->
+                        <!--android:textSize="15dp"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_height="wrap_content"/>-->
+
+                <!--</LinearLayout>-->
+
+            <!--</RelativeLayout>-->
+            <!--요일 반복 구현 끝 -->
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -2,12 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.knight.a2018_mobile">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="READ_EXTERNAL_STORAGE" />
-    <!-- for calendar widget -->
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="18" />
+    <uses-permission android:name="READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -28,20 +26,19 @@
         <activity android:name=".edit_memo" />
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
-        <activity android:name=".showGraph" />
-        <activity android:name=".Alarm_main" />
-        <activity android:name=".Login" />
-        <activity android:name=".Register" />
-        <activity
-            android:name=".AddReminderActivity"
+        <activity android:name=".showGraph"/>
+        <activity android:name=".Alarm_main"/>
+        <activity android:name =".Login"/>
+        <activity android:name=".Register"/>
+        <activity android:name=".AddReminderActivity"
             android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".Alarm_main"
             android:theme="@style/AppTheme">
-
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Alarm_main" />
+                android:value=".Alarm_main"
+                />
         </activity>
 
         <provider
@@ -49,20 +46,14 @@
             android:authorities="com.example.knight.a2018_mobile"
             android:exported="false" />
 
+
         <service
             android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
 
-        <receiver android:name=".AlertReceiver" />
-        <receiver android:name=".MonthCalendarWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
+        <receiver
+            android:name = ".AlertReceiver"/>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/month_calendar_widget_info" />
-        </receiver>
     </application>
 
 </manifest>

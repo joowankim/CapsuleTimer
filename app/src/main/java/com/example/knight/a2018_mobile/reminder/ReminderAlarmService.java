@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -42,7 +43,6 @@ public class ReminderAlarmService extends IntentService {
         Uri uri = intent.getData();
 
         //Display a notification to view the task details
-        // 여기서 noti를 누르면 AddReminderActivity가 실행되게 하는거 같음
         Intent action = new Intent(this, AddReminderActivity.class);
         action.setData(uri);
         PendingIntent operation = TaskStackBuilder.create(this)
@@ -56,11 +56,13 @@ public class ReminderAlarmService extends IntentService {
         }
 
         String description = "";
+        String repeat_no ="";
         try {
             // cursor가 null이 아니면 맨 처음으로 옮겨놓은다음
             // 지정한 알람 시간에 맞는 제목을 description에 저장
             if (cursor != null && cursor.moveToFirst()) {
                 description = AlarmReminderContract.getColumnString(cursor, AlarmReminderContract.AlarmReminderEntry.KEY_TITLE);
+                repeat_no = AlarmReminderContract.getColumnString(cursor, AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO);
             }
         } finally {
             //그 후 cursor는 null이 아니면 없앰
@@ -78,6 +80,14 @@ public class ReminderAlarmService extends IntentService {
         NotificationHelper notificationHelper = new NotificationHelper(this);
         NotificationCompat.Builder nb = notificationHelper.getChannel1Notification(getString(R.string.capsule_timer), description);
         notificationHelper.getManager().notify(NOTIFICATION_ID,nb.build());
+
+        intent = new Intent(this, AlarmCheckActivity.class);
+        Bundle b = new Bundle();
+        b.putString("repeat", repeat_no);
+        b.putString("title", description);
+        intent.putExtras(b);
+        intent.setData(uri);
+        startActivity(intent);
 
 //        Notification note = new NotificationCompat.Builder(this)
 //                .setContentTitle(getString(R.string.reminder_title))
