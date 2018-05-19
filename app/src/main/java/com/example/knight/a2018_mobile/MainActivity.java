@@ -2,15 +2,22 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by Knight on 2018. 4. 30..
@@ -28,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Button logout;
     Button to_alarmList;
     EditText medicine_name_edt;
+    ImageView img;
     String res;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
         to_report = (Button) findViewById(R.id.to_report);
 //        login = (Button) findViewById(R.id.login);
+        img = (ImageView) findViewById(R.id.img);
         logout = (Button) findViewById(R.id.logout);
         to_alarmList = findViewById(R.id.to_alarm_list);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
@@ -82,6 +91,18 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("json", result);
                     startActivity(intent);
                 }
+
+                try {
+                    URL url = new URL("http://106.10.40.50:5000/image/test2018-05-16-21-59-08");
+                    URLConnection conn = url.openConnection();
+                    conn.connect();
+                    BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                    Bitmap bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                    img.setImageBitmap(bm);
+                } catch (Exception e) {
+                }
+
             }
         });
 

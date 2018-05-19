@@ -12,30 +12,95 @@ import MedicineSearch
 import DB
 import sqlite3
 from flask import Flask
-from flask import request
-from flask import render_template, redirect
-app = Flask(__name__)
+from flask import request, url_for
+from flask import render_template, redirect, make_response
+import threading
+import os
+from werkzeug import secure_filename
+import datetime
+
+app = Flask(__name__, static_url_path="/image", static_folder="image")
+UPLOAD_FOLDER = '/Users/Knight/AndroidStudioProjects/CapsuleTimer/app/Web_Server/image'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def hello_world():
-    return render_template('home.html')
+    if "userID" in request.cookies:
+        login = {"bool":"true"}
+    else:
+        login = {"bool":"false"}
+    return render_template('home.html', login=login)
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == "GET":
+        return render_template("Login.html", res={"result":""})
+    elif request.method == "POST":
+        userID = request.form['userID']
+        userPW = request.form['userPW']
+        res = json.loads(DB.user_login(userID, userPW))
+        if res['result'] == "Yes":
+            response = make_response(redirect("/"))
+            response.set_cookie("userID", userID)
+            return response
+        else:
+            return render_template("Login.html", res=res)
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == "GET":
+        return render_template("Register.html", res={"result":""})
+    elif request.method == "POST":
+        userID = request.form['userID']
+        userPW = request.form['userPW']
+        userREPW = request.form['userREPW']
+        res = json.loads(DB.user_validation(userID))
+        if res['result'] == "No":
+            return render_template("Register.html", res={"result":"Duplicate"})
+        elif len(userID) < 4:
+            return render_template("Register.html", res={"result":"Short"})
+        elif userPW != userREPW:
+            return render_template("Register.html", res={"result":"Different"})
+        else:
+            DB.user_register(userID, userPW)
+            return redirect("/login")
+
+@app.route('/logout', methods=["GET"])
+def logout():
+    response = make_response(redirect('/'))
+    response.set_cookie("userID", expires=0)
+    return response
 
 @app.route('/memo/write', methods=['POST', 'GET'])
 def memo_write():
-    if request.method == "GET":
-        return render_template("Memo_write.html")
-    elif request.method == "POST":
-        memo_user = request.form['memo_user']
-        memo_text = request.form['memo_text']
-        memo_image = request.form['memo_image']
-        DB.insert_memo(memo_user, time.time(), memo_text, memo_image)
-        return redirect("/memo")
+    if "userID" in request.cookies:
+        if request.method == "GET":
+            return render_template("Memo_write.html")
+        elif request.method == "POST":
+            image = request.files['image']
+            memo_user = request.cookies.get("userID")
+            memo_text = request.form['memo_text']
+            cur_time = float(time.time())
+
+            if image and allowed_file(image.filename):
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], memo_user+datetime.datetime.fromtimestamp(cur_time).strftime("%Y-%m-%d-%H-%M-%S")+".jpeg"))
+            DB.web_insert_memo(memo_user, cur_time, memo_text, "/image/" + memo_user + datetime.datetime.fromtimestamp(cur_time).strftime("%Y-%m-%d-%H-%M-%S"))
+            return redirect("/memo")
+    else:
+        return redirect("/login")
 
 @app.route('/memo')
 def memo_list():
-    result = json.loads(DB.search_memo("Test"))
-    print result
-    return render_template("Memo_list.html", memos=result)
+    if "userID" in request.cookies:
+        result = json.loads(DB.search_memo(request.cookies.get("userID")))
+        print result
+        return render_template("Memo_list.html", memos=result)
+    else:
+        return redirect("/login")
 
 @app.route('/search/medicine/<medicine_link>')
 def specific_medicine(medicine_link):
@@ -51,21 +116,34 @@ def search_medicine():
     pprint.pprint(result)
     return render_template('Medicine_list.html', medicines=result)
 
-if __name__ == '__main__':
-    # app.run()
+def smartphone_connection():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("", 6000))
     sock.listen(5)
     try:
         while True:
             client, addr = sock.accept()
-            req = client.recv(1024)
+            req = client.recv(10240)
             print req
             req = json.loads(req)
             if req['Type'] == 'Search_Medicine':
                 client.send(MedicineSearch.crawler(req["Name"]))
             if req['Type'] == 'Write_Memo':
-                client.send(DB.insert_memo("TEST", time.time(), req['Text'], req['Image']))
+                client.send("1\n")
+                length = int(client.recv(1024))
+                client.send("1\n")
+                image = ""
+                print length
+                if length%1024 == 0:
+                    length /= 1024
+                else:
+                    length = length/1024+1
+                while length > 0:
+                    length -= 1
+                    image += client.recv(1024)
+                    client.send("1\n")
+                print image
+                client.send(DB.insert_memo(req['Id'], time.time(), req['Text'], image))
             if req['Type'] == 'Search_Memo':
                 client.send(DB.search_memo(req['User']))
             if req['Type'] == "Register":
@@ -75,7 +153,7 @@ if __name__ == '__main__':
             if req['Type'] == 'Login':
                 client.send(DB.user_login(req['Id'], req['Password']))
             if req['Type'] == 'Edit_Memo':
-                client.send(DB.search_memo(req['Id'], req['Position']))
+                client.send(DB.search_memos(req['Id'], req['Position']))
             if req['Type'] == 'Edit_Content':
                 client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image']))
             if req['Type'] == 'Delete_Memo':
@@ -87,15 +165,18 @@ if __name__ == '__main__':
         print e
         sock.close()
 
+if __name__ == '__main__':
+    app.run()
+    # threading.Thread(target=smartphone_connection).start()
+    # print 1
+
+
 # print DB.insert_memo("Tester", time.time(), "Test", "Test")
 # DB.search_memo("Tester")
-# print DB.user_validation("Test")
 
 # # Search list of medicine with medicine name
 # print repr(MedicineSearch.crawler("타이레놀"))
 #
 # # Search specific information of medicine with url
-# print MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=200302348")
+# # MedicineSearch.crawler("./bxsSearchDrugProduct.jsp?item_Seq=199303109")
 
-# print DB.medicine_taking("TEST", "Tylenol", "20180507", "20180509")
-# print DB.change_memo("Test", "3", "Hello", "It's me")
