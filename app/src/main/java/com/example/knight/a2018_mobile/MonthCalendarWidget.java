@@ -155,8 +155,8 @@ public class MonthCalendarWidget extends AppWidgetProvider {
                 boolean inMonth = cal.get(Calendar.MONTH) == thisMonth;
                 boolean inYear  = cal.get(Calendar.YEAR) == todayYear;
                 boolean isToday = inYear && inMonth && (cal.get(Calendar.DAY_OF_YEAR) == today);
-
                 boolean isFirstOfMonth = cal.get(Calendar.DAY_OF_MONTH) == 1;
+
                 int cellLayoutResId = R.layout.cell_day;
 
                 if (isToday) {
