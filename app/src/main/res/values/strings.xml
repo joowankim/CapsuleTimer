@@ -40,10 +40,13 @@
     <string name="details">Details</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="auto_mode">Auto Mode</string>
     <string name="repeat">Repeat</string>
     <string name="repeat_off">Off</string>
     <string name="repeat_no">Repetition Interval </string>
     <string name="repeat_type">Type of Repetitions</string>
+    <string name="repeat_date">RepeatDate</string>
+
 
     <string name="action_discard_reminder">Discard Reminder</string>
     <string name="action_save_reminder">Save Reminder</string>
@@ -72,5 +75,11 @@
     <string name="editor_update_reminder_failed">Error with updating reminder</string>
 
     <string name="capsule_timer">Capsule Alarm</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- calendar widget string-->
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
 
 </resources>

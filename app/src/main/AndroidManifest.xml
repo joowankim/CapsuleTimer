@@ -51,6 +51,9 @@
             android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
 
+        <receiver
+            android:name = ".AlertReceiver"/>
+
     </application>
 
 </manifest>

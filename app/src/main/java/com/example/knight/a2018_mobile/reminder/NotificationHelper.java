@@ -18,8 +18,6 @@ import com.example.knight.a2018_mobile.R;
 public class NotificationHelper extends ContextWrapper {
     public static final String channel1ID = "channel1ID";
     public static final String channel1Name = "Channel 1";
-//    public static final String channel2ID = "channel2ID";
-//    public static final String channel2Name = "Channel 2";
 
     private NotificationManager mManager;
 
@@ -40,14 +38,6 @@ public class NotificationHelper extends ContextWrapper {
 
         getManager().createNotificationChannel(channel1);
 
-//        NotificationChannel channel2 = new NotificationChannel(channel2ID, channel2Name, NotificationManager.IMPORTANCE_DEFAULT);
-//        channel2.enableLights(true);
-//        channel2.enableVibration(true);
-//        channel2.setLightColor(R.color.colorPrimary);
-//        channel2.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-//
-//        getManager().createNotificationChannel(channel2);
-
     }
 
     public NotificationManager getManager(){
@@ -63,12 +53,5 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_healing_black_24dp);
     }
-
-//    public NotificationCompat.Builder getChannel2Notification(String title, String message){
-//        return new NotificationCompat.Builder(getApplicationContext(), channel2ID)
-//                .setContentTitle(title)
-//                .setContentText(message)
-//                .setSmallIcon(R.drawable.ic_two);
-//    }
 
 }

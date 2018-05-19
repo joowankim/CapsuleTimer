@@ -42,21 +42,25 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
 
         reminderListView = (ListView) findViewById(R.id.list);
         View emptyView = findViewById(R.id.empty_view);
+        // setEmptyview --> list가 비어있으면 eptyView를 보여주고 item이 있으면 item 보여줌
         reminderListView.setEmptyView(emptyView);
 
+        // AlarmCursorAdapter에서 설정하는 alarm_item.xml을 list형태로 보여줌
         mCursorAdapter = new AlarmCursorAdapter(this, null);
         reminderListView.setAdapter(mCursorAdapter);
 
+        //list에 있는 alarm 선택할 때
         reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                 Intent intent = new Intent(Alarm_main.this, AddReminderActivity.class);
 
+                // ContentUris.withAppendedId --> ID의 raw를 Uri로 만듦 / 인자로 전달된 id의 해당하는 raw를 uri로 가져오게 됨
                 Uri currentVehicleUri = ContentUris.withAppendedId(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
-                intent.setData(currentVehicleUri);
+                intent.setData(currentVehicleUri); // 전달받은 uri raw를 intent에 setting한 후 AddRemiderActivity에 넘겨줌
 
                 startActivity(intent);
 
@@ -64,21 +68,23 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
         });
 
 
+        // 새로 alarm을 추가하는 button
         mAddReminderButton = (FloatingActionButton) findViewById(R.id.fab);
-
         mAddReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddReminderActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddReminderActivity.class);
                 startActivity(intent);
             }
         });
 
+        //loader 초기화
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
 
 
     }
 
+    // loader가 없는 경우 loader 생성
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
