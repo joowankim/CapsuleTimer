@@ -433,7 +433,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="selectFab2"
-        fab:fab_icon="@drawable/ic_notifications_active_black_24dp"
+        fab:fab_icon="@drawable/ic_notification_active"
         fab:fab_colorNormal="@color/colorAccent"
         fab:fab_colorPressed="@color/fab_pressed"
         app:fab_size="normal"

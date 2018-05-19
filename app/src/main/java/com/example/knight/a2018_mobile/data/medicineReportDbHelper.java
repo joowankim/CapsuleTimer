@@ -22,10 +22,7 @@ public class medicineReportDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_REPORT_TABLE =  "CREATE TABLE " + medicineReportContract.medicineReportEntry.TABLE_NAME + " ("
                 + medicineReportContract.medicineReportEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + medicineReportContract.medicineReportEntry.KEY_TITLE + " TEXT NOT NULL, "
-                + medicineReportContract.medicineReportEntry.KEY_YEAR + " TEXT NOT NULL, "
-                + medicineReportContract.medicineReportEntry.KEY_MONTH + " TEXT NOT NULL, "
-                + medicineReportContract.medicineReportEntry.KEY_DATE + " TEXT NOT NULL, "
-                + medicineReportContract.medicineReportEntry.KEY_TIME + " TEXT NOT NULL " + " );";
+                + medicineReportContract.medicineReportEntry.KEY_TIME + " TEXT NOT NULL "+ " );";
 
         // Execute the SQL statement
         sqLiteDatabase.execSQL(SQL_CREATE_REPORT_TABLE);

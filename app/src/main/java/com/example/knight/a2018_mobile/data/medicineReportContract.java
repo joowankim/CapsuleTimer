@@ -43,9 +43,6 @@ public class medicineReportContract {
         public final static String _ID = BaseColumns._ID;
 
         public static final String KEY_TITLE = "title";
-        public static final String KEY_YEAR = "year";
-        public static final String KEY_MONTH = "month";
-        public static final String KEY_DATE = "date";
         public static final String KEY_TIME = "time";
     }
 

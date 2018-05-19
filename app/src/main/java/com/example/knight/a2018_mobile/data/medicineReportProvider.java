@@ -17,7 +17,6 @@ public class medicineReportProvider extends ContentProvider {
     public static final String LOG_TAG = medicineReportProvider.class.getSimpleName();
 
     private static final int REMINDER = 100;    // 처음 커서 위치
-
     private static final int REMINDER_ID = 101; // 현재 커서 위치
 
     //UriMatcher -> 리졸버 앱에서 전달한 Uri를 분석하여 어떤 요청을 하는지 쉽게 분석해주는 클래스
@@ -41,6 +40,16 @@ public class medicineReportProvider extends ContentProvider {
     }
 
     private medicineReportDbHelper mDbHelper;
+
+    private void itemInsert(@NonNull Uri uri, String Title, Long Time) {
+        ContentValues value = new ContentValues();
+
+        value.put(medicineReportContract.medicineReportEntry.KEY_TITLE, Title);
+        value.put(medicineReportContract.medicineReportEntry.KEY_TIME, Time);
+
+        insert(uri, value);
+    }
+
 
     //ContentProvider 객체가 생성되면 호출됨
     @Override
