@@ -10,5 +10,12 @@
     <button type="submit">SEARCH</button>
 </form>
 <button type="button"><a href="/memo">Memo</a></button>
+{% if login.bool == "true" %}
+<button type="button"><a href="/logout">Logout</a></button>
+{% endif %}
+{% if login.bool == "false" %}
+<button type="button"><a href="/login">Login</a></button>
+{% endif %}
+<img src="/image/images-2.jpeg">
 </body>
 </html>

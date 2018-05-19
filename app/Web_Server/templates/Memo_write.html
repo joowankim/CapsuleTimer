@@ -23,10 +23,9 @@
     </script>
 </head>
 <body>
-<form action="/memo/write" method="post">
+<form action="/memo/write" method="post" enctype=multipart/form-data>
     <img id="blah" src="#" alt="" />
-    <input type="file" id="image" name="memo_image" accept="image/*">
-    <input type="text" name="memo_user" value="Test" hidden="hidden">
+    <input type="file" id="image" name="image" accept="image/*">
     <input type="text" name="memo_text">
     <button type="submit">작성하기</button>
 </form>

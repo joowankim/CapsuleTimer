@@ -41,6 +41,8 @@
                 />
         </activity>
 
+        <activity android:name = ".reminder.AlarmCheckActivity"/>
+
         <provider
             android:name=".data.AlarmReminderProvider"
             android:authorities="com.example.knight.a2018_mobile"

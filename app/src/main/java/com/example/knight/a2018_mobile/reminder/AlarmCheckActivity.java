@@ -54,6 +54,7 @@ public class AlarmCheckActivity extends AppCompatActivity{
 
 
 
+
                 flag = 1;
                 finish();
             }
@@ -78,7 +79,6 @@ public class AlarmCheckActivity extends AppCompatActivity{
                 else index++;
 
                 new AlarmScheduler().setAlarm(getApplicationContext(), now.getTimeInMillis(), uri);
-
 
                 finish();
             }
