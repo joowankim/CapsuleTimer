@@ -81,7 +81,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_view_day_black_24dp"
+                    android:src="@drawable/ic_view_day_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -125,7 +125,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_black_24dp"
+                    android:src="@drawable/ic_access_time_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -167,7 +167,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_alarm_on_black_24dp"
+                    android:src="@drawable/ic_alarm_on_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -224,7 +224,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_sync_black_24dp"
+                    android:src="@drawable/ic_sync_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -329,7 +329,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_unfold_more_black_24dp"
+                    android:src="@drawable/ic_unfold_more_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -373,7 +373,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_subject_black_24dp"
+                    android:src="@drawable/ic_subject_black"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -418,7 +418,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="selectFab1"
-        fab:fab_icon="@drawable/ic_notifications_off_black_24dp"
+        fab:fab_icon="@drawable/ic_notifications_off_black"
         fab:fab_colorNormal="@color/colorAccent"
         fab:fab_colorPressed="@color/fab_pressed"
         app:fab_size="normal"
