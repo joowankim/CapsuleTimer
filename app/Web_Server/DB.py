@@ -20,6 +20,17 @@ medicine_taking_sql = "select * from Medicine where User=? and Medicine_Name=? a
 conn = sqlite3.connect("CapsuleTimer.db", check_same_thread=False)
 cur = conn.cursor()
 
+def web_insert_memo(user, date, text="", image=""):
+    result = {}
+
+    if text == "" and image == "":
+        result['result'] = 'No'
+    else:
+        cur.execute(memo_insert_sql, (user, date, text, image))
+        conn.commit()
+        result['result'] = 'Yes'
+    return json.dumps(result)
+
 def insert_memo(user, date, text="", image=""):
     result = {}
 
@@ -100,12 +111,11 @@ def user_register(id, password):
     return json.dumps(result)
 
 def user_login(id, password):
-    print 2
     result = {}
     cur.execute(login, (id, password))
-    print 1
     data = cur.fetchall()
-    if len(data) > 0:
+    print data, len(data)
+    if len(data) <= 0:
         result['result'] = 'No'
     else:
         result['result'] = 'Yes'

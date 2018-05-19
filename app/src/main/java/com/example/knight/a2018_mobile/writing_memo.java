@@ -91,14 +91,9 @@ public class writing_memo extends AppCompatActivity {
                     request.put("Id", user_id);
                     request.put("Text", memo_text);
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
-                    sock.request(request.toString());  // Send request
                     jpeg = Base64.encodeToString(array, Base64.DEFAULT);
                     Log.d("LENGTH", String.valueOf(jpeg.length()));
-                    sock.request(String.valueOf(jpeg.length()), 0);
-                    for (idx = 0; idx < jpeg.length()/1024; idx++)
-                        sock.request(jpeg.substring(idx*1024, idx*1024+1024), 0);
-                    if (jpeg.length()%1024 != 0)
-                        sock.request(jpeg.substring(idx*1024), 0);
+                    sock.request(request.toString(), jpeg, 1);  // Send request
                     finish();
 
 

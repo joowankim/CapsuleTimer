@@ -25,9 +25,10 @@ public class MySocket extends Thread {
     String Server_IP;
     String request;
     String res = "";
+    String image;
     int Server_PORT;
     int successive = 0;
-    int isResponse = 1;
+    int isMemo = 0;
 
     /**
      * @description Constructor of socket class
@@ -59,9 +60,10 @@ public class MySocket extends Thread {
         return res;
     }
 
-    public void request(String request, int flag) {
+    public void request(String request, String image, int flag) {
         this.request = request;
-        this.isResponse = flag;
+        this.image = image;
+        this.isMemo = flag;
         this.start();
         Log.d("SOCKET", "Image Upload");
         try {
@@ -76,16 +78,33 @@ public class MySocket extends Thread {
      */
     public void run() {
         try {
-            if (isResponse == 1) {
-                sock = new Socket(Server_IP, Server_PORT);
-                networkReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-                networkWriter = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
-            }
+            int idx;
             Log.d("Socket", request);
+            sock = new Socket(Server_IP, Server_PORT);
+            networkReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            networkWriter = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
             networkWriter.write(request);
             networkWriter.flush();
-            if (isResponse == 1) {
-                res = networkReader.readLine();
+            res = networkReader.readLine();
+
+            if (isMemo == 1) {
+                Log.d("SOCKET", String.valueOf(image.length()));
+                Log.d("Object", String.valueOf(sock.getLocalPort()));
+                networkWriter.write(String.valueOf(image.length()));
+                networkWriter.flush();
+                networkReader.readLine();
+                for (idx = 0; idx < image.length()/1024; idx++) {
+                    networkWriter.write(image.substring(idx * 1024, idx * 1024 + 1024));
+                    networkWriter.flush();
+                    networkReader.readLine();
+                }
+                if (image.length()%1024 != 0) {
+                    networkWriter.write(image.substring(idx * 1024));
+                    networkWriter.flush();
+                    networkReader.readLine();
+                }
+
+                Log.d("Index", String.valueOf(idx));
             }
             successive = 1;
         } catch (IOException e) {

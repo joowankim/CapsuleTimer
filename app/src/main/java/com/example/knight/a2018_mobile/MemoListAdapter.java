@@ -2,7 +2,13 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,6 +19,15 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //import static android.support.v4.content.ContextCompat.startActivity;
 
@@ -25,37 +40,30 @@ public class MemoListAdapter extends BaseAdapter {
     public JSONArray memos;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
+    private LayoutInflater inflater;
     String request;
     MySocket sock;
+    Map<String , Bitmap> bmp = new HashMap<>();
 
     Context myContext;
 
-    public MemoListAdapter(Context context, String jsonString) {
+    public void refresh() {
         try {
-            request = jsonString;
             sock = new MySocket(Server_IP, Server_PORT);
             myMemo = new JSONObject(sock.request(request));
             memos = myMemo.getJSONArray("memo");
-            Log.d("MemoList", myMemo.toString());
 
-//            for (int i = 0; i < medicines.length(); i++) {
-//
-//                JSONObject medicine = medicines.getJSONObject(i);
-//
-//                Log.i("Seq", "" + medicine.getString("Sequence"));
-//                Log.i("name","" + medicine.getString("name"));
-//                Log.i("link", "" + medicine.getString("link"));
-//                Log.i("ingredient", "" + medicine.getString("ingredient"));
-//                Log.i("ningredient","" + medicine.getString("ningredient"));
-//                Log.i("company", "" + medicine.getString("company"));
-//                Log.i("type", "" + medicine.getString("type"));
-//
-//
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public MemoListAdapter(Context context, String jsonString) {
+        request = jsonString;
         myContext = context;
+        inflater = (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        refresh();
     }
 
     public int getCount() {
@@ -92,61 +100,83 @@ public class MemoListAdapter extends BaseAdapter {
         return "";
     }
 
-    public void change() {
-        try {
-            myMemo = new JSONObject(sock.request(request));
-            memos = myMemo.getJSONArray("memo");
-            Log.d("MemoList", myMemo.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void delete(int position) {
         Object trash = memos.remove(position);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout view = null;
+        ViewHolder viewHolder = new ViewHolder();
+        Log.d("LEN", String.valueOf(bmp.size()));
+
         try {
-            Log.d("1234", "1234");
             final JSONObject memo = memos.getJSONObject(position);
-            view = new LinearLayout(myContext);
-            TextView text = new TextView(myContext);
-            TextView date = new TextView(myContext);
-//            TextView ingredient = new TextView(myContext);
-//            TextView type = new TextView(myContext);
-//            ImageView img = new ImageView(myContext);
 
-            text.setText(memo.getString("text"));
-            date.setText(memo.getString("time"));
-//            ingredient.setText(medicine.getString("ingredient"));
-//            type.setText(medicine.getString("type"));
+            if (bmp.containsKey(memo.get("image")) == false) {
+                Thread getBitmap = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            URL url = new URL("http://106.10.40.50:5000/" + memo.get("image") + ".jpeg");
+                            HttpURLConnection image_http = (HttpURLConnection) url.openConnection();
+                            image_http.setDoInput(true);
+                            image_http.connect();
 
-            view.setOrientation(LinearLayout.VERTICAL);
-            view.addView(text);
-            view.addView(date);
-            view.setId(memo.getInt("id"));
-//            view.addView(ingredient);
-//            view.addView(type);
-//            view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    try {
-//                        Intent intent = new Intent(myContext, Show_medicine_info.class);
-//                        intent.putExtra("link", medicine.getString("link"));
-//                        myContext.startActivity(intent);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            });
-//            img.setimage
+                            InputStream is = image_http.getInputStream();
+                            bmp.put(memo.get("image").toString(), BitmapFactory.decodeStream(is));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        super.run();
+                    }
+                };
+
+                Log.d("IMAGE", "Image");
+
+                getBitmap.start();
+                try {
+                    getBitmap.join();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.memo_item, parent, false);
+                viewHolder.text = convertView.findViewById(R.id.memo_text);
+                viewHolder.date = convertView.findViewById(R.id.memo_time);
+                viewHolder.img = convertView.findViewById(R.id.memo_image);
+
+
+                viewHolder.img.setImageBitmap(bmp.get(memo.get("image").toString()));
+                viewHolder.text.setText(memo.getString("text"));
+                viewHolder.date.setText(memo.getString("time"));
+                convertView.setId(memo.getInt("id"));
+                convertView.setTag(viewHolder);
+            }
+
+            else {
+                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder.img.setImageBitmap(bmp.get(memo.get("image").toString()));
+                viewHolder.text.setText(memo.getString("text"));
+                viewHolder.date.setText(memo.getString("time"));
+                convertView.setId(memo.getInt("id"));
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return view;
+        return convertView;
     }
+
+    public class ViewHolder {
+        public TextView text;
+        public TextView date;
+        public ImageView img;
+    };
+
 }
