@@ -19,6 +19,7 @@ public class medicineReportProvider extends ContentProvider {
     private static final int REMINDER = 100;    // 처음 커서 위치
     private static final int REMINDER_ID = 101; // 현재 커서 위치
 
+
     //UriMatcher -> 리졸버 앱에서 전달한 Uri를 분석하여 어떤 요청을 하는지 쉽게 분석해주는 클래스
     //두개의 Uri값을 비교하여 해당하는 값(약속된 값을)을 출력해주는 기능을 하는 class
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -41,7 +42,7 @@ public class medicineReportProvider extends ContentProvider {
 
     private medicineReportDbHelper mDbHelper;
 
-    private void itemInsert(@NonNull Uri uri, String Title, Long Time) {
+    public void itemInsert(@NonNull Uri uri, String Title, Long Time) {
         ContentValues value = new ContentValues();
 
         value.put(medicineReportContract.medicineReportEntry.KEY_TITLE, Title);
@@ -57,6 +58,7 @@ public class medicineReportProvider extends ContentProvider {
         // DB class 객체 생성
         mDbHelper = new medicineReportDbHelper(getContext());
         return true;
+
     }
 
     // 각 함수의 첫번째 인자 uri --> provider의 uri =

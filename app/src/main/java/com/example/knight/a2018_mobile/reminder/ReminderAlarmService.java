@@ -1,11 +1,14 @@
 package com.example.knight.a2018_mobile.reminder;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -38,7 +41,7 @@ public class ReminderAlarmService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // 사용자가 설정한 알람 시간을 uri로 가져옴
         Uri uri = intent.getData();
 
@@ -77,9 +80,20 @@ public class ReminderAlarmService extends IntentService {
 
         // Noti를 생성함 (Notichannel을 통해서)
         // 밑이랑 동일한 코드지만 channel을 통해 부르게 함 (Oreo version부터 적용)
-        NotificationHelper notificationHelper = new NotificationHelper(this);
-        NotificationCompat.Builder nb = notificationHelper.getChannel1Notification(getString(R.string.capsule_timer), description);
-        notificationHelper.getManager().notify(NOTIFICATION_ID,nb.build());
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationHelper notificationHelper = new NotificationHelper(this);
+            NotificationCompat.Builder nb = notificationHelper.getChannel1Notification(getString(R.string.capsule_timer), description);
+            notificationHelper.getManager().notify(NOTIFICATION_ID, nb.build());
+        } else{
+            Notification note = new NotificationCompat.Builder(this)
+                .setContentTitle(getString(R.string.capsule_timer))
+                .setContentText(description)
+                .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
+                .setContentIntent(operation)
+                .setAutoCancel(true)
+                .build();
+                 manager.notify(NOTIFICATION_ID, note);
+        }
 
         intent = new Intent(this, AlarmCheckActivity.class);
         Bundle b = new Bundle();
@@ -89,14 +103,6 @@ public class ReminderAlarmService extends IntentService {
         intent.setData(uri);
         startActivity(intent);
 
-//        Notification note = new NotificationCompat.Builder(this)
-//                .setContentTitle(getString(R.string.reminder_title))
-//                .setContentText(description)
-//                .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
-//                .setContentIntent(operation)
-//                .setAutoCancel(true)
-//                .build();
-//
-//        manager.notify(NOTIFICATION_ID, note);
+
     }
 }
