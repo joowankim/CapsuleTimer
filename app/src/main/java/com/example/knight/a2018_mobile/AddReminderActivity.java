@@ -47,16 +47,17 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     private Toolbar mToolbar;
     private EditText mTitleText;
-    private TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText;
+    private TextView mDateText, mTimeText, mRepeatText, mRepeatNoText, mRepeatTypeText, mAutoTextView;
     private FloatingActionButton mFAB1;
     private FloatingActionButton mFAB2;
     private Calendar mCalendar;
     private int mYear, mMonth, mHour, mMinute, mDay;
     public long mRepeatTime;
-    private Switch mRepeatSwitch;
+    private Switch mRepeatSwitch, mAutoSwitch;
     private String mTitle;
     private String mTime;
     private String mDate;
+    private String mAuto;
     private String mRepeat;
     private String mRepeatNo;
     private String mRepeatType;
@@ -128,6 +129,8 @@ public class AddReminderActivity extends AppCompatActivity implements
         mTitleText = (EditText) findViewById(R.id.reminder_title);
         mDateText = (TextView) findViewById(R.id.set_date);
         mTimeText = (TextView) findViewById(R.id.set_time);
+        mAutoTextView = findViewById(R.id.set_auto_manual_btn);
+        mAutoSwitch = findViewById(R.id.auto_manual_btn_switch);
         mRepeatText = (TextView) findViewById(R.id.set_repeat);
         mRepeatNoText = (TextView) findViewById(R.id.set_repeat_no);
         mRepeatTypeText = (TextView) findViewById(R.id.set_repeat_type);
@@ -141,7 +144,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         mActive = "true";
         mRepeat = "true";
         mRepeatNo = Integer.toString(1);
-        mRepeatType = "Hour";
+        mRepeatType = "Minute";
 
         //현재 시간으로 setting
         mCalendar = Calendar.getInstance();
@@ -329,6 +332,17 @@ public class AddReminderActivity extends AppCompatActivity implements
         } else {
             mRepeat = "false";
             mRepeatText.setText(R.string.repeat_off);
+        }
+    }
+
+    public void onSwitchAuto(View view) {
+        boolean on = ((Switch) view).isChecked();
+        if (on) {
+            mAuto = "true";
+            mAutoTextView.setText("Activate Auto Mode");
+        } else {
+            mAuto = "false";
+            mAutoTextView.setText(R.string.repeat_off);
         }
     }
 

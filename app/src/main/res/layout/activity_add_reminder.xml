@@ -187,12 +187,11 @@
                         android:text="@string/auto_mode" />
 
                     <TextView
-                        android:layout_width="wrap_content"
                         android:id="@+id/set_auto_manual_btn"
+                        android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textColor="@android:color/black"
                         android:layout_height="wrap_content"/>
-
                 </LinearLayout>
 
                 <Switch
@@ -203,11 +202,10 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="8dp"
-                    android:onClick="onSwitchRepeat"
+                    android:onClick="onSwitchAuto"
                     android:checked="true"
                     android:textOn="On"
                     android:textOff="Off"/>
-
             </RelativeLayout>
 
             <!--자동 / 수동 버튼 -->
@@ -249,7 +247,6 @@
                         android:textSize="15dp"
                         android:textColor="@android:color/black"
                         android:layout_height="wrap_content"/>
-
                 </LinearLayout>
 
                 <Switch
@@ -264,7 +261,6 @@
                     android:checked="true"
                     android:textOn="On"
                     android:textOff="Off"/>
-
             </RelativeLayout>
 
             <!--요일 반복 구현 -->
