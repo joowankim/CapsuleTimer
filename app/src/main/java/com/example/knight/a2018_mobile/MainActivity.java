@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String user_pw;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    int flag = 0;
 
     /**
      * @description java class of main activity
@@ -122,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 intent.putExtra("json", request.toString());
+                if (flag == 0) {
+                    intent.setClass(getApplicationContext(), Login.class);
+                }
                 startActivity(intent);
             }
         });
@@ -149,11 +154,19 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.remove("Id");
-                editor.remove("Password");
-                editor.commit();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
+                if (flag == 1) {
+                    Log.d("123", "1");
+                    editor.remove("Id");
+                    editor.remove("Password");
+                    editor.commit();
+                    flag = 0;
+                    logout.setText("Login");
+                } else if (flag == 0) {
+                    Log.d("123", "0");
+                    logout.setText("Login");
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -161,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Alarm_main.class);
+                if (flag == 0)
+                    intent.setClass(getApplicationContext(), Login.class);
                 startActivity(intent);
             }
         });
@@ -175,8 +190,10 @@ public class MainActivity extends AppCompatActivity {
         user_pw = sharedPreferences.getString("Password", "None");
 
         if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
+        }
+        else {
+            flag = 1;
+            logout.setText("Logout");
         }
     }
 }
