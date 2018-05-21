@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.knight.a2018_mobile"
@@ -11,7 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
     }
     buildTypes {
         debug{
@@ -22,11 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
 }
 
 dependencies {
