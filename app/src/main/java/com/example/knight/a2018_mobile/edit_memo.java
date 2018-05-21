@@ -3,6 +3,7 @@ package com.example.knight.a2018_mobile;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class edit_memo extends AppCompatActivity {
 
@@ -33,6 +39,7 @@ public class edit_memo extends AppCompatActivity {
     private int Server_PORT=6000;
     private Uri selectedimg;
     private int index;
+    Bitmap bmp;
     MySocket sock = new MySocket(Server_IP, Server_PORT);
 
     /**
@@ -59,7 +66,39 @@ public class edit_memo extends AppCompatActivity {
             request.put("Type", "Edit_Memo");
             request.put("Id", writer);
             request.put("Position", position);
-            JSONObject result = new JSONObject(sock.request(request.toString()));
+            final JSONObject result = new JSONObject(sock.request(request.toString()));
+            Thread getBitmap = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL("http://106.10.40.50:5000/" + result.get("image") + ".jpeg");
+                        HttpURLConnection image_http = (HttpURLConnection) url.openConnection();
+                        image_http.setDoInput(true);
+                        image_http.connect();
+
+                        InputStream is = image_http.getInputStream();
+                        bmp = BitmapFactory.decodeStream(is);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    super.run();
+                }
+            };
+
+            Log.d("IMAGE", "Image");
+
+            getBitmap.start();
+            try {
+                getBitmap.join();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            memo_edit_image.setImageBitmap(bmp);
             memo_edit_content.setText(result.getString("text"));
         } catch (JSONException e) {
             e.printStackTrace();
