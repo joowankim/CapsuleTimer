@@ -23,12 +23,14 @@ public class AlarmCheckActivity extends AppCompatActivity{
     private Button check_btn;
     private Button skip_btn;
 
-    private int index = 0;
+    private int index = 1;
     private int flag = 0;
 
-    private String repeat;
+    private String repeat_no;
     private String title;
     private Uri uri;
+
+    private long repeatTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,12 +39,15 @@ public class AlarmCheckActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         uri = intent.getData();
-        Bundle b = new Bundle();
+        Bundle b;
         b = intent.getExtras();
 
 
-        repeat = b.getString("repeat");
+        repeat_no = b.getString("repeat_no");
         title = b.getString("title");
+        repeatTime = b.getLong("repeatTime");
+
+        Log.i("repeat_no ", repeat_no);
 
         check_btn = findViewById(R.id.check_btn);
         skip_btn = findViewById(R.id.skip_btn);
@@ -50,6 +55,8 @@ public class AlarmCheckActivity extends AppCompatActivity{
         check_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
+                // 약 먹었을 때 여기 해야 함
 
                 Calendar now = Calendar.getInstance();
 
@@ -67,21 +74,30 @@ public class AlarmCheckActivity extends AppCompatActivity{
             public void onClick(View view) {
 
                 int minute;
+                int repeat;
+                int repeat_time;
+
+                repeat = (int)(repeatTime/60000L); // 다시 분으로 만듦
+                repeat_time = Integer.parseInt(repeat_no);
 
                 Calendar now = Calendar.getInstance();
                 minute = now.get(Calendar.MINUTE);
-                minute = minute + Integer.parseInt(repeat);
+                minute = minute + repeat;
                 now.set(Calendar.MINUTE, minute);
 
-                Log.i("minute", Integer.toString(now.get(Calendar.MINUTE)));
+                Log.i("minute", Integer.toString(repeat));
 
-                if(index == 3){
-                    flag = 0; // 약 안먹음
+                // 여기서 에러 뜸
+                if(index <= repeat_time) {
+                    new AlarmScheduler().setAlarm(getApplicationContext(), now.getTimeInMillis(), uri, repeatTime);
+                    index++;
+                } else{
+                    index = 0;
+                    // 여기 해야 되고
+                    // 알람취소말고 다음날 혹은 지정한 요일로 다시 알람 세팅해야 할듯
+                    // 일단 취소로 해놓음
+                    new AlarmScheduler().cancelAlarm(getApplicationContext(), uri, repeatTime);
                 }
-                else index++;
-
-                new AlarmScheduler().setAlarm(getApplicationContext(), now.getTimeInMillis(), uri);
-
                 finish();
             }
         });

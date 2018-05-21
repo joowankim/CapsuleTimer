@@ -14,17 +14,18 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.knight.a2018_mobile.data.AlarmReminderContract;
 import com.example.knight.a2018_mobile.reminder.AlarmScheduler;
@@ -38,7 +39,7 @@ import java.util.Calendar;
 
 public class AddReminderActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
-        DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor> {
+        DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor>, CompoundButton.OnCheckedChangeListener{
     // CursorLoader는 AsyncTaskLoader의 서브 클래스로 DB 커서를 이용한다. 커서는 iterator와 거의 같고 데이터 집합을 자유롭게 순회 가능
 
 
@@ -63,12 +64,26 @@ public class AddReminderActivity extends AppCompatActivity implements
     private String mRepeatType;
     private String mActive;
 
+    private boolean[] bolList = new boolean[8];
+
+    private int sun_flag = 0;
+    private int mon_flag = 0;
+    private int tu_flag = 0;
+    private int we_flag = 0;
+    private int th_flag = 0;
+    private int fri_flag = 0;
+    private int sat_flag = 0;
+
     public Uri mCurrentReminderUri;
     private boolean mVehicleHasChanged = false;
 
-    public long for_repeat_alarm;
-    public int minute_repeat;
-    public Uri for_reminder_uri;
+    private ToggleButton mSunToggleButton;
+    private ToggleButton mMonToggleButton;
+    private ToggleButton mTueToggleButton;
+    private ToggleButton mWedToggleButton;
+    private ToggleButton mThrToggleButton;
+    private ToggleButton mFriToggleButton;
+    private ToggleButton mSatToggleButton;
 
     // Values for orientation change
     private static final String KEY_TITLE = "title_key";
@@ -77,15 +92,24 @@ public class AddReminderActivity extends AppCompatActivity implements
     private static final String KEY_REPEAT = "repeat_key";
     private static final String KEY_REPEAT_NO = "repeat_no_key";
     private static final String KEY_REPEAT_TYPE = "repeat_type_key";
-    private static final String KEY_ACTIVE = "active_key";
+    private static final String KEY_ACTIVE = "false";
+
+    private static final String KEY_MONDAY = "false";
+    private static final String KEY_TUESDAY = "false";
+    private static final String KEY_WEDNESDAY = "false";
+    private static final String KEY_THURSDAY = "false";
+    private static final String KEY_FRIDAY = "false";
+    private static final String KEY_SATURDAY = "false";
+    private static final String KEY_SUNDAY = "false";
+
 
 
     // Constant values in milliseconds
     private static final long milMinute = 60000L;
-    private static final long milHour = 3600000L;
-    private static final long milDay = 86400000L;
-    private static final long milWeek = 604800000L;
-    private static final long milMonth = 2592000000L;
+//    private static final long milHour = 3600000L;
+//    private static final long milDay = 86400000L;
+//    private static final long milWeek = 604800000L;
+//    private static final long milMonth = 2592000000L;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
@@ -101,6 +125,8 @@ public class AddReminderActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add_reminder);
 
 
+        //알람 메인에서 추가버튼을 눌렀으면 Uri가 null
+        //기존에 추가되었던 list item을 클릭했으면 해당 uri가 저장될것
         Intent intent = getIntent();
         mCurrentReminderUri = intent.getData();
 
@@ -137,16 +163,27 @@ public class AddReminderActivity extends AppCompatActivity implements
         mRepeatSwitch = (Switch) findViewById(R.id.repeat_switch);
         mFAB1 = (FloatingActionButton) findViewById(R.id.starred1);
         mFAB2 = (FloatingActionButton) findViewById(R.id.starred2);
+
+        mSunToggleButton = (ToggleButton) findViewById(R.id.tgbtn_sun_repeat);
+        mMonToggleButton = (ToggleButton) findViewById(R.id.tgbtn_mon_repeat);
+        mTueToggleButton = (ToggleButton) findViewById(R.id.tgbtn_tue_repeat);
+        mWedToggleButton = (ToggleButton) findViewById(R.id.tgbtn_wed_repeat);
+        mThrToggleButton = (ToggleButton) findViewById(R.id.tgbtn_thr_repeat);
+        mFriToggleButton = (ToggleButton) findViewById(R.id.tgbtn_fri_repeat);
+        mSatToggleButton = (ToggleButton) findViewById(R.id.tgbtn_sat_repeat);
+
         // auto/manual button 만들 것
 
+        // toggle button event listener
+        setListener();
 
         // Initialize default values
         mActive = "true";
         mRepeat = "true";
         mRepeatNo = Integer.toString(1);
-        mRepeatType = "Minute";
+        mRepeatType = "5 Minutes";
 
-        //현재 시간으로 setting
+        //현재 시간 구함
         mCalendar = Calendar.getInstance();
         mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         mMinute = mCalendar.get(Calendar.MINUTE);
@@ -154,7 +191,11 @@ public class AddReminderActivity extends AppCompatActivity implements
         mMonth = mCalendar.get(Calendar.MONTH) + 1;
         mDay = mCalendar.get(Calendar.DATE);
 
-        mDate = mDay + "/" + mMonth + "/" + mYear;
+//        Log.i("calendar - date ", Integer.toString(mDay)); // 얘가 몇일인지 ( 21일) 이런거
+//        Log.i("calendar - week day", Integer.toString(mCalendar.get(Calendar.DAY_OF_WEEK))); // 얘가 요일 (일요일이 1 월요일이 2 ~~)
+//        Log.i("calendar - dayofmonth", Integer.toString(mCalendar.get(Calendar.DAY_OF_MONTH))); // 얘도 몇일인지네 (21)
+
+        mDate = mDay + "/" + mMonth + "/" + mYear; // 00/05/2018 이런식
         mTime = mHour + ":" + mMinute;
 
         // Setup Reminder Title EditText
@@ -180,12 +221,12 @@ public class AddReminderActivity extends AppCompatActivity implements
             public void afterTextChanged(Editable s) {}
         });
 
-        // Setup TextViews using reminder values
+        // Setup TextViews using alarm values
         mDateText.setText(mDate);
         mTimeText.setText(mTime);
-        mRepeatNoText.setText(mRepeatNo);
-        mRepeatTypeText.setText(mRepeatType);
-        mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
+        mRepeatNoText.setText(mRepeatNo); // skip눌렀을 때 반복할 횟수
+        mRepeatTypeText.setText(mRepeatType);  // repeatType -> skip눌렀을때 얼마 후에 알람 울릴건지
+        mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
 
         // To save state on device rotation
         // 이전 상태에 복구할 bundle이 있는지 여부를 확인하여 null이 아니면 복구 함
@@ -215,6 +256,22 @@ public class AddReminderActivity extends AppCompatActivity implements
             mRepeatType = savedRepeatType;
 
             mActive = savedInstanceState.getString(KEY_ACTIVE);
+
+            if(savedInstanceState.getString(KEY_SUNDAY).equals("true")) mSunToggleButton.setChecked(true);
+            else mSunToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_MONDAY).equals("true")) mMonToggleButton.setChecked(true);
+            else mMonToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_TUESDAY).equals("true")) mTueToggleButton.setChecked(true);
+            else mTueToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_WEDNESDAY).equals("true")) mWedToggleButton.setChecked(true);
+            else mWedToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_THURSDAY).equals("true")) mThrToggleButton.setChecked(true);
+            else mThrToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_FRIDAY).equals("true")) mFriToggleButton.setChecked(true);
+            else mFriToggleButton.setChecked(false);
+            if(savedInstanceState.getString(KEY_SATURDAY).equals("true")) mSatToggleButton.setChecked(true);
+            else mSatToggleButton.setChecked(false);
+
         }
 
         // Setup up active buttons
@@ -240,6 +297,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        //                            (key, value)
         outState.putCharSequence(KEY_TITLE, mTitleText.getText());
         outState.putCharSequence(KEY_TIME, mTimeText.getText());
         outState.putCharSequence(KEY_DATE, mDateText.getText());
@@ -247,6 +305,15 @@ public class AddReminderActivity extends AppCompatActivity implements
         outState.putCharSequence(KEY_REPEAT_NO, mRepeatNoText.getText());
         outState.putCharSequence(KEY_REPEAT_TYPE, mRepeatTypeText.getText());
         outState.putCharSequence(KEY_ACTIVE, mActive);
+
+        if(mSunToggleButton.isChecked()) outState.putCharSequence(KEY_SUNDAY, "true"); else outState.putCharSequence(KEY_SUNDAY, "false");
+        if(mMonToggleButton.isChecked()) outState.putCharSequence(KEY_MONDAY, "true"); else outState.putCharSequence(KEY_MONDAY, "false");
+        if(mTueToggleButton.isChecked()) outState.putCharSequence(KEY_TUESDAY, "true"); else outState.putCharSequence(KEY_TUESDAY, "false");
+        if(mWedToggleButton.isChecked()) outState.putCharSequence(KEY_WEDNESDAY, "true"); else outState.putCharSequence(KEY_WEDNESDAY, "false");
+        if(mThrToggleButton.isChecked()) outState.putCharSequence(KEY_THURSDAY, "true"); else outState.putCharSequence(KEY_THURSDAY, "false");
+        if(mFriToggleButton.isChecked()) outState.putCharSequence(KEY_FRIDAY, "true"); else outState.putCharSequence(KEY_FRIDAY, "false");
+        if(mSatToggleButton.isChecked()) outState.putCharSequence(KEY_SATURDAY, "true"); else outState.putCharSequence(KEY_SATURDAY, "false");
+
     }
 
     // On clicking Time picker
@@ -303,6 +370,35 @@ public class AddReminderActivity extends AppCompatActivity implements
     }
 
 
+    private void setListener(){
+        mSunToggleButton.setOnCheckedChangeListener(this);
+        mMonToggleButton.setOnCheckedChangeListener(this);
+        mTueToggleButton.setOnCheckedChangeListener(this);
+        mWedToggleButton.setOnCheckedChangeListener(this);
+        mThrToggleButton.setOnCheckedChangeListener(this);
+        mFriToggleButton.setOnCheckedChangeListener(this);
+        mSatToggleButton.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(mSunToggleButton.isChecked()) sun_flag = 1;// 일요일 버튼이 눌리면
+        else sun_flag = 0;
+        if(mMonToggleButton.isChecked()) mon_flag = 2;
+        else mon_flag = 0;
+        if(mTueToggleButton.isChecked()) tu_flag = 3;
+        else tu_flag = 0;
+        if(mWedToggleButton.isChecked()) we_flag = 4;
+        else we_flag = 0;
+        if(mThrToggleButton.isChecked()) th_flag = 5;
+        else th_flag = 0;
+        if(mFriToggleButton.isChecked()) fri_flag = 6;
+        else fri_flag = 0;
+        if(mSatToggleButton.isChecked()) sat_flag = 7;
+        else sat_flag = 0;
+
+    }
+
     // 알람 아이콘 모양 바뀌게 하기
     // On clicking the active button
     public void selectFab1(View v) {
@@ -328,7 +424,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         boolean on = ((Switch) view).isChecked();
         if (on) {
             mRepeat = "true";
-            mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
+            mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
         } else {
             mRepeat = "false";
             mRepeatText.setText(R.string.repeat_off);
@@ -346,20 +442,78 @@ public class AddReminderActivity extends AppCompatActivity implements
         }
     }
 
-    // On clicking repeat type button
-    public void selectRepeatType(View v){
+    // On clicking repeat interval button
+    public void setRepeatNo(View v){
         final String[] items = new String[5];
 
-        items[0] = "Minute";
-        items[1] = "Hour";
-        items[2] = "Day";
-        items[3] = "Week";
-        items[4] = "Month";
+        items[0] = "1";
+        items[1] = "2";
+        items[2] = "3";
+        items[3] = "4";
+        items[4] = "5";
 
         // Create List Dialog
         // repeat list 선택하면 list dialog 생성
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Type");
+        builder.setTitle("반복 횟수 ");
+        // dialog에 있는 item setting
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+
+                mRepeatNo = items[item];
+                mRepeatNoText.setText(mRepeatNo);
+                mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//        alert.setTitle("Enter Number");
+//
+//        // Create EditText box to input repeat number
+//        final EditText input = new EditText(this);
+//        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+//        alert.setView(input);
+//        alert.setPositiveButton("Ok",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int whichButton) {
+//
+//                        if (input.getText().toString().length() == 0) {
+//                            mRepeatNo = Integer.toString(1);
+//                            mRepeatNoText.setText(mRepeatNo);
+//                            mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
+//                        }
+//                        else {
+//                            mRepeatNo = input.getText().toString().trim();
+//                            mRepeatNoText.setText(mRepeatNo);
+//                            mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
+//                        }
+//                    }
+//                });
+//        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                // do nothing
+//            }
+//        });
+//        alert.show();
+    }
+
+    // On clicking repeat Interval button
+    // 알람 간격으로 바꿈
+    public void selectRepeatType(View v){
+        final String[] items = new String[5];
+
+        items[0] = "5 Minutes";
+        items[1] = "10 Minutes";
+        items[2] = "15 Minutes";
+        items[3] = "20 Minutes";
+        items[4] = "30 Minutes";
+
+        // Create List Dialog
+        // repeat list 선택하면 list dialog 생성
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select ");
         // dialog에 있는 item setting
         builder.setItems(items, new DialogInterface.OnClickListener() {
 
@@ -367,46 +521,12 @@ public class AddReminderActivity extends AppCompatActivity implements
 
                 mRepeatType = items[item];
                 mRepeatTypeText.setText(mRepeatType);
-                mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
+                mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-    // On clicking repeat interval button
-    public void setRepeatNo(View v){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Enter Number");
-
-        // Create EditText box to input repeat number
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        alert.setView(input);
-        alert.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        if (input.getText().toString().length() == 0) {
-                            mRepeatNo = Integer.toString(1);
-                            mRepeatNoText.setText(mRepeatNo);
-                            mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
-                        }
-                        else {
-                            mRepeatNo = input.getText().toString().trim();
-                            mRepeatNoText.setText(mRepeatNo);
-                            mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
-                        }
-                    }
-                });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // do nothing
-            }
-        });
-        alert.show();
-    }
-
 
     // ------------------------------------------------------
     // create menu
@@ -444,7 +564,6 @@ public class AddReminderActivity extends AppCompatActivity implements
                 if (mTitleText.getText().toString().length() == 0){
                     mTitleText.setError("Reminder Title cannot be blank!");
                 }
-
                 else {
                     saveReminder();
                     finish();
@@ -481,7 +600,6 @@ public class AddReminderActivity extends AppCompatActivity implements
                 showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -565,13 +683,13 @@ public class AddReminderActivity extends AppCompatActivity implements
     // On clicking the save button
     public void saveReminder(){
 
-
      /*   if (mCurrentReminderUri == null ) {
             // Since no fields were modified, we can return early without creating a new reminder.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
-*/
+     */
+
         // database에 각 key에 해당하는 value값들 put
         ContentValues values = new ContentValues();
 
@@ -579,40 +697,71 @@ public class AddReminderActivity extends AppCompatActivity implements
         values.put(AlarmReminderContract.AlarmReminderEntry.KEY_DATE, mDate);
         values.put(AlarmReminderContract.AlarmReminderEntry.KEY_TIME, mTime);
         values.put(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT, mRepeat);
-        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO, mRepeatNo);
-        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE, mRepeatType);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO, mRepeatNo);     // 몇번 반복할 건지
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE, mRepeatType);  // 몇분안에 다시 울리게 할건지
         values.put(AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE, mActive);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_SUNDAY, sun_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_MONDAY, mon_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_TUESDAY, tu_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY, we_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY, th_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY, fri_flag);
+        values.put(AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY, sat_flag);
 
 
-        // Set up calender for creating the notification
-        // 사용자가 설정한 시간을 mCalendar에 설정
-        mCalendar.set(Calendar.MONTH, --mMonth);
-        mCalendar.set(Calendar.YEAR, mYear);
-        mCalendar.set(Calendar.DAY_OF_MONTH, mDay);
-        mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
-        mCalendar.set(Calendar.MINUTE, mMinute);
-        mCalendar.set(Calendar.SECOND, 0);
+        // 여기서 toggle 버튼이 하나라도 눌리면 날짜로 alarm 시간 세팅해야 하고
+        if(mSunToggleButton.isChecked()|mMonToggleButton.isChecked()|mTueToggleButton.isChecked()
+                |mWedToggleButton.isChecked()|mThrToggleButton.isChecked()|mFriToggleButton.isChecked()|mSatToggleButton.isChecked())
+        {
+            bolList[0] = false;
+            if(mSunToggleButton.isChecked()) bolList[1] = true; else bolList[1] = false;
+            if(mMonToggleButton.isChecked()) bolList[2] = true; else bolList[2] = false;
+            if(mTueToggleButton.isChecked()) bolList[3] = true; else bolList[3] = false;
+            if(mWedToggleButton.isChecked()) bolList[4] = true; else bolList[4] = false;
+            if(mThrToggleButton.isChecked()) bolList[5] = true; else bolList[5] = false;
+            if(mFriToggleButton.isChecked()) bolList[6] = true; else bolList[6] = false;
+            if(mSatToggleButton.isChecked()) bolList[7] = true; else bolList[7] = false;
 
+            // day를 안넣으면 안되나;; 확인해야할듯
+            mCalendar.set(Calendar.YEAR, mYear);
+            mCalendar.set(Calendar.MONTH, --mMonth);
+            mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
+            mCalendar.set(Calendar.MINUTE, mMinute);
+            mCalendar.set(Calendar.SECOND, 0);
+
+        }
+        else {// 하나라도 안눌려 있으면 user가 선택한 특정 날짜로 alarm 세팅 할 것
+            mCalendar.set(Calendar.YEAR, mYear);
+            mCalendar.set(Calendar.MONTH, --mMonth);
+            mCalendar.set(Calendar.DAY_OF_MONTH, mDay);
+            mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
+            mCalendar.set(Calendar.MINUTE, mMinute);
+            mCalendar.set(Calendar.SECOND, 0);
+        }
+        //user가 설정한 시간을 milli초 단위로 바꿔서 저장
         long selectedTimestamp =  mCalendar.getTimeInMillis();
-        for_repeat_alarm = selectedTimestamp;
+        //for_repeat_alarm = selectedTimestamp;
+
+        Log.i("setting TIme", Long.toString(selectedTimestamp));
 
         // Check repeat type
-        if (mRepeatType.equals("Minute")) {
-            mRepeatTime = Integer.parseInt(mRepeatNo) * milMinute;
-        } else if (mRepeatType.equals("Hour")) {
-            mRepeatTime = Integer.parseInt(mRepeatNo) * milHour;
-        } else if (mRepeatType.equals("Day")) {
-            mRepeatTime = Integer.parseInt(mRepeatNo) * milDay;
-        } else if (mRepeatType.equals("Week")) {
-            mRepeatTime = Integer.parseInt(mRepeatNo) * milWeek;
-        } else if (mRepeatType.equals("Month")) {
-            mRepeatTime = Integer.parseInt(mRepeatNo) * milMonth;
+        // 알람 인터벌로 고쳤음
+        if (mRepeatType.equals("5 Minutes")) {
+            mRepeatTime = 5 * milMinute;
+        } else if (mRepeatType.equals("10 Minutes")) {
+            mRepeatTime = 10 * milMinute;
+        } else if (mRepeatType.equals("15 Minutes")) {
+            mRepeatTime = 15  * milMinute;
+        } else if (mRepeatType.equals("20 Minutes")) {
+            mRepeatTime = 20 * milMinute;
+        } else if (mRepeatType.equals("30 Minutes")) {
+            mRepeatTime = 30 * milMinute;
         }
 
-        Log.i("repeat Number: ", mRepeatNo);
-        Log.i("test add", Integer.toString(Integer.parseInt(mRepeatNo)));
-        minute_repeat = Integer.parseInt(mRepeatNo);
-        for_reminder_uri = mCurrentReminderUri;
+//        Log.i("repeat Number: ", mRepeatNo);
+//        Log.i("test add", Integer.toString(Integer.parseInt(mRepeatNo)));
+//        minute_repeat = Integer.parseInt(mRepeatNo);
+//        for_reminder_uri = mCurrentReminderUri;
 
         // 알람 처음 setting하는 경우
         if (mCurrentReminderUri == null) {
@@ -655,24 +804,32 @@ public class AddReminderActivity extends AppCompatActivity implements
 
         // Create a new notification
         // selectedTimestamp -> 사용자가 설정한 시간
-        if (mActive.equals("true")) {
-            if (mRepeat.equals("true")) {
-                //반복 알람설정하는 경우
-                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
+        if (mActive.equals("true")) { // 이건 알람 모양이 울리도록 선택되었을때 알람을 설정하게 만들어 놓은 것
 
-            } else if (mRepeat.equals("false")) {
-                // 그냥 알람 설정하는 경우
-                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri);
+            if(mSunToggleButton.isChecked()|mMonToggleButton.isChecked()|mTueToggleButton.isChecked()
+                    |mWedToggleButton.isChecked()|mThrToggleButton.isChecked()|mFriToggleButton.isChecked()|mSatToggleButton.isChecked())
+            {
+                // mRepeatTime이 skip했을 때 얼마 후에 울릴지
+                // bolList -> 각 toggle 버튼이 뭐가 눌렷는지 boolean arraylist임 (일 월 화 수 목 금 토 순서)
+                // mCalendar -> day를 뺀/ 년,월,시,분,초가 들어가있음
+                // selectedTimestamp -> 몇일인지를 뺀 나머지로 시간처리되어있음
+                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime, bolList, mCalendar);
             }
-
-//            Toast.makeText(this, "Alarm time is " + selectedTimestamp,
-//                    Toast.LENGTH_LONG).show();
+            else {// 하나라도 안눌려 있으면 특정 날짜로 alarm 세팅 할 것
+                // 특정 날짜에 대한 시간이 설정되어있음
+                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
+            }
+//            if (mRepeat.equals("true")) {
+//                //반복 알람설정하는 경우
+//                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
+//
+//            } else if (mRepeat.equals("false")) {
+//                // 그냥 알람 설정하는 경우
+//                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri);
+//            }
         }
-
         // Create toast to confirm new reminder
-        Toast.makeText(getApplicationContext(), "Saved",
-                Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
     }
 
     // On pressing the back button
@@ -696,6 +853,13 @@ public class AddReminderActivity extends AppCompatActivity implements
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO,
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE,
                 AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE,
+                AlarmReminderContract.AlarmReminderEntry.KEY_SUNDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_MONDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_TUESDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY
         };
 
         // This loader will execute the ContentProvider's query method on a background thread
@@ -728,6 +892,16 @@ public class AddReminderActivity extends AppCompatActivity implements
             int repeatTypeColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE);
             int activeColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE);
 
+            int sundayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_SUNDAY);
+            int mondayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_MONDAY);
+            int tuesdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_TUESDAY);
+            int wednesdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY);
+            int thursdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY);
+            int fridayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY);
+            int saturdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY);
+
+
+
             // Extract out the value from the Cursor for the given column index
             String title = cursor.getString(titleColumnIndex);
             String date = cursor.getString(dateColumnIndex);
@@ -737,6 +911,17 @@ public class AddReminderActivity extends AppCompatActivity implements
             String repeatType = cursor.getString(repeatTypeColumnIndex);
             String active = cursor.getString(activeColumnIndex);
 
+            // toggle 변수 추가해야 함
+
+            int temp_sun = cursor.getInt(sundayColumnIndex);
+            int temp_mon = cursor.getInt(mondayColumnIndex);
+            int temp_tue = cursor.getInt(tuesdayColumnIndex);
+            int temp_wen = cursor.getInt(wednesdayColumnIndex);
+            int temp_thr = cursor.getInt(thursdayColumnIndex);
+            int temp_fri = cursor.getInt(fridayColumnIndex);
+            int temp_sat = cursor.getInt(saturdayColumnIndex);
+
+
             // 얻어온 string을 view에 초기화
             // Update the views on the screen with the values from the database
             mTitleText.setText(title);
@@ -744,7 +929,7 @@ public class AddReminderActivity extends AppCompatActivity implements
             mTimeText.setText(time);
             mRepeatNoText.setText(repeatNo);
             mRepeatTypeText.setText(repeatType);
-            mRepeatText.setText("Every " + repeatNo + " " + repeatType + "(s)");
+            mRepeatText.setText("Every " + " " + mRepeatType + ", " + mRepeatNo + "times");
             // Setup up active buttons
             // Setup repeat switch
             if (repeat.equals("false")) {
@@ -754,6 +939,16 @@ public class AddReminderActivity extends AppCompatActivity implements
             } else if (repeat.equals("true")) {
                 mRepeatSwitch.setChecked(true);
             }
+
+            // toggle 버튼 true / false 해야 함
+            if(temp_sun != 0) mSunToggleButton.setChecked(true); else mSunToggleButton.setChecked(false);
+            if(temp_mon != 0) mMonToggleButton.setChecked(true); else mMonToggleButton.setChecked(false);
+            if(temp_tue != 0) mTueToggleButton.setChecked(true); else mTueToggleButton.setChecked(false);
+            if(temp_wen != 0) mWedToggleButton.setChecked(true); else mWedToggleButton.setChecked(false);
+            if(temp_thr != 0) mThrToggleButton.setChecked(true); else mThrToggleButton.setChecked(false);
+            if(temp_fri != 0) mFriToggleButton.setChecked(true); else mFriToggleButton.setChecked(false);
+            if(temp_sat != 0) mSatToggleButton.setChecked(true); else mSatToggleButton.setChecked(false);
+
         }
     }
 
@@ -763,8 +958,5 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     }
 
-    public int getRepeatNo(){
-        return  Integer.parseInt(mRepeatNo);
-    }
 
 }

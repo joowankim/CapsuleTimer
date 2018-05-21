@@ -35,7 +35,7 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
 
@@ -95,7 +95,15 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT,
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_NO,
                 AlarmReminderContract.AlarmReminderEntry.KEY_REPEAT_TYPE,
-                AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE
+                AlarmReminderContract.AlarmReminderEntry.KEY_ACTIVE,
+                AlarmReminderContract.AlarmReminderEntry.KEY_SUNDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_MONDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_TUESDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY
+
 
         };
 
