@@ -7,7 +7,7 @@ import android.content.Intent;
 /**
  * Created by leejisung on 2018-05-14.
  */
-
+// 아직 사용 안함
 public class AlertReceiver extends BroadcastReceiver {
 
     @Override

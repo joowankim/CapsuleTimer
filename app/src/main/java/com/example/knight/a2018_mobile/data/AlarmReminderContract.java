@@ -26,7 +26,7 @@ public class AlarmReminderContract {
 
         // 명시한 data(string)의 raw를 URI로 만드는 작업 ==> PATH_VEHICLE가 있는 raw를 uri로 가져옴
         // Provider의 데이터 중 접근하려는 데이터는 Uri로 나타낸다. Uri는 관계형 DB에서 Table이나 View와 비슷한 역할
-        // CONTENT_URI = content://com.delaroystudios.alarmreminder/reminder-path
+        // CONTENT_URI = content://com.example.knight.a2018_mobile/reminder-path
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_VEHICLE);
 
         public static final String CONTENT_LIST_TYPE =
@@ -49,6 +49,18 @@ public class AlarmReminderContract {
         public static final String KEY_REPEAT_NO = "repeat_no";
         public static final String KEY_REPEAT_TYPE = "repeat_type";
         public static final String KEY_ACTIVE = "active";
+
+        public static final String KEY_SUNDAY = "sunday";
+        public static final String KEY_MONDAY = "monday";
+        public static final String KEY_TUESDAY = "tuesday";
+        public static final String KEY_WEDNESDAY = "wednesday";
+        public static final String KEY_THURSDAY = "thursday";
+        public static final String KEY_FRIDAY = "friday";
+        public static final String KEY_SATURDAY = "saturday";
+
+        public static final String KEY_REMAIN = "remaining";
+
+
 
     }
 

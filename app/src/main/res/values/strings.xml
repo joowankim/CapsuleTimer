@@ -31,12 +31,12 @@
 
     <!--For alarm -->
 
-    <string name="no_cardetails">Click on the button below to begin creating your reminder!</string>
-    <string name="title_activity_add_reminder">Add Reminder</string>
-    <string name="title_activity_edit_reminder">Edit Reminder</string>
+    <string name="no_cardetails">Click on the button below to begin creating your alarm!</string>
+    <string name="title_activity_add_reminder">Add alarm</string>
+    <string name="title_activity_edit_reminder">Edit alarm</string>
     <string name="title_activity_licenses">Licenses</string>
 
-    <string name="add_reminder">Reminder</string>
+    <string name="add_reminder">alarm</string>
     <string name="details">Details</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
@@ -44,15 +44,26 @@
     <string name="repeat">Repeat</string>
     <string name="repeat_off">Off</string>
     <string name="repeat_no">Repetition Interval </string>
-    <string name="repeat_type">Type of Repetitions</string>
+    <string name="repeat_type">Time of Repetitions</string>
+    <string name="skip_type">Skip Interval</string>
     <string name="repeat_date">RepeatDate</string>
+    <string name="remain_no">남은 약 개수</string>
+
+    <string name="sunday_week">일</string>
+    <string name="monday_week">월</string>
+    <string name="tuesday_week">화</string>
+    <string name="wednesday_week">수</string>
+    <string name="thursday_week">목</string>
+    <string name="friday_week">금</string>
+    <string name="saturday_week">토</string>
+
 
 
     <string name="action_discard_reminder">Discard Reminder</string>
     <string name="action_save_reminder">Save Reminder</string>
 
-    <string name="editor_activity_title_new_reminder">Add Reminder Details</string>
-    <string name="editor_activity_title_edit_reminder">Edit Reminder</string>
+    <string name="editor_activity_title_new_reminder">Add Alarm Details</string>
+    <string name="editor_activity_title_edit_reminder">Edit Alarm</string>
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
     <string name="discard">Discard</string>
 
