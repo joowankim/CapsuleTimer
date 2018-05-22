@@ -25,33 +25,49 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:stretchColumns="0">
         <TableRow>
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/medicine_name"
-                android:hint="@string/medicine_info_search_hint"
-                android:backgroundTint="#7777ff"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search"
-                android:id="@+id/medicine_search_btn"/>
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:id="@+id/medicine_name"
+                    android:hint="@string/medicine_info_search_hint"
+                    android:backgroundTint="#7777ff"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:id="@+id/medicine_search_btn"/>
+            </LinearLayout>
         </TableRow>
-        <TableRow>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <TableRow
+            android:layout_weight="3">
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#bffcc6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/memo"
+                android:textSize="20dp"
                 android:id="@+id/to_memo"/>
         </TableRow>
-        <TableRow><!-- 임시 report button-->
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+        <TableRow
+            android:layout_weight="3"><!-- 임시 report button-->
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="#85e3ff"
                 android:text="리포트"
+                android:textSize="20dp"
                 android:id="@+id/to_report"/>
 
         </TableRow>
@@ -62,18 +78,28 @@
                 <!--android:text="@string/login"-->
                 <!--android:id="@+id/login"/>-->
         <!--</TableRow>-->
-        <TableRow>
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+        <TableRow
+            android:layout_weight="3">
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:background="#fff5ba"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
                 android:text="Logout"
+                android:textSize="20dp"
                 android:id="@+id/logout"/>
         </TableRow>
-        <TableRow><!-- 임시 alarm list button-->
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+        <TableRow
+            android:layout_weight="3"><!-- 임시 alarm list button-->
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:background="#ffabab"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
                 android:text="알람 리스트"
+                android:textSize="20dp"
                 android:id="@+id/to_alarm_list"/>
 
         </TableRow>
@@ -83,18 +109,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/img"/>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
-
 
 </android.support.constraint.ConstraintLayout>

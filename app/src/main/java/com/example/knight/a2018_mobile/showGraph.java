@@ -4,14 +4,16 @@
 
 package com.example.knight.a2018_mobile;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,11 +93,11 @@ public class showGraph extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         singleLine  = new FragmentSingle();
         doubleLine  = new FragmentDouble();
@@ -139,47 +141,53 @@ public class showGraph extends AppCompatActivity {
         memoList = new FragmentMemoList();
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedLine).commit();
+        ViewPager pager = (ViewPager) findViewById(R.id.container);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("그래프"));
-        tabs.addTab(tabs.newTab().setText("달력"));
-        tabs.addTab(tabs.newTab().setText("메모"));
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(pager);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedLine).commit();
+
+//        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+//        tabs.addTab(tabs.newTab().setText("그래프"));
+//        tabs.addTab(tabs.newTab().setText("달력"));
+//        tabs.addTab(tabs.newTab().setText("메모"));
 
         // 지금은 많이 사용하는게 아니라 줄 그어 진다는데 사실 잘 모르겠지만 돌아가긴 합니다
-        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                Log.d("그래프", "선택된 탭 : " + position);
 
-                // 임시로 전체다 single line
-                Fragment selected = null;
-                if(position == 0) {
-                    selected = selectedLine;
-                } else if (position == 1) {
-                    selected = singleCalendar;
-                } else if (position == 2) {
-                    selected = memoList;
-                }
-                // fragment 바꿔줌
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
+
+    }
+
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+
+        private final String[] TITLES = {"Graph", "Calendar", "Memo"};
+
+        MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLES.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return selectedLine;
             }
-
-
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            else if (position == 1) {
+                return singleCalendar;
             }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            else {
+                return memoList;
             }
-        });
-
-
+        }
     }
 }
 

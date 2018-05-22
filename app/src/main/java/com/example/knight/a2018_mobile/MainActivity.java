@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonRectangle;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,11 +32,11 @@ import java.net.URLConnection;
 public class MainActivity extends AppCompatActivity {
 
     Button medicine_search_btn;
-    Button to_memo;
-    Button to_report;
-    Button login;
-    Button logout;
-    Button to_alarmList;
+    ButtonRectangle to_memo;
+    ButtonRectangle to_report;
+    ButtonRectangle login;
+    ButtonRectangle logout;
+    ButtonRectangle to_alarmList;
     EditText medicine_name_edt;
     ImageView img;
     String res;
@@ -56,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main); // 이 부분이 XML을 자바 객체로 변경해주는 부분
 
         medicine_name_edt = (EditText) findViewById(R.id.medicine_name);  // Find edit text widget in layout
-        medicine_search_btn = (Button) findViewById(R.id.medicine_search_btn);  // Find button widget in layout
-        to_memo = (Button) findViewById(R.id.to_memo);  // Find button widget in layout
-        to_report = (Button) findViewById(R.id.to_report);
+        medicine_search_btn = findViewById(R.id.medicine_search_btn);  // Find button widget in layout
+        to_memo = findViewById(R.id.to_memo);  // Find button widget in layout
+        to_report = findViewById(R.id.to_report);
 //        login = (Button) findViewById(R.id.login);
         img = (ImageView) findViewById(R.id.img);
-        logout = (Button) findViewById(R.id.logout);
+        logout = findViewById(R.id.logout);
         to_alarmList = findViewById(R.id.to_alarm_list);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -174,8 +176,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Alarm_main.class);
-                if (flag == 0)
+                if (flag == 0) {
                     intent.setClass(getApplicationContext(), Login.class);
+                    Log.d("Test", "TEST");
+                }
                 startActivity(intent);
             }
         });
@@ -193,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             flag = 1;
-            logout.setText("Logout");
+//            logout.setText("Logout");
         }
     }
 }
