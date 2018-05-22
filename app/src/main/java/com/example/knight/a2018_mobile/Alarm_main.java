@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.example.knight.a2018_mobile.data.AlarmReminderContract;
 import com.example.knight.a2018_mobile.data.AlarmReminderDbHelper;
+import com.example.knight.a2018_mobile.data.medicineReportDbHelper;
 
 public class Alarm_main extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -25,6 +26,7 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
     private Toolbar mToolbar;
     AlarmCursorAdapter mCursorAdapter;
     AlarmReminderDbHelper alarmReminderDbHelper = new AlarmReminderDbHelper(this);
+    medicineReportDbHelper reportDbHelper = new medicineReportDbHelper(this);
     ListView reminderListView;
     ProgressDialog prgDialog;
 
