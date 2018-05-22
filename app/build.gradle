@@ -49,7 +49,11 @@ dependencies {
     implementation 'junit:junit:4.12'
     // for nullable annotations
     implementation 'com.android.support:support-annotations:+'
-
+    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+//    implementation 'info.hoang8f:fbutton:1.0.5'
+    implementation 'com.jpardogo.materialtabstrip:library:1.1.1'
+    implementation 'com.android.support:cardview-v7:24.2.0'
+//    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
 }
 
 repositories {

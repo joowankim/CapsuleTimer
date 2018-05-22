@@ -1,19 +1,16 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,7 +22,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +37,7 @@ public class MemoListAdapter extends BaseAdapter {
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private LayoutInflater inflater;
+    int fragment = 0;
     String request;
     MySocket sock;
     Map<String , Bitmap> bmp = new HashMap<>();
@@ -61,6 +58,15 @@ public class MemoListAdapter extends BaseAdapter {
     public MemoListAdapter(Context context, String jsonString) {
         request = jsonString;
         myContext = context;
+        inflater = (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        refresh();
+    }
+
+    public MemoListAdapter(Context context, String jsonString, int fragment) {
+        request = jsonString;
+        myContext = context;
+        this.fragment = fragment;
         inflater = (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         refresh();
@@ -104,7 +110,7 @@ public class MemoListAdapter extends BaseAdapter {
         Object trash = memos.remove(position);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
         Log.d("LEN", String.valueOf(bmp.size()));
 
@@ -150,11 +156,33 @@ public class MemoListAdapter extends BaseAdapter {
                 viewHolder.text = convertView.findViewById(R.id.memo_text);
                 viewHolder.date = convertView.findViewById(R.id.memo_time);
                 viewHolder.img = convertView.findViewById(R.id.memo_image);
+                viewHolder.close = convertView.findViewById(R.id.close);
+                viewHolder.edit = convertView.findViewById(R.id.edit);
 
 
                 viewHolder.img.setImageBitmap(bmp.get(memo.get("image").toString()));
                 viewHolder.text.setText(memo.getString("text"));
                 viewHolder.date.setText(memo.getString("time"));
+
+                viewHolder.close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 0);
+                    }
+                });
+
+                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 1);
+                    }
+                });
+
+                if (fragment == 1) {
+                    viewHolder.close.setVisibility(View.GONE);
+                    viewHolder.edit.setVisibility(View.GONE);
+                }
+
                 convertView.setId(memo.getInt("id"));
                 convertView.setTag(viewHolder);
             }
@@ -177,6 +205,8 @@ public class MemoListAdapter extends BaseAdapter {
         public TextView text;
         public TextView date;
         public ImageView img;
+        public ImageButton close;
+        public ImageButton edit;
     };
 
 }

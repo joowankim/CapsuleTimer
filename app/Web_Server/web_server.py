@@ -116,6 +116,36 @@ def search_medicine():
     pprint.pprint(result)
     return render_template('Medicine_list.html', medicines=result)
 
+@app.route('/report', methods=['GET'])
+def report():
+    user = request.cookies.get("userID")
+    medicine = "Tylenol"
+    result = json.loads(DB.medicine_taking(user, medicine, datetime.datetime.fromtimestamp(0).strftime("%Y%m%d"), datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d")))
+    res = []
+    print result
+    for date in result['record']:
+        date = date['Date'].split(' ')
+        print ''.join(date[0].split('-'))+''.join(date[1].split(':'))
+        res.append(float(''.join(date[0].split('-'))+''.join(date[1].split(':')[:2])))
+    res = dict(zip(range(len(res)), res))
+    return render_template("Report.html", res=res)
+
+def get_read_score(request):
+    user = Login.get_current_user(request)
+	#로그인이 되어있지 않다면 login_please.html 띄우기
+    if user == -1:
+        return render(request, "login_please.html")
+	#읽기시험 최근 30개를 역순으로 출력
+    read_scores = json.loads(user.readding_level)[:30][::-1]
+    data = []
+    # for idx in range(len(read_scores)):
+    #     data.append({"close": read_scores[idx][0].strip('%'), "date": idx + 1})
+	#각 시험의 점수 출력
+    for idx, value in enumerate(read_scores):
+        data.append({"close": value[0].strip('%'), "date": idx+1})
+    # data = data[::-1]
+    return JsonResponse(data, safe=False)
+
 def smartphone_connection():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("", 6000))

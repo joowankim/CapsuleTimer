@@ -25,3 +25,10 @@ import DB
 #         print ''.join([str(random.randint(1, 45))+" " for _ in range(6)])
 #
 # lotery(input())
+
+import time
+import datetime
+
+print datetime.datetime.fromtimestamp(0).strftime("%Y-%m-%d")
+print datetime.datetime.fromtimestamp(0).strftime("%Y-%m-%d")
+print datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d-%H-%M-%S")

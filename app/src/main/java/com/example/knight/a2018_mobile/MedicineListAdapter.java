@@ -2,20 +2,17 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by Knight on 2018. 5. 4..
@@ -24,6 +21,7 @@ import static android.support.v4.content.ContextCompat.startActivity;
 public class MedicineListAdapter extends BaseAdapter {
     public JSONObject myMedicine;
     public JSONArray medicines;
+    public LayoutInflater inflater;
 
     Context myContext;
 
@@ -32,6 +30,7 @@ public class MedicineListAdapter extends BaseAdapter {
             Log.d("TEST", jsonString);
             myMedicine = new JSONObject(jsonString);
             medicines = myMedicine.getJSONArray("medicine");
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //            for (int i = 0; i < medicines.length(); i++) {
 //
 //                JSONObject medicine = medicines.getJSONObject(i);
@@ -70,44 +69,55 @@ public class MedicineListAdapter extends BaseAdapter {
         return i;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         LinearLayout view = null;
+        ViewHolder viewHolder = new ViewHolder();
         try {
             final JSONObject medicine = medicines.getJSONObject(position);
-            view = new LinearLayout(myContext);
-            TextView name = new TextView(myContext);
-            TextView company = new TextView(myContext);
-            TextView ingredient = new TextView(myContext);
-            TextView type = new TextView(myContext);
 
-            name.setText(medicine.getString("name"));
-            company.setText(medicine.getString("company"));
-            ingredient.setText(medicine.getString("ingredient"));
-            type.setText(medicine.getString("type"));
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.medicine_item, parent, false);
+                convertView.setClickable(true);
+                viewHolder.name = convertView.findViewById(R.id.medicine_name);
+                viewHolder.company = convertView.findViewById(R.id.company);
+                viewHolder.ingredient = convertView.findViewById(R.id.ingredient);
 
-            view.setOrientation(LinearLayout.VERTICAL);
-            view.addView(name);
-            view.addView(company);
-            view.addView(ingredient);
-            view.addView(type);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        Intent intent = new Intent(myContext, Show_medicine_info.class);
-                        intent.putExtra("link", medicine.getString("link"));
-                        myContext.startActivity(intent);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                viewHolder.name.setText(medicine.getString("name"));
+                viewHolder.company.setText(medicine.getString("company"));
+                viewHolder.ingredient.setText(medicine.getString("ingredient"));
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            Intent intent = new Intent(myContext, Show_medicine_info.class);
+                            intent.putExtra("link", medicine.getString("link"));
+                            myContext.startActivity(intent);
+                            } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                });
 
-                }
-            });
-//            img.setimage
+                convertView.setTag(viewHolder);
+            }
+
+            else {
+                viewHolder = (MedicineListAdapter.ViewHolder) convertView.getTag();
+                viewHolder.name.setText(medicine.getString("name"));
+                viewHolder.company.setText(medicine.getString("company"));
+                viewHolder.ingredient.setText(medicine.getString("ingredient"));
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return view;
+        return convertView;
+    }
+
+    public class ViewHolder {
+        public TextView name;
+        public TextView company;
+        public TextView ingredient;
     }
 }

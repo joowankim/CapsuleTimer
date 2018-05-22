@@ -1,20 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:contentPadding="10dp"
+    app:cardElevation="5dp"
+    android:layout_marginBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/memo_text"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/memo_time"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/memo_image"/>
+        android:orientation="vertical">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_name"
+            android:background="@drawable/background_transparent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:id="@+id/close"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_text"
+            android:background="@drawable/background_transparent"
+            android:layout_toLeftOf="@+id/close"
+            android:clickable="true"
+            android:id="@+id/edit"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/memo_image"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:id="@+id/memo_text"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/memo_text"
+            android:gravity="right"
+            android:textSize="14dp"
+            android:id="@+id/memo_time"/>
+        <ImageView
+            android:layout_width="660dp"
+            android:layout_height="360dp"
+            android:id="@+id/memo_image"
+            android:layout_below="@+id/close"/>
 
-</LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</FrameLayout>
