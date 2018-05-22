@@ -34,7 +34,8 @@ public class AlarmReminderDbHelper extends SQLiteOpenHelper {
                 + AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY + " INTEGER NOT NULL, "
                 + AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY + " INTEGER NOT NULL, "
                 + AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY + " INTEGER NOT NULL, "
-                + AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY + " INTEGER NOT NULL " + " );";
+                + AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY + " INTEGER NOT NULL, "
+                + AlarmReminderContract.AlarmReminderEntry.KEY_REMAIN + " TEXT NOT NULL " + " );";
 
         // Execute the SQL statement
         sqLiteDatabase.execSQL(SQL_CREATE_ALARM_TABLE);

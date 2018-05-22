@@ -59,6 +59,7 @@ public class AlarmCursorAdapter extends CursorAdapter {
         int fridayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY);
         int saturdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY);
         int sundayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_SUNDAY);
+        int remainColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_REMAIN);
 
 
         String title = cursor.getString(titleColumnIndex);
@@ -68,6 +69,7 @@ public class AlarmCursorAdapter extends CursorAdapter {
         String repeatNo = cursor.getString(repeatNoColumnIndex);
         String repeatType = cursor.getString(repeatTypeColumnIndex);
         String active = cursor.getString(activeColumnIndex);
+        String remain = cursor.getColumnName(remainColumnIndex);
 
         String dateTime = date + " " + time;
 

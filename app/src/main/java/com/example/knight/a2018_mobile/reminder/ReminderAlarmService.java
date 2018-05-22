@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.example.knight.a2018_mobile.data.AlarmReminderContract;
 
+import java.util.Calendar;
+
 
 public class ReminderAlarmService extends IntentService {
     private static final String TAG = ReminderAlarmService.class.getSimpleName();
@@ -21,10 +23,11 @@ public class ReminderAlarmService extends IntentService {
     //This is a deep link intent, and needs the task stack
     // AlarmScheduler - setAlarm method에서 call함
     // 전달받은 uri로 pendingIntent 만들어서 ReminderAlarmService를 call하는 pendingIntent를 반환
-    public static PendingIntent getAlarmPendingIntent(Context context, Uri uri, long repeatTime, boolean isRepeat) {
+    public static PendingIntent getAlarmPendingIntent(Context context, Uri uri, long repeatTime, boolean isRepeat, boolean isSkip) {
         Intent action = new Intent(context, ReminderAlarmService.class);
         action.putExtra("repeatTime", repeatTime); // skip때 얼마 후에 울릴지
         action.putExtra("isRepeat", isRepeat); // 월화수목금토일 눌렷는지 아닌지
+        action.putExtra("isSkip", isSkip); // 스킵을 누른 후의 알람인지 아닌지
         action.setData(uri);
         return PendingIntent.getService(context, 0, action, PendingIntent.FLAG_UPDATE_CURRENT);
     }
@@ -33,14 +36,31 @@ public class ReminderAlarmService extends IntentService {
     // AlarmScheduler - setAlarm method에서 call함
     // 전달받은 uri로 pendingIntent 만들어서 ReminderAlarmService를 call하는 pendingIntent를 반환
     // 여기서 request code를 구분해서 알람을 요일마다 따로 설정을 해줘야하는거 같은데
-    public static PendingIntent getAlarmRepeatPendingIntent(Context context, Uri uri, long repeatTime, boolean isRepeat, int dayInt) {
+    public static PendingIntent getAlarmRepeatPendingIntent(Context context, Uri uri, long repeatTime, boolean isRepeat, boolean isSkip, int dayInt, Calendar c) {
         Intent action = new Intent(context, ReminderAlarmService.class);
         action.putExtra("repeatTime", repeatTime); // skip때 얼마 후에 울릴지
         action.putExtra("isRepeat", isRepeat); // 월화수목금토일 눌렷는지 아닌지
-        action.putExtra("day_int", dayInt);
+        action.putExtra("isSkip", isSkip); // 스킵을 누른 후의 알람인지 아닌지
+        action.putExtra("day_int", dayInt); // 무슨 요일인지
+        action.putExtra("hour", c.get(Calendar.HOUR_OF_DAY));
+        action.putExtra("minute", c.get(Calendar.MINUTE));
         action.setData(uri);
         Log.i("무슨요일: ", Integer.toString(dayInt));
         return PendingIntent.getService(context, dayInt, action, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    // 스킵눌렀을 때 반복횟수 업데이트 하기 위함
+    public static PendingIntent getSkipAlarmPendingIntent(Context context, Uri uri, long repeatTime, boolean isRepeat, boolean isSkip, int repeat_time, int dayint,  Calendar c) {
+        Intent action = new Intent(context, ReminderAlarmService.class);
+        action.putExtra("repeatTime", repeatTime); // skip때 얼마 후에 울릴지
+        action.putExtra("isRepeat", isRepeat); // 월화수목금토일 눌렷는지 아닌지
+        action.putExtra("isSkip", isSkip); // 스킵을 누른 후의 알람인지 아닌지
+        action.putExtra("times_of_repeat", repeat_time); // 몇번 반복했는지 (-1하면 됨)
+        action.putExtra("hour", c.get(Calendar.HOUR_OF_DAY));
+        action.putExtra("minute", c.get(Calendar.MINUTE));
+        action.putExtra("day_int ", dayint);
+        action.setData(uri);
+        return PendingIntent.getService(context, 0, action, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public ReminderAlarmService() {
@@ -55,14 +75,31 @@ public class ReminderAlarmService extends IntentService {
 
         long repeatTime;
         boolean isRepeat;
+        boolean isSkip;
+        int day_int = 0;
+        int repeat_times = 0;
+        int hour;
+        int minute;
+
 
         // 사용자가 설정한 알람 시간을 uri로 가져옴
         Uri uri = intent.getData();
         repeatTime = intent.getLongExtra("repeatTime", 0);
         isRepeat = intent.getBooleanExtra("isRepeat", false);
+        isSkip = intent.getBooleanExtra("isSkip", false);
+        if(isRepeat) day_int = intent.getIntExtra("day_int", 0);
+        if(isSkip) repeat_times = intent.getIntExtra("times_of_repeat", 0);
+
+        hour = intent.getIntExtra("hour", 0);
+        minute = intent.getIntExtra("minute", 0);
+
 
         Log.i("repeatTime 확인: ", Long.toString(repeatTime));
         Log.i("isRepeat 확인: ", Boolean.toString(isRepeat));
+        Log.i("isSkip 확인: ", Boolean.toString(isSkip));
+        Log.i("day_int 확인: ", Integer.toString(day_int));
+        Log.i("hour 확인: ", Integer.toString(hour));
+        Log.i("minute 확인: ", Integer.toString(minute));
 
         //Display a notification to view the task details
 //        Intent action = new Intent(this, AddReminderActivity.class);
@@ -120,8 +157,14 @@ public class ReminderAlarmService extends IntentService {
         intent = new Intent(this, AlarmCheckActivity.class);
         Bundle b = new Bundle();
         b.putString("title", description); // 제목
+        b.putInt("hour", hour);
+        b.putInt("minute", minute);
         b.putString("repeat_no", repeat_no); // 몇번이나 다시 울리게 할지
         b.putLong("repeatTime", repeatTime); // skip 누르고 얼마 후에 울릴지
+        b.putBoolean("isRepeat", isRepeat);
+        b.putBoolean("isSkip", isSkip);
+        if(isRepeat) b.putInt("day_int", day_int);
+        if(isSkip) b.putInt("repeat_times", repeat_times);
         intent.putExtras(b);
         intent.setData(uri);
         startActivity(intent);

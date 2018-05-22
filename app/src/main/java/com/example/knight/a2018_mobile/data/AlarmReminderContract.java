@@ -58,6 +58,8 @@ public class AlarmReminderContract {
         public static final String KEY_FRIDAY = "friday";
         public static final String KEY_SATURDAY = "saturday";
 
+        public static final String KEY_REMAIN = "remaining";
+
 
 
     }

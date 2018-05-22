@@ -20,10 +20,11 @@ public class AlarmScheduler {
      * @param reminderTask Uri referencing the task in the content provider
      */
 
-    private static final long milDay = 86400000L;
+    //private static final long milDay = 86400000L;
     private static final long A_WEEK = 1000*60*60*24*7;
     private long currentTime;
     private boolean isRepeat;
+    private boolean isSkip;
     private int hour;
     private int minute;
 
@@ -35,11 +36,12 @@ public class AlarmScheduler {
     public void setAlarm(Context context, long alarmTime, Uri reminderTask, long repeatTime) {
         // alarm manager를 얻어옴
         isRepeat = false;
+        isSkip = false;
         AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
 
         // reminderTask -> 사용자가 설정한 alarm uri를 getRemiderPendingIntent method로 전달
         PendingIntent operation =
-                ReminderAlarmService.getAlarmPendingIntent(context, reminderTask, repeatTime, isRepeat);
+                ReminderAlarmService.getAlarmPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip);
 
         currentTime = System.currentTimeMillis();
         // 만약 현재 시간보다 알람을 설정한 시간이 작다면 알람이 바로 울려버리기 때문에 알람을 설정하지 않게함 (왜냐면 특정 날짜로 한 경우이기 때문)
@@ -65,6 +67,7 @@ public class AlarmScheduler {
 
     public void setRepeatAlarm(Context context, long alarmTime, Uri reminderTask, long repeatTime, boolean[] bolList, Calendar c) {
         isRepeat = true;
+        isSkip = false;
         AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
 
         hour = c.get(Calendar.HOUR_OF_DAY);
@@ -76,13 +79,15 @@ public class AlarmScheduler {
 
         if(bolList[1]) { //일요일
             Log.i("일요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 1);
             c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip, 1, c);
+
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -90,12 +95,14 @@ public class AlarmScheduler {
         }
         if(bolList[2]) { //월요일
             Log.i("월요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 2);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,2, c);
+
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -103,12 +110,14 @@ public class AlarmScheduler {
         }
         if(bolList[3]) { //화요일
             Log.i("화요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 3);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,3, c);
+
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -119,12 +128,13 @@ public class AlarmScheduler {
         }
         if(bolList[4]) { //수요일
             Log.i("수요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 4);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat,isSkip, 4, c);
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -132,12 +142,13 @@ public class AlarmScheduler {
         }
         if(bolList[5]) { //목요일
             Log.i("목요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 5);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,5, c);
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -145,12 +156,13 @@ public class AlarmScheduler {
         }
         if(bolList[6]) { //금요일
             Log.i("금요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 6);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,6, c);
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -158,12 +170,14 @@ public class AlarmScheduler {
         }
         if(bolList[7]) { //토요일
             Log.i("토요일", "true");
-            PendingIntent operation =
-                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 7);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
             c.set(Calendar.HOUR_OF_DAY, hour);
             c.set(Calendar.MINUTE, minute);
             c.set(Calendar.SECOND, 0);
+            PendingIntent operation =
+                    ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,7, c);
+
             alarmTime = c.getTimeInMillis();
             if(alarmTime < currentTime)
                 alarmTime += A_WEEK;
@@ -171,11 +185,52 @@ public class AlarmScheduler {
         }
     }
 
-    public void cancelAlarm(Context context, Uri reminderTask, long repeatTime) {
+    // 스킵을 누르면 현재 시간으로부터 몇 분 후에 다시 알람을 등록할 것인지
+    // 현재 skip을 누른 횟수가 몇번째 인지 업데이트
+    public void setSkipAlarm(Context context, long alarmTime, Uri reminderTask, long repeatTime, int repeat_time, int dayInt, Calendar c) {
+        // alarm manager를 얻어옴
+        isRepeat = true;
+        isSkip = true;
+        repeat_time++;
+        Log.i("무슨요일일까용??", Integer.toString(dayInt));
+
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+        currentTime = System.currentTimeMillis();
+
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+
+        AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
+
+        // reminderTask -> 사용자가 설정한 alarm uri를 getRemiderPendingIntent method로 전달
+        PendingIntent operation =
+                ReminderAlarmService.getSkipAlarmPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip, dayInt, repeat_time, c);
+
+//        currentTime = System.currentTimeMillis();
+//        // 만약 현재 시간보다 알람을 설정한 시간이 작다면 알람이 바로 울려버리기 때문에 알람을 설정하지 않게함 (왜냐면 특정 날짜로 한 경우이기 때문)
+//        if(currentTime > alarmTime)
+//            return;
+
+        Log.i("반복 알람이","설정됨");
+
+        // alarm이 설정 됨
+        if (Build.VERSION.SDK_INT >= 23) {
+            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, operation);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            manager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, operation);
+        } else {
+            manager.set(AlarmManager.RTC_WAKEUP, alarmTime, operation);
+        }
+    }
+
+    public void cancelAlarm(Context context, Uri reminderTask, long repeatTime, Calendar c) {
         AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
 
         PendingIntent operation =
-                ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 1);
+                ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, isSkip,1, c);
 
         manager.cancel(operation);
     }

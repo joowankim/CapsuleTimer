@@ -47,6 +47,7 @@
     <string name="repeat_type">Time of Repetitions</string>
     <string name="skip_type">Skip Interval</string>
     <string name="repeat_date">RepeatDate</string>
+    <string name="remain_no">남은 약 개수</string>
 
     <string name="sunday_week">일</string>
     <string name="monday_week">월</string>

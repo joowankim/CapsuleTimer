@@ -102,9 +102,8 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 AlarmReminderContract.AlarmReminderEntry.KEY_WEDNESDAY,
                 AlarmReminderContract.AlarmReminderEntry.KEY_THURSDAY,
                 AlarmReminderContract.AlarmReminderEntry.KEY_FRIDAY,
-                AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY
-
-
+                AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY,
+                AlarmReminderContract.AlarmReminderEntry.KEY_REMAIN
         };
 
         return new CursorLoader(this,   // Parent activity context
