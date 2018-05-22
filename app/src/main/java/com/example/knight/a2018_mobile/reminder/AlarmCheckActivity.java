@@ -24,6 +24,8 @@ public class AlarmCheckActivity extends AppCompatActivity{
     private Button check_btn;
     private Button skip_btn;
 
+    public Uri mCurrentReminderUri;
+
     private static final long A_WEEK = 1000*60*60*24*7;
 
     private int index = 1;
@@ -87,8 +89,6 @@ public class AlarmCheckActivity extends AppCompatActivity{
         check_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                // 약 먹었을 때 여기 해야 함
 
 //                Calendar now = Calendar.getInstance();
 //

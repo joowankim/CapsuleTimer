@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,21 +53,15 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
         reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
                 Intent intent = new Intent(Alarm_main.this, AddReminderActivity.class);
-
                 // ContentUris.withAppendedId --> ID의 raw를 Uri로 만듦 / 인자로 전달된 id의 해당하는 raw를 uri로 가져오게 됨
                 Uri currentVehicleUri = ContentUris.withAppendedId(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentVehicleUri); // 전달받은 uri raw를 intent에 setting한 후 AddRemiderActivity에 넘겨줌
-
                 startActivity(intent);
-
             }
         });
-
-
         // 새로 alarm을 추가하는 button
         mAddReminderButton = (FloatingActionButton) findViewById(R.id.fab);
         mAddReminderButton.setOnClickListener(new View.OnClickListener() {
@@ -77,11 +71,8 @@ public class Alarm_main extends AppCompatActivity implements LoaderManager.Loade
                 startActivity(intent);
             }
         });
-
         //loader 초기화
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
-
-
     }
 
     // loader가 없는 경우 loader 생성

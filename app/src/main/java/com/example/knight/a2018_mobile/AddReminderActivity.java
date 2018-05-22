@@ -147,7 +147,6 @@ public class AddReminderActivity extends AppCompatActivity implements
             // 기존 알람을 선택한 경우
             setTitle(getString(R.string.editor_activity_title_edit_reminder));
 
-
             // initLoader을 호출하면 id를 가진 로더가 있는 지 찾아보고 있다면 해당 로더를 반환하고 없으면 새로 생성한다.
             // initLoader을 호출할 때 id에 해당하는 로더가 없다면 onCreateLoader가 호출되고 해당 메서드 안에서 로더 객체를 생성 후 반환한다
             getLoaderManager().initLoader(EXISTING_VEHICLE_LOADER, null, this);
@@ -647,7 +646,6 @@ public class AddReminderActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-
     // 저장하지 않고 alarm setting 화면 나갈 때
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
@@ -726,14 +724,12 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     // On clicking the save button
     public void saveReminder(){
-
      /*   if (mCurrentReminderUri == null ) {
             // Since no fields were modified, we can return early without creating a new reminder.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
      */
-
         // database에 각 key에 해당하는 value값들 put
         ContentValues values = new ContentValues();
 
@@ -767,7 +763,6 @@ public class AddReminderActivity extends AppCompatActivity implements
             if(mFriToggleButton.isChecked()) bolList[6] = true; else bolList[6] = false;
             if(mSatToggleButton.isChecked()) bolList[7] = true; else bolList[7] = false;
 
-            // day를 안넣으면 안되나;; 확인해야할듯
             mCalendar.set(Calendar.YEAR, mYear);
             mCalendar.set(Calendar.MONTH, --mMonth);
             mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
@@ -803,18 +798,12 @@ public class AddReminderActivity extends AppCompatActivity implements
             mRepeatTime = 30 * milMinute;
         }
 
-//        Log.i("repeat Number: ", mRepeatNo);
-//        Log.i("test add", Integer.toString(Integer.parseInt(mRepeatNo)));
-//        minute_repeat = Integer.parseInt(mRepeatNo);
-//        for_reminder_uri = mCurrentReminderUri;
-
         // 알람 처음 setting하는 경우
         if (mCurrentReminderUri == null) {
             // This is a NEW reminder, so insert a new reminder into the provider,
             // returning the content URI for the new reminder.
             // DB에 Uri 넣고 (세팅한 data 넣는거임) newUri로 반환 받음
             Uri newUri = getContentResolver().insert(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, values);
-
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // newUri가 null이면 insert 실패한것
@@ -828,11 +817,9 @@ public class AddReminderActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-
             //alarm setting이 처음이 아닌경우 update를 해줌
             // update하고 난 후의 table의 몇번 째 행에 들어갔는지 int로 반환됨
             int rowsAffected = getContentResolver().update(mCurrentReminderUri, values, null, null);
-
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // 업데이트가 정상적으로 되지 않았을 때
@@ -864,14 +851,7 @@ public class AddReminderActivity extends AppCompatActivity implements
                 // 특정 날짜에 대한 시간이 설정되어있음
                 new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
             }
-//            if (mRepeat.equals("true")) {
-//                //반복 알람설정하는 경우
-//                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
-//
-//            } else if (mRepeat.equals("false")) {
-//                // 그냥 알람 설정하는 경우
-//                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri);
-//            }
+
         }
         // Create toast to confirm new reminder
         Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
@@ -881,7 +861,6 @@ public class AddReminderActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
 
 
@@ -947,8 +926,6 @@ public class AddReminderActivity extends AppCompatActivity implements
             int saturdayColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_SATURDAY);
 
             int remainColumnIndex = cursor.getColumnIndex(AlarmReminderContract.AlarmReminderEntry.KEY_REMAIN);
-
-
 
             // Extract out the value from the Cursor for the given column index
             String title = cursor.getString(titleColumnIndex);
