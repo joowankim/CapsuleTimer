@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.knight.a2018_mobile.R;
-import com.example.knight.a2018_mobile.data.medicineReportProvider;
 
 import java.util.Calendar;
 
@@ -47,7 +46,9 @@ public class AlarmCheckActivity extends AppCompatActivity{
         title = b.getString("title");
         repeatTime = b.getLong("repeatTime");
 
-        Log.i("repeat_no ", repeat_no);
+        Log.i("repeat_no ", repeat_no); // 반복 횟수
+        Log.i("약 제목: ", title);
+        Log.i("반복할 시간: ", Long.toString(repeatTime));
 
         check_btn = findViewById(R.id.check_btn);
         skip_btn = findViewById(R.id.skip_btn);
@@ -58,13 +59,13 @@ public class AlarmCheckActivity extends AppCompatActivity{
 
                 // 약 먹었을 때 여기 해야 함
 
-                Calendar now = Calendar.getInstance();
-
-                medicineReportProvider temp = new medicineReportProvider();
-
-                temp.itemInsert(uri, title, now.getTimeInMillis());
-
-                flag = 1;
+//                Calendar now = Calendar.getInstance();
+//
+//                medicineReportProvider temp = new medicineReportProvider();
+//
+//                temp.itemInsert(uri, title, now.getTimeInMillis());
+//
+//                flag = 1;
                 finish();
             }
         });
@@ -95,6 +96,7 @@ public class AlarmCheckActivity extends AppCompatActivity{
                     index = 0;
                     // 여기 해야 되고
                     // 알람취소말고 다음날 혹은 지정한 요일로 다시 알람 세팅해야 할듯
+                    // 필요한거 -> request code / a_week / 요일정보 / 시간 정보 /
                     // 일단 취소로 해놓음
                     new AlarmScheduler().cancelAlarm(getApplicationContext(), uri, repeatTime);
                 }

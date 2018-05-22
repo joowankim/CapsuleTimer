@@ -37,7 +37,9 @@ public class ReminderAlarmService extends IntentService {
         Intent action = new Intent(context, ReminderAlarmService.class);
         action.putExtra("repeatTime", repeatTime); // skip때 얼마 후에 울릴지
         action.putExtra("isRepeat", isRepeat); // 월화수목금토일 눌렷는지 아닌지
+        action.putExtra("day_int", dayInt);
         action.setData(uri);
+        Log.i("무슨요일: ", Integer.toString(dayInt));
         return PendingIntent.getService(context, dayInt, action, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 

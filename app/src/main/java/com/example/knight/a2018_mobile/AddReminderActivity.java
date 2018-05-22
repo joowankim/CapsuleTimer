@@ -39,7 +39,7 @@ import java.util.Calendar;
 
 public class AddReminderActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
-        DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor>, CompoundButton.OnCheckedChangeListener{
+        DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor> {
     // CursorLoader는 AsyncTaskLoader의 서브 클래스로 DB 커서를 이용한다. 커서는 iterator와 거의 같고 데이터 집합을 자유롭게 순회 가능
 
 
@@ -175,7 +175,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         // auto/manual button 만들 것
 
         // toggle button event listener
-        setListener();
+        //setListener();
 
         // Initialize default values
         mActive = "true";
@@ -220,6 +220,37 @@ public class AddReminderActivity extends AppCompatActivity implements
             @Override
             public void afterTextChanged(Editable s) {}
         });
+
+        mSunToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) sun_flag = 1; else sun_flag = 0; } });
+        mMonToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) mon_flag = 2; else mon_flag = 0; } });
+        mTueToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) tu_flag = 3; else tu_flag = 0; } });
+        mWedToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) we_flag = 4; else we_flag = 0; } });
+        mThrToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) th_flag = 5; else th_flag = 0; } });
+        mFriToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) fri_flag = 6; else fri_flag = 0; } });
+        mSatToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) sat_flag = 7; else sat_flag = 0; } });
+
+
 
         // Setup TextViews using alarm values
         mDateText.setText(mDate);
@@ -370,34 +401,34 @@ public class AddReminderActivity extends AppCompatActivity implements
     }
 
 
-    private void setListener(){
-        mSunToggleButton.setOnCheckedChangeListener(this);
-        mMonToggleButton.setOnCheckedChangeListener(this);
-        mTueToggleButton.setOnCheckedChangeListener(this);
-        mWedToggleButton.setOnCheckedChangeListener(this);
-        mThrToggleButton.setOnCheckedChangeListener(this);
-        mFriToggleButton.setOnCheckedChangeListener(this);
-        mSatToggleButton.setOnCheckedChangeListener(this);
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if(mSunToggleButton.isChecked()) sun_flag = 1;// 일요일 버튼이 눌리면
-        else sun_flag = 0;
-        if(mMonToggleButton.isChecked()) mon_flag = 2;
-        else mon_flag = 0;
-        if(mTueToggleButton.isChecked()) tu_flag = 3;
-        else tu_flag = 0;
-        if(mWedToggleButton.isChecked()) we_flag = 4;
-        else we_flag = 0;
-        if(mThrToggleButton.isChecked()) th_flag = 5;
-        else th_flag = 0;
-        if(mFriToggleButton.isChecked()) fri_flag = 6;
-        else fri_flag = 0;
-        if(mSatToggleButton.isChecked()) sat_flag = 7;
-        else sat_flag = 0;
-
-    }
+//    private void setListener(){
+//        mSunToggleButton.setOnCheckedChangeListener(this);
+//        mMonToggleButton.setOnCheckedChangeListener(this);
+//        mTueToggleButton.setOnCheckedChangeListener(this);
+//        mWedToggleButton.setOnCheckedChangeListener(this);
+//        mThrToggleButton.setOnCheckedChangeListener(this);
+//        mFriToggleButton.setOnCheckedChangeListener(this);
+//        mSatToggleButton.setOnCheckedChangeListener(this);
+//    }
+//
+//    @Override
+//    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//        if(mSunToggleButton.isChecked()) sun_flag = 1;// 일요일 버튼이 눌리면
+//        else sun_flag = 0;
+//        if(mMonToggleButton.isChecked()) mon_flag = 2;
+//        else mon_flag = 0;
+//        if(mTueToggleButton.isChecked()) tu_flag = 3;
+//        else tu_flag = 0;
+//        if(mWedToggleButton.isChecked()) we_flag = 4;
+//        else we_flag = 0;
+//        if(mThrToggleButton.isChecked()) th_flag = 5;
+//        else th_flag = 0;
+//        if(mFriToggleButton.isChecked()) fri_flag = 6;
+//        else fri_flag = 0;
+//        if(mSatToggleButton.isChecked()) sat_flag = 7;
+//        else sat_flag = 0;
+//
+//    }
 
     // 알람 아이콘 모양 바뀌게 하기
     // On clicking the active button

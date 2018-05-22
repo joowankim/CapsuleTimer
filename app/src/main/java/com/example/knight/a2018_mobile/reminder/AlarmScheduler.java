@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -23,6 +24,9 @@ public class AlarmScheduler {
     private static final long A_WEEK = 1000*60*60*24*7;
     private long currentTime;
     private boolean isRepeat;
+    private int hour;
+    private int minute;
+
 
 
 
@@ -63,53 +67,106 @@ public class AlarmScheduler {
         isRepeat = true;
         AlarmManager manager = AlarmManagerProvider.getAlarmManager(context);
 
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        minute = c.get(Calendar.MINUTE);
+        currentTime = System.currentTimeMillis();
+
+        Log.i("설정한 시간: ", Integer.toString(hour));
+        Log.i("설정한 분 :" , Integer.toString(minute));
+
         if(bolList[1]) { //일요일
+            Log.i("일요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 1);
+            c.setTimeInMillis(System.currentTimeMillis());
             c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[2]) { //월요일
+            Log.i("월요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 2);
             c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[3]) { //화요일
+            Log.i("화요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 3);
             c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
+            Log.i("현재 시간: ", Long.toString(currentTime));
+            Log.i("알람 시간: ", Long.toString(alarmTime));
+
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[4]) { //수요일
+            Log.i("수요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 4);
             c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[5]) { //목요일
+            Log.i("목요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 5);
             c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[6]) { //금요일
+            Log.i("금요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 6);
             c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
         if(bolList[7]) { //토요일
+            Log.i("토요일", "true");
             PendingIntent operation =
                     ReminderAlarmService.getAlarmRepeatPendingIntent(context, reminderTask, repeatTime, isRepeat, 7);
             c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            c.set(Calendar.SECOND, 0);
             alarmTime = c.getTimeInMillis();
+            if(alarmTime < currentTime)
+                alarmTime += A_WEEK;
             manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, A_WEEK, operation);
         }
     }
@@ -122,5 +179,4 @@ public class AlarmScheduler {
 
         manager.cancel(operation);
     }
-
 }
