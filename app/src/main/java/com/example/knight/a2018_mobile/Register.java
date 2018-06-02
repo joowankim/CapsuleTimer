@@ -1,10 +1,12 @@
 package com.example.knight.a2018_mobile;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -16,6 +18,7 @@ public class Register extends AppCompatActivity {
     EditText pw;
     EditText re_pw;
     Button register;
+    TextView loginLink;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
 
@@ -28,6 +31,7 @@ public class Register extends AppCompatActivity {
         pw = (EditText) findViewById(R.id.register_pw);
         re_pw = (EditText) findViewById(R.id.register_re_pw);
         register = (Button) findViewById(R.id.register);
+        loginLink = (TextView) findViewById(R.id.link_login);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,17 @@ public class Register extends AppCompatActivity {
                 } catch(JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the registration screen and return to the Login activity
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
     }

@@ -74,7 +74,7 @@ public class FragmentCalendar extends Fragment {
         ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
         int time;   // 몇번 먹었는지
 
-        switch(numOfTaking) {// 각 case에 루프 추가해서 모든 약먹은 날짜에 대해 decorate 해야함
+        switch(numOfTaking) {
             case 1:
                 for(int i=0; i<Day.size(); i++) {
                     time = 0;

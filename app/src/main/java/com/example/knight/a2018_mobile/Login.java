@@ -2,11 +2,12 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -17,7 +18,7 @@ public class Login extends AppCompatActivity {
     EditText id;
     EditText pw;
     Button login;
-    Button register;
+    TextView register;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String Server_IP="106.10.40.50";
@@ -31,7 +32,7 @@ public class Login extends AppCompatActivity {
         id = (EditText) findViewById(R.id.login_id);
         pw = (EditText) findViewById(R.id.login_pw);
         login = (Button) findViewById(R.id.login_submit);
-        register = (Button) findViewById(R.id.register);
+        register = (TextView) findViewById(R.id.register);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,16 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
+
+    </style>
+
+    <!-- font -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="AppTheme.DialogWhenLarge" parent="@android:style/Theme.Holo.Light.DialogWhenLarge">
+        <item name="android:typeface">sans</item>
     </style>
 
     <!-- calendar widget theme-->
@@ -23,5 +33,30 @@
         <item name="android:textColor">@color/foreground_semi</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <!-- app theme colors -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="android:windowBackground">@color/primary</item>
+
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/iron</item>
+
+        <item name="colorButtonNormal">@color/primary_darker</item>
+        <item name="android:colorButtonNormal">@color/primary_darker</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/iron</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+
 
 </resources>

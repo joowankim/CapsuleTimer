@@ -13,6 +13,7 @@
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="18" />
 
     <application
+        android:name=".FontApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="CapsuleTimer"
@@ -34,8 +35,8 @@
         <activity android:name=".Show_medicine_info" />
         <activity android:name=".showGraph"/>
         <activity android:name=".Alarm_main"/>
-        <activity android:name =".Login"/>
-        <activity android:name=".Register"/>
+        <activity android:name =".Login" android:theme="@style/AppTheme.Dark"/>
+        <activity android:name=".Register" android:theme="@style/AppTheme.Dark"/>
         <activity android:name=".AddReminderActivity"
             android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".Alarm_main"
@@ -54,6 +55,10 @@
             android:authorities="com.example.knight.a2018_mobile"
             android:exported="false" />
 
+        <provider
+            android:name=".data.medicineReportProvider"
+            android:authorities="com.example.knight.a2018_mobile"
+            android:exported="false" />
 
         <service
             android:name=".reminder.ReminderAlarmService"

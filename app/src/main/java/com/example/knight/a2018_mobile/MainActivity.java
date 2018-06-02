@@ -1,5 +1,6 @@
 package com.example.knight.a2018_mobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int flag = 0;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
 
     /**
      * @description java class of main activity
@@ -165,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     logout.setText("Login");
                 } else if (flag == 0) {
                     Log.d("123", "0");
-                    logout.setText("Login");
+                    //logout.setText("Login");
                     Intent intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
                 }

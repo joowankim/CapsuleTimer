@@ -180,11 +180,9 @@ public class showGraph extends AppCompatActivity {
         public Fragment getItem(int position) {
             if (position == 0) {
                 return selectedLine;
-            }
-            else if (position == 1) {
+            } else if (position == 1) {
                 return singleCalendar;
-            }
-            else {
+            } else {
                 return memoList;
             }
         }
