@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
+  <color name="black">#000000</color>
+  <color name="white">#ffffff</color>
+  <color name="mediumjunglegreen">#323232</color>
+  <color name="snow">#fafafa</color>
+  <color name="ultramarineblue">#497efc</color>
+  <color name="platinum">#e0e0e0</color>
+  <color name="electricviolet">#9013fe</color>
+  <color name="paynegrey">#406280</color>
+  <color name="timberwolf">#d8d8d8</color>
+  <color name="midnightgreen">#165258</color>
+  <color name="cornflowerblue">#569dfe</color>
+  <color name="mountainmeadow">#2bbc9b</color>
+  <color name="mediumspringbud">#c9ff94</color>
+  <color name="deeplilac">#8f3faf</color>
+  <color name="vermilion">#ea4b36</color>
+  <color name="bleudefrance">#2c97de</color>
+  <color name="darkpastelred">#c33824</color>
+  <color name="deeplilac_1">#9c56b8</color>
+  <color name="tuftsblue">#227fbb</color>
+  <color name="vermilion_1">#db4437</color>
+  <color name="mediumjunglegreen_1">#263238</color>
+  <color name="darkjunglegreen">#20272b</color>
+  <color name="darkcyan">#009688</color>
+  <color name="verdigris">#4cb5ab</color>
+</resources>
+

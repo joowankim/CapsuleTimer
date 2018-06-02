@@ -16,7 +16,13 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 /**
  * Implementation of App Widget functionality.
@@ -29,8 +35,10 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
 
-    private int times = 0;
-//    private String;
+    private String []records;
+    private String medicine_name = "";
+    DB db1, db2;
+    ArrayList<Integer[]> Day  = new ArrayList<Integer[]>();
 
     /**
      * app widget의 속성(meta data)에서 지정해준 updatePeriodMillis 값에 따라 주기적으로 호출된다 (month_calendar_widget_info.xml에 있다)
@@ -42,6 +50,39 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+        db1 = new DB(context, "Alarm.db", null, 1);
+        db2 = new DB(context, "Taken.db", null, 1);
+        db1.getWritableDatabase();
+        db2.getWritableDatabase();
+
+        try {
+            JSONArray result = new JSONArray(db1.mySelect("medicine_alarm", "time", "1 = 1"));
+            JSONObject tmp = result.getJSONObject(0);
+            medicine_name = tmp.getString("medicine_name");
+
+            JSONArray taken = new JSONArray(db2.mySelect("medicine_taken", "time", "medicine_name = \"" + medicine_name + "\""));
+            records = new String[taken.length()];
+            for (int idx = 0; idx < taken.length(); idx++) {
+                JSONObject tmpTaken = result.getJSONObject(idx);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(Long.parseLong(tmpTaken.getString("time")));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                records[idx] = simpleDateFormat.format(c.getTime());
+
+                for (Object object : records) {
+                    String element = (String) object;
+                    String[] t = element.split(" ");
+
+                    String[] temp_day = t[0].split("-");
+
+                    Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Day.add(new Integer[]{0, 0, 0});
+        }
 
         //모든 widget을 업데이트 하기에 모든 widget ID를 호출하여 업데이트
         for (int appWidgetId : appWidgetIds) {
@@ -134,6 +175,15 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         boolean mini = false;
         int numWeeks = 6;
 
+        int[] count = { 0, };
+        int dateIdx = 0;
+        for(int i=0; i<Day.size() && Day.size()>1; i++) {
+            count[dateIdx] = 0;
+            for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) count[dateIdx]++;
+            i += (count[dateIdx] - 1);
+            dateIdx++;
+        }
+
         if (widgetOptions != null) {    // app widget option이 없을 때
             int minWidthDp = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
             int minHeightDp = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
@@ -189,6 +239,7 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         }
         rv.addView(R.id.calendar, headerRowRv);
 
+        dateIdx = 0;
         // 각 주에 대한 view를 생성하는 루프
         for (int week = 0; week < numWeeks; week++) {
             RemoteViews rowRv = new RemoteViews(context.getPackageName(), R.layout.row_week);
@@ -207,6 +258,19 @@ public class MonthCalendarWidget extends AppWidgetProvider {
                     cellLayoutResId = R.layout.cell_today;
                 } else if (inMonth) {
                     cellLayoutResId = R.layout.cell_day_this_month;
+                }
+
+                if (Day.size() > 1) {
+                    Boolean isDate = (cal.get(Calendar.DATE) == Day.get(dateIdx)[2]) && (cal.get(Calendar.MONTH) == Day.get(dateIdx)[1]) && (cal.get(Calendar.YEAR) == Day.get(dateIdx)[0]);
+                    if (isDate && count[dateIdx] == 1) {
+                        cellLayoutResId = R.layout.cell_take_once;
+                    } else if (isDate && count[dateIdx] == 2) {
+                        cellLayoutResId = R.layout.cell_take_twice;
+                    } else if (isDate && count[dateIdx] == 3) {
+                        cellLayoutResId = R.layout.cell_take_three_times;
+                    } else if (isDate && count[dateIdx] == 4) {
+                        cellLayoutResId = R.layout.cell_take_four_times;
+                    }
                 }
 
                 RemoteViews cellRv = new RemoteViews(context.getPackageName(), cellLayoutResId);

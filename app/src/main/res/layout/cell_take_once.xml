@@ -1,5 +1,5 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/CalendarCell"
-    android:background="@color/background_today"
+    android:background="#55AF8A4F"
     android:textColor="@color/foreground_today" />

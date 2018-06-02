@@ -92,8 +92,17 @@
     <string name="previous_month">Previous month</string>
     <string name="next_month">Next month</string>
 
-    <string name="action_settings">settings</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- search view-->
+    <string name="action_voice_rec">action voice rec</string>
+    <string name="action_location">action location</string>
+    <string name="action_taxi">action taxi</string>
+    <string name="action_change_colors">change style</string>
+    <string name="color_info"> color_info </string>
+    <string name="dummy_text"> dummy_text </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="action_example_with_sliding_list">Sliding list</string>
+    <string name="action_example_sliding_search_bar">Sliding search view</string>
+    <string name="random_text"> random_text</string>
+    <string name="action_example_scrolling_search_bar">scrolling behavior</string>
 
 </resources>

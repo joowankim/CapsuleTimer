@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendarView"
         android:layout_toRightOf="@+id/green"
-        android:text="dd"/>
+        android:text="4회 복용"/>
 
     <ImageView
         android:id="@+id/yellow"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendarView"
         android:layout_toRightOf="@+id/yellow"
-        android:text="dd"/>
+        android:text="3회 복용"/>
 
     <ImageView
         android:id="@+id/red"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendarView"
         android:layout_toRightOf="@+id/red"
-        android:text="dd"/>
+        android:text="2회 복용"/>
 
     <ImageView
         android:id="@+id/gray"
@@ -80,6 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendarView"
         android:layout_toRightOf="@+id/gray"
-        android:text="dd"/>
+        android:text="1회 복용"/>
 
 </RelativeLayout>
