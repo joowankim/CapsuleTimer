@@ -14,7 +14,6 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
-
     </style>
 
     <!-- font -->

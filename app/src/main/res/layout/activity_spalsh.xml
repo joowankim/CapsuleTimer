@@ -6,8 +6,6 @@
     android:background="@color/primary"
     tools:context=".Login">
 
-
-
         <ImageView android:src="@drawable/logo"
             android:layout_width="wrap_content"
             android:layout_height="72dp"

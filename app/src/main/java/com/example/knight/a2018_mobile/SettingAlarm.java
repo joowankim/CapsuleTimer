@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -45,6 +47,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     private String repeatType = "0";
     private String repeatNo = "0";
     private String auto = "true";
+    private String mRemain = "0";
     private int weekOfDate = 0;
     private int timeIdx = 1;
     private int dataIdx = 1;
@@ -64,6 +67,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public TextView autoText;
     public TextView repeatNoText;
     public TextView repeatTypeText;
+    public TextView remainText;
     public ToggleButton sunday;
     public ToggleButton monday;
     public ToggleButton tuesday;
@@ -98,6 +102,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         repeatNoText = findViewById(R.id.set_repeat_no);
         autoText = findViewById(R.id.set_auto_manual_btn);
         repeatTypeText = findViewById(R.id.set_repeat_type);
+        remainText = findViewById(R.id.set_remain_no);
         sunday = findViewById(R.id.tgbtn_sun_repeat);
         monday = findViewById(R.id.tgbtn_mon_repeat);
         tuesday = findViewById(R.id.tgbtn_tue_repeat);
@@ -111,6 +116,44 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeLayout[5] = findViewById(R.id.time5);
         addTime = findViewById(R.id.addTime);
 
+
+        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {sunday.setTextColor(Color.WHITE); sunday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {monday.setTextColor(Color.WHITE); monday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {tuesday.setTextColor(Color.WHITE); tuesday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {wednesday.setTextColor(Color.WHITE); wednesday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {thursday.setTextColor(Color.WHITE); thursday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {friday.setTextColor(Color.WHITE); friday.setBackgroundColor(Color.rgb(111,181,255));} } });
+        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                else {saturday.setTextColor(Color.WHITE); saturday.setBackgroundColor(Color.rgb(111,181,255));} } });
+
+
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +161,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                     timeIdx += 1;
                     timeLayout[timeIdx].setVisibility(View.VISIBLE);
                 }
-
             }
         });
 
@@ -195,21 +237,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         });
     }
 
-    // 알람 아이콘 모양 바뀌게 하기
-    // On clicking the active button
-    public void selectFab1(View v) {
-        fab1.setVisibility(View.GONE);
-        fab2.setVisibility(View.VISIBLE);
-        this.active = "true";
-    }
-
-    // On clicking the inactive button
-    public void selectFab2(View v) {
-        fab2.setVisibility(View.GONE);
-        fab1.setVisibility(View.VISIBLE);
-        this.active = "false";
-    }
-
     public void setDate(View v){
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
@@ -226,7 +253,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         day = dayOfMonth;
         month = monthOfYear;
         this.year = year;
-        date = dayOfMonth + "/" + monthOfYear + "/" + year;
+        date = year + "/" + monthOfYear + "/" + dayOfMonth;
         dateText.setText(date);
     }
 
@@ -286,10 +313,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         boolean on = ((Switch) view).isChecked();
         if (on) {
             auto = "true";
-            autoText.setText("Activate Auto Mode");
+            autoText.setText("켜짐");
         } else {
             auto = "false";
-            autoText.setText("Off");
+            autoText.setText("꺼짐");
         }
     }
 
@@ -299,10 +326,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         boolean on = ((Switch) view).isChecked();
         if (on) {
             repeat = "true";
-            repeatText.setText("Every " + " " + repeatType + ", " + repeatNo + "times");
+            repeatText.setText("매 " + repeatType + ", " + repeatNo + "회");
         } else {
             repeat = "false";
-            repeatText.setText("Off");
+            repeatText.setText("꺼짐");
         }
     }
 
@@ -327,7 +354,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
                 repeatNo = items[item];
                 repeatNoText.setText(repeatNo);
-                repeatText.setText("Every " + " " + repeatType + ", " + repeatNo + "times");
+                repeatText.setText("매 " + " " + repeatType + ", " + repeatNo + "회");
             }
         });
         AlertDialog alert = builder.create();
@@ -339,11 +366,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public void selectRepeatType(View v){
         final String[] items = new String[5];
 
-        items[0] = "1 Minutes";
-        items[1] = "10 Minutes";
-        items[2] = "15 Minutes";
-        items[3] = "20 Minutes";
-        items[4] = "30 Minutes";
+        items[0] = "1 분";
+        items[1] = "10 분";
+        items[2] = "15 분";
+        items[3] = "20 분";
+        items[4] = "30 분";
 
         // Create List Dialog
         // repeat list 선택하면 list dialog 생성
@@ -356,10 +383,41 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
                 repeatType = items[item];
                 repeatTypeText.setText(repeatType);
-                repeatText.setText("Every " + " " + repeatType + ", " + repeatNo + "times");
+                repeatText.setText("매 " + repeatType + ", " + repeatNo + "회");
             }
         });
         AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void setRemainNo(View v){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("숫자를 입력하세요");
+        // Create EditText box to input remain number
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alert.setView(input);
+        alert.setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        if (input.getText().toString().length() == 0) {
+                            mRemain = Integer.toString(0);
+                            Log.i("약 숫자: ", mRemain);
+                            remainText.setText(mRemain);
+                        }
+                        else {
+                            mRemain = input.getText().toString().trim();
+                            Log.i("약 숫자: ", mRemain);
+                            remainText.setText(mRemain);
+                        }
+                    }
+                });
+        alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // do nothing
+            }
+        });
         alert.show();
     }
 

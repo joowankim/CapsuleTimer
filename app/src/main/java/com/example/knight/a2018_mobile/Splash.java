@@ -19,7 +19,7 @@ public class Splash extends Activity {
 
         if (Build.VERSION.SDK_INT >= 19) {
             try{
-                Thread.sleep(3000);
+                Thread.sleep(1500);
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
