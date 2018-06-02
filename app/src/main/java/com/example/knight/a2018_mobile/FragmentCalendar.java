@@ -82,7 +82,7 @@ public class FragmentCalendar extends Fragment {
                     calendarView.addDecorator(new takingDecoratorSingle(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
                     i += (time - 1);
                 }
-                greenText.setText("4회 복용");
+                greenText.setText("1회 복용");
                 yellow.setVisibility(View.INVISIBLE);
                 yellowText.setVisibility(View.INVISIBLE);
                 red.setVisibility(View.INVISIBLE);
@@ -97,7 +97,7 @@ public class FragmentCalendar extends Fragment {
                     calendarView.addDecorator(new takingDecoratorDouble(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
                     i += (time - 1);
                 }
-                greenText.setText("복용 완료");
+                greenText.setText("2회 복용");
                 yellowText.setText("1회 복용");
                 red.setVisibility(View.INVISIBLE);
                 redText.setVisibility(View.INVISIBLE);
@@ -111,7 +111,7 @@ public class FragmentCalendar extends Fragment {
                     calendarView.addDecorator(new takingDecoratorTriple(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
                     i += (time - 1);
                 }
-                greenText.setText("복용 완료");
+                greenText.setText("3회 복용");
                 yellowText.setText("2회 복용");
                 redText.setText("1회 복용");
                 gray.setVisibility(View.INVISIBLE);
@@ -124,7 +124,7 @@ public class FragmentCalendar extends Fragment {
                     calendarView.addDecorator(new takingDecoratorQuad(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
                     i += (time - 1);
                 }
-                greenText.setText("복용 완료");
+                greenText.setText("4회 복용");
                 yellowText.setText("3회 복용");
                 redText.setText("2회 복용");
                 grayText.setText("1회 복용");

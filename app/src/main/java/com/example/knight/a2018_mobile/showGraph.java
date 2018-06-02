@@ -47,7 +47,7 @@ public class showGraph extends AppCompatActivity {
     FragmentMemoList memoList;
 
 
-    String from = "20180508", to = "20180515";    //20180508 form
+    String from = "19700101", to = "21001231";    //20180508 form
     String medicine_name;
     int times = 4;
     List list = new ArrayList();    // report information
