@@ -44,6 +44,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     private String repeatType = "0";
     private String repeatNo = "0";
     private String auto = "true";
+    private String mRemain = "0";
     private int weekOfDate = 0;
     private int timeIdx = 1;
     private int dataIdx = 1;
@@ -59,6 +60,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public TextView autoText;
     public TextView repeatNoText;
     public TextView repeatTypeText;
+    public TextView remainText;
     public ToggleButton sunday;
     public ToggleButton monday;
     public ToggleButton tuesday;
@@ -91,6 +93,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         repeatNoText = findViewById(R.id.set_repeat_no);
         autoText = findViewById(R.id.set_auto_manual_btn);
         repeatTypeText = findViewById(R.id.set_repeat_type);
+        remainText = findViewById(R.id.set_remain_no);
         sunday = findViewById(R.id.tgbtn_sun_repeat);
         monday = findViewById(R.id.tgbtn_mon_repeat);
         tuesday = findViewById(R.id.tgbtn_tue_repeat);
@@ -111,7 +114,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                     timeIdx += 1;
                     timeLayout[timeIdx].setVisibility(View.VISIBLE);
                 }
-
             }
         });
 
@@ -347,6 +349,37 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
             }
         });
         AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void setRemainNo(View v){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Enter Number");
+        // Create EditText box to input remain number
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alert.setView(input);
+        alert.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        if (input.getText().toString().length() == 0) {
+                            mRemain = Integer.toString(0);
+                            Log.i("약 숫자: ", mRemain);
+                            remainText.setText(mRemain);
+                        }
+                        else {
+                            mRemain = input.getText().toString().trim();
+                            Log.i("약 숫자: ", mRemain);
+                            remainText.setText(mRemain);
+                        }
+                    }
+                });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // do nothing
+            }
+        });
         alert.show();
     }
 

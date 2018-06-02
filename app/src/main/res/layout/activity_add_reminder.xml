@@ -66,6 +66,96 @@
                 android:textColor="@android:color/black"
                 android:layout_height="72dp"/>
 
+            <!--요일 반복 구현 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/RepeatDate"
+                android:clickable="true"
+                android:onClick="setRepeatNo"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_height="72dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="요일 반복"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    />
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+
+                    <ToggleButton
+                        android:id="@+id/tgbtn_mon_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/monday_week"
+                        android:textOff="@string/monday_week"
+
+                        />
+                    <ToggleButton
+                        android:id="@+id/tgbtn_tue_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/tuesday_week"
+                        android:textOff="@string/tuesday_week"
+                        android:background="@drawable/circle_for_toggle"
+                        />
+                    <ToggleButton
+                        android:id="@+id/tgbtn_wed_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/wednesday_week"
+                        android:textOff="@string/wednesday_week"
+                        />
+                    <ToggleButton
+                        android:id="@+id/tgbtn_thr_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/thursday_week"
+                        android:textOff="@string/thursday_week"
+                        />
+                    <ToggleButton
+                        android:id="@+id/tgbtn_fri_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/friday_week"
+                        android:textOff="@string/friday_week"
+                        />
+                    <ToggleButton
+                        android:id="@+id/tgbtn_sat_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/saturday_week"
+                        android:textOff="@string/saturday_week"
+                        />
+
+                    <ToggleButton
+                        android:id="@+id/tgbtn_sun_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textOn="@string/sunday_week"
+                        android:textOff="@string/sunday_week"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <!--요일 반복 구현 끝 -->
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:clickable="true"
@@ -262,92 +352,6 @@
                     android:textOn="On"
                     android:textOff="Off"/>
             </RelativeLayout>
-
-            <!--요일 반복 구현 -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:id="@+id/RepeatDate"
-                android:clickable="true"
-                android:onClick="setRepeatNo"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_height="72dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="요일 반복"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content">
-
-                    <ToggleButton
-                        android:id="@+id/tgbtn_mon_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/monday_week"
-                        android:textOff="@string/monday_week"
-                        />
-                    <ToggleButton
-                        android:id="@+id/tgbtn_tue_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/tuesday_week"
-                        android:textOff="@string/tuesday_week"
-                        />
-                    <ToggleButton
-                        android:id="@+id/tgbtn_wed_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/wednesday_week"
-                        android:textOff="@string/wednesday_week"
-                        />
-                    <ToggleButton
-                        android:id="@+id/tgbtn_thr_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/thursday_week"
-                        android:textOff="@string/thursday_week"
-                        />
-                    <ToggleButton
-                        android:id="@+id/tgbtn_fri_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/friday_week"
-                        android:textOff="@string/friday_week"
-                        />
-                    <ToggleButton
-                        android:id="@+id/tgbtn_sat_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/saturday_week"
-                        android:textOff="@string/saturday_week"
-                        />
-
-                    <ToggleButton
-                        android:id="@+id/tgbtn_sun_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textOn="@string/sunday_week"
-                        android:textOff="@string/sunday_week"
-                        />
-                </LinearLayout>
-
-            </RelativeLayout>
-            <!--요일 반복 구현 끝 -->
 
 
             <RelativeLayout
