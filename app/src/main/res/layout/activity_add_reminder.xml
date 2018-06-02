@@ -108,7 +108,6 @@
                         android:layout_weight="1"
                         android:textOn="@string/tuesday_week"
                         android:textOff="@string/tuesday_week"
-                        android:background="@drawable/circle_for_toggle"
                         />
                     <ToggleButton
                         android:id="@+id/tgbtn_wed_repeat"
