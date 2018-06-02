@@ -24,13 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:node="replace">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Splash"
+            android:theme ="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name =".MainActivity"/>
         <activity android:name=".writing_memo" />
         <activity android:name=".memo_list" />
         <activity android:name=".edit_memo" />
@@ -69,8 +71,6 @@
         <service
             android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
-
-        <receiver android:name=".AlertReceiver" />
 
         <!-- for calendar appWidget -->
         <receiver android:name=".MonthCalendarWidget">

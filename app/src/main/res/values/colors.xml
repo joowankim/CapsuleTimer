@@ -11,11 +11,16 @@
     <color name="foreground_today">#111</color>
     <color name="background_today">#fff</color>
 
-    <!-- app theme colors -->
-    <color name="primary">#E43F3F</color>
-    <color name="primary_dark">#E12929</color>
-    <color name="primary_darker">#CC1D1D</color>
+    <!--&lt;!&ndash; app theme colors &ndash;&gt;-->
+    <!--<color name="primary">#E43F3F</color>-->
+    <!--<color name="primary_dark">#E12929</color>-->
+    <!--<color name="primary_darker">#CC1D1D</color>-->
+    <!--<color name="accent">#FFFFFF</color>-->
+    <color name="primary">#6fb5ff</color>
+    <color name="primary_dark">#3d9cff</color>
+    <color name="primary_darker">#095cb2</color>
     <color name="accent">#FFFFFF</color>
+
 
     <color name="black">#000000</color>
     <color name="jet">#222222</color>
