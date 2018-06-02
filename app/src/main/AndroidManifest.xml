@@ -68,7 +68,6 @@
         </receiver>
 
         <activity android:name=".SettingAlarm" />
-        <activity android:name=".AlarmList" />
 
     </application>
 

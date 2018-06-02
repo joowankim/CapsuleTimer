@@ -172,8 +172,9 @@
             <!--요일 반복 구현 끝 -->
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -222,8 +223,9 @@
             </RelativeLayout>
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -486,8 +488,9 @@
             </RelativeLayout>
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <!--자동 / 수동 버튼 -->
             <RelativeLayout
@@ -549,8 +552,9 @@
             <!--자동 / 수동 버튼 -->
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -609,8 +613,9 @@
             </RelativeLayout>
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -659,8 +664,9 @@
             </RelativeLayout>
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -709,8 +715,9 @@
             </RelativeLayout>
             <View
                 android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -63,7 +63,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public Button submit;
     public TextView dateText;
     public TextView []timeText = new TextView[6];
-    public FloatingActionButton fab1;
     public FloatingActionButton fab2;
     public TextView repeatText;
     public TextView autoText;
@@ -98,7 +97,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeText[4] = findViewById(R.id.set_time4);
         timeText[5] = findViewById(R.id.set_time5);
         submit = findViewById(R.id.test);
-        fab1 = findViewById(R.id.starred1);
         fab2 = findViewById(R.id.starred2);
         repeatText = findViewById(R.id.set_repeat);
         repeatNoText = findViewById(R.id.set_repeat_no);
@@ -232,8 +230,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
                 AlarmService alarmService = new AlarmService(getApplicationContext());
                 alarmService.setFromButton(res);
-
-
                 finish();
             }
         });

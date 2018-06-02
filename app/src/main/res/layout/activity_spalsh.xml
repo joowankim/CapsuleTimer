@@ -6,13 +6,13 @@
     android:background="@color/primary"
     tools:context=".Login">
 
-        <ImageView android:src="@drawable/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="150dp"
-            android:id="@+id/imageView" />
+    <ImageView android:src="@drawable/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:id="@+id/imageView" />
 
     <ImageView
         android:layout_width="wrap_content"

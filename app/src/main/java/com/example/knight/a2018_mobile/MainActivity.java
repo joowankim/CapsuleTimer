@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -33,15 +35,20 @@ import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button medicine_search_btn;
-    ButtonRectangle to_memo;
-    ButtonRectangle to_report;
-    ButtonRectangle login;
-    ButtonRectangle logout;
-    ButtonRectangle to_alarmList;
-    EditText medicine_name_edt;
-    ImageView img;
-    String res;
+    private FloatingActionButton fab;
+    private ListView list;
+    private AlarmAdapter alarmAdapter;
+    private Button medicine_search_btn;
+    private EditText medicine_name_edt;
+    private ImageView img;
+
+//    ButtonRectangle to_memo;
+//    ButtonRectangle to_report;
+//    ButtonRectangle login;
+//    ButtonRectangle logout;
+//    ButtonRectangle to_alarmList;
+
+//    String res;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     String user_id;
@@ -64,16 +71,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // 이 부분이 XML을 자바 객체로 변경해주는 부분
 
+        alarmAdapter = new AlarmAdapter(getApplicationContext());
+
         medicine_name_edt = (EditText) findViewById(R.id.medicine_name);  // Find edit text widget in layout
         medicine_search_btn = findViewById(R.id.medicine_search_btn);  // Find button widget in layout
-        to_memo = findViewById(R.id.to_memo);  // Find button widget in layout
-        to_report = findViewById(R.id.to_report);
-//        login = (Button) findViewById(R.id.login);
+        list = findViewById(R.id.list);
         img = (ImageView) findViewById(R.id.img);
-        logout = findViewById(R.id.logout);
-        to_alarmList = findViewById(R.id.to_alarm_list);
+        fab = findViewById(R.id.fab);
+        //to_memo = findViewById(R.id.to_memo);  // Find button widget in layout
+//        to_report = findViewById(R.id.to_report);
+////        login = (Button) findViewById(R.id.login);
+
+//        logout = findViewById(R.id.logout);
+//        to_alarmList = findViewById(R.id.to_alarm_list);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+
+        list.setAdapter(alarmAdapter);
 
         /**
          * @description add button event click listener
@@ -120,38 +135,38 @@ public class MainActivity extends AppCompatActivity {
         /**
          * @description add button event click listener
          */
-        to_memo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), memo_list.class);  // Create intent and move to memo activity
-                String result = "";  // String to result
-                JSONObject request = new JSONObject();  // JSON Object to send request to server
-                try {
-                    request.put("Type", "Search_Memo");  // Put data to create JSON
-                    request.put("User", user_id);
-                    request.put("Medicine_Name", "*");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                intent.putExtra("json", request.toString());
-                if (flag == 0) {
-                    intent.setClass(getApplicationContext(), Login.class);
-                }
-                startActivity(intent);
-            }
-        });
-
-        /**
-         * @brief GO TO REPORT ACTIVITY@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-         */
-
-        to_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), showGraph.class);
-                startActivity(intent);
-            }
-        });
+//        to_memo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), memo_list.class);  // Create intent and move to memo activity
+//                String result = "";  // String to result
+//                JSONObject request = new JSONObject();  // JSON Object to send request to server
+//                try {
+//                    request.put("Type", "Search_Memo");  // Put data to create JSON
+//                    request.put("User", user_id);
+//                    request.put("Medicine_Name", "*");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                intent.putExtra("json", request.toString());
+//                if (flag == 0) {
+//                    intent.setClass(getApplicationContext(), Login.class);
+//                }
+//                startActivity(intent);
+//            }
+//        });
+//
+//        /**
+//         * @brief GO TO REPORT ACTIVITY@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//         */
+//
+//        to_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), showGraph.class);
+//                startActivity(intent);
+//            }
+//        });
 
 //        login.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -161,42 +176,50 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        logout.setOnClickListener(new View.OnClickListener() {
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (flag == 1) {
+//                    Log.d("123", "1");
+//                    editor.remove("Id");
+//                    editor.remove("Password");
+//                    editor.commit();
+//                    flag = 0;
+//                    logout.setText("Login");
+//                } else if (flag == 0) {
+//                    Log.d("123", "0");
+//                    //logout.setText("Login");
+//                    Intent intent = new Intent(getApplicationContext(), Login.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+
+//        to_alarmList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), AlarmList.class);
+//                if (flag == 0) {
+//                    intent.setClass(getApplicationContext(), Login.class);
+//                    Log.d("Test", "TEST");
+//                }
+//                startActivity(intent);
+//            }
+//        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (flag == 1) {
-                    Log.d("123", "1");
-                    editor.remove("Id");
-                    editor.remove("Password");
-                    editor.commit();
-                    flag = 0;
-                    logout.setText("Login");
-                } else if (flag == 0) {
-                    Log.d("123", "0");
-                    //logout.setText("Login");
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        to_alarmList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AlarmList.class);
-                if (flag == 0) {
-                    intent.setClass(getApplicationContext(), Login.class);
-                    Log.d("Test", "TEST");
-                }
+                Intent intent = new Intent(getApplicationContext(), SettingAlarm.class);
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        list.setAdapter(new AlarmAdapter(getApplicationContext()));
 
         user_id = sharedPreferences.getString("Id", "None");
         user_pw = sharedPreferences.getString("Password", "None");
