@@ -39,6 +39,7 @@ public class FragmentMemoList extends Fragment {
 //        textView = (TextView) view.findViewById(R.id.textView);
 //        textView.setVisibility(View.INVISIBLE);
 //        textView.setHeight(0);
+        String medicine_name = ((showGraph)getActivity()).medicine_name;
         sharedPreferences = getContext().getSharedPreferences("Login_Session", Context.MODE_PRIVATE);
         id = sharedPreferences.getString("Id", "None");
         request = new JSONObject();
@@ -46,6 +47,7 @@ public class FragmentMemoList extends Fragment {
         try {
             request.put("Type", "Search_Memo");
             request.put("User", id);
+            request.put("Medicine_Name", medicine_name);
         } catch (JSONException e) {
             e.printStackTrace();
         }

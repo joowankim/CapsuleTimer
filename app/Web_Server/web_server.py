@@ -218,13 +218,15 @@ def smartphone_connection():
             if req['Type'] == 'Edit_Memo':
                 client.send(DB.search_memos(req['Id'], req['Position']))
             if req['Type'] == 'Edit_Content':
-                client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image']))
+                client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image'], req["Medicine_name"]))
             if req['Type'] == 'Delete_Memo':
                 client.send(DB.delete_memo(req['Id'], req['Position']))
             if req['Type'] == 'Medicine_Record':
                 client.send(DB.medicine_taking(req['Id'], req['Medicine_Name'], req['From'], req['To']))
             if req["Type"] == "Medicine_Taken":
                 client.send(DB.medicine_taken(req["Id"], req["Medicine_Name"], req["Date"]))
+            if req["Type"] == "Add_Medicine":
+                client.send(DB.medicine_add(req["Id"], req["Medicine_Name"]))
             client.close()
     except Exception, e:
         print e

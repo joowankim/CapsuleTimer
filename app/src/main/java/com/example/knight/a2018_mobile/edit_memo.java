@@ -2,6 +2,8 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +35,8 @@ public class edit_memo extends AppCompatActivity {
     ImageView memo_edit_image;
     EditText memo_edit_content;
     Button memo_edit_submit;
+    Spinner spinner;
+
     int position;
     String writer;
     String user_id;
@@ -40,7 +47,10 @@ public class edit_memo extends AppCompatActivity {
     private Uri selectedimg;
     private int index;
     Bitmap bmp;
+    DB db;
     MySocket sock = new MySocket(Server_IP, Server_PORT);
+
+
 
     /**
      * @description java class of writing memo activity
@@ -55,11 +65,15 @@ public class edit_memo extends AppCompatActivity {
         memo_edit_image = (ImageView)findViewById(R.id.memo_image);
         memo_edit_content = (EditText)findViewById(R.id.memo_content);
         memo_edit_submit = (Button)findViewById(R.id.memo_upload);
+        spinner = findViewById(R.id.medicine_name);
+
         position = intent.getIntExtra("position", 0);
         writer = intent.getStringExtra("writer");
         index = intent.getIntExtra("index", 0);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         user_id = sharedPreferences.getString("Id", "None");
+
+        select();
 
         try {
             JSONObject request = new JSONObject();
@@ -139,6 +153,7 @@ public class edit_memo extends AppCompatActivity {
                     request.put("Position", position);
                     request.put("Text", memo_text);
                     request.put("Image", array);
+                    request.put("Medicine_Name", spinner.getSelectedItem().toString());
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     sock.request(request.toString());  // Send request
                     sock.join();
@@ -178,5 +193,30 @@ public class edit_memo extends AppCompatActivity {
                 Log.d("Memo", "Get image error");
             }
         }
+    }
+
+    //    Check existing sutdent data in DB and show it in list view
+    public void select() {
+
+//        Get readable database
+        db = new DB(getApplicationContext(), "Alarm.db", null, 1);
+        db.getWritableDatabase();
+        String []medicine = null;
+        try {
+            JSONArray result = new JSONArray(db.mySelect("medicine_alarm", "*", "1 = 1"));
+            medicine = new String[result.length()];
+            for (int idx = 0; idx < result.length(); idx++) {
+                JSONObject tmp = result.getJSONObject(idx);
+                Log.d("DB TEST", "");
+                medicine[idx] = tmp.getString("medicine_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        Create new ArrayAdapter object with changed data and set it to list view
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, medicine);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
     }
 }

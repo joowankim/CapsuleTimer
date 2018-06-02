@@ -29,6 +29,9 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
 
+    private int times = 0;
+    private String
+
     /**
      * app widget의 속성(meta data)에서 지정해준 updatePeriodMillis 값에 따라 주기적으로 호출된다 (month_calendar_widget_info.xml에 있다)
      * 처음 widget이 화면에 붙을 때, init() 작업을 해주기 위해서도 call 된다

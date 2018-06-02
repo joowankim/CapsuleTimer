@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     request.put("Type", "Search_Memo");  // Put data to create JSON
                     request.put("User", user_id);
+                    request.put("Medicine_Name", "*");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

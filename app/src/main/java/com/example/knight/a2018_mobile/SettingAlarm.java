@@ -2,6 +2,7 @@ package com.example.knight.a2018_mobile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     private int weekOfDate = 0;
     private int timeIdx = 1;
     private int dataIdx = 1;
+    private String user_id;
+    private String Server_IP="106.10.40.50";
+    private int Server_PORT=6000;
+    SharedPreferences sharedPreferences;
 
 
     public EditText alarm_name;
@@ -76,6 +81,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
         db = new DB(getApplicationContext(), "Alarm.db", null, 1);
         db.getWritableDatabase();
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        user_id = sharedPreferences.getString("Id", "None");
 
         alarm_name = findViewById(R.id.reminder_title);
         dateText = findViewById(R.id.set_date);
@@ -137,6 +144,12 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
                     db.myInsert("medicine", "medicine_name", "\""+alarm_name.getText().toString()+"\"");
                     try {
+                        MySocket socket = new MySocket(Server_IP, Server_PORT);
+                        JSONObject req = new JSONObject();
+                        req.put("Id", user_id);
+                        req.put("Medicine_Name", alarm_name.getText().toString());
+                        req.put("Type", "Add_Medicine");
+                        socket.request(req.toString());
                         res = new JSONArray(db.mySelect("medicine", "*", "medicine_name = \"" + alarm_name.getText().toString() + "\""));
                         resJson = res.getJSONObject(0);
                     } catch (Exception e1) {

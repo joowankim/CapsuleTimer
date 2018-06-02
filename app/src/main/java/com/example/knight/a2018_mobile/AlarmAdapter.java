@@ -73,6 +73,9 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.repeat = convertView.findViewById(R.id.repeat);
                 viewHolder.img = convertView.findViewById(R.id.img);
                 viewHolder.btn = convertView.findViewById(R.id.Taken);
+                viewHolder.edit = convertView.findViewById(R.id.edit);
+                viewHolder.report = convertView.findViewById(R.id.report);
+                viewHolder.delete = convertView.findViewById(R.id.delete);
 
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
@@ -131,6 +134,21 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
+                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        try {
+                            JSONObject current = result.getJSONObject(position);
+                            Intent intent = new Intent(context, showGraph.class);
+                            intent.putExtra("medicine_name", current.getString("medicine_name"));
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder)convertView.getTag();
@@ -150,6 +168,9 @@ public class AlarmAdapter extends BaseAdapter {
         public TextView title;
         public TextView date;
         public TextView repeat;
+        public ImageButton report;
+        public ImageButton edit;
+        public ImageButton delete;
         public ImageView img;
         public Button btn;
     };

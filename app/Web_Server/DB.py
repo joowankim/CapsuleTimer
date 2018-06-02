@@ -5,40 +5,42 @@ import time
 import calendar
 import base64
 
-memo_insert_sql = "insert into Memo (User, Date, Text, Image) values (?, ?, ?, ?)"
+memo_insert_sql = "insert into Memo (User, Date, Text, Image, medicine_name) values (?, ?, ?, ?, ?)"
 memo_search_sql = "select * from Memo where User=?"
 memo_position_search_sql = "select * from Memo where User=? and id=?"
 memo_delete_sql = "delete from memo where user=? and id=?"
-memo_change_sql = "update memo set text=?, image=? where id=?"
+memo_change_sql = "update memo set text=?, image=?, medicine_name=? where id=?"
 
 register = "insert into User (Id, Password) values (?, ?)"
 validation = "select * from User where id=?"
 login = "select * from User where id=? and password=?"
 
+medicine_add_sql = "insert into Medicine_name (medicine_name) values (?)"
+medicine_search_sql = "select * from Medicine_name"
 medicine_taking_sql = "select * from Medicine where User=? and Medicine_Name=? and Date >= ? and Date <= ?"
 medicine_taken_sql = "insert into Medicine (User, Medicine_Name, Date) values (?, ?, ?)"
 
 conn = sqlite3.connect("CapsuleTimer.db", check_same_thread=False)
 cur = conn.cursor()
 
-def web_insert_memo(user, date, text="", image=""):
+def web_insert_memo(user, date, text="", image="", medicine_name=""):
     result = {}
 
     if text == "" and image == "":
         result['result'] = 'No'
     else:
-        cur.execute(memo_insert_sql, (user, date, text, image))
+        cur.execute(memo_insert_sql, (user, date, text, image, medicine_name))
         conn.commit()
         result['result'] = 'Yes'
     return json.dumps(result)
 
-def insert_memo(user, date, text="", image=""):
+def insert_memo(user, date, text="", image="", medicine_name=""):
     result = {}
 
     if text == "" and image == "":
         result['result'] = 'No'
     else:
-        cur.execute(memo_insert_sql, (user, date, text, "/image/"+user+datetime.datetime.fromtimestamp(date).strftime("%Y-%m-%d-%H-%M-%S")))
+        cur.execute(memo_insert_sql, (user, date, text, "/image/"+user+datetime.datetime.fromtimestamp(date).strftime("%Y-%m-%d-%H-%M-%S"), medicine_name))
         conn.commit()
         with open("/image/"+user+datetime.datetime.fromtimestamp(date).strftime("%Y-%m-%d-%H-%M-%S"), 'wb') as f:
             f.write(base64.decodestring(image))
@@ -83,10 +85,10 @@ def delete_memo(user, position):
         result['result'] = 'No'
     return json.dumps(result)
 
-def change_memo(user, position, text, image):
+def change_memo(user, position, text, image, medicine_name):
     result = {}
     try:
-        cur.execute(memo_change_sql, (text, image, position))
+        cur.execute(memo_change_sql, (text, image, position, medicine_name))
         conn.commit()
         result['result'] = 'Yes'
     except:
@@ -144,7 +146,27 @@ def medicine_taken(user, medicine_name, date):
     result["result"] = "Yes"
     return json.dumps(result)
 
+def medicine_add(user, medicine_name):
+    result = {}
+    cur.execute(medicine_add_sql, (user, medicine_name))
+    conn.commit()
+    result["result"] = "Yes"
+    return json.dumps(result)
+
+def medicine_search(user):
+    index = ["User, medicine"]
+    result = {}
+    result["record"] = []
+    cur.execute(medicine_search_sql, (user))
+    data = cur.fetchall()
+    for d in data:
+        d = list(d)
+        result["record"].append(dict(zip(index, list(d))))
+    return json.dumps(result)
+
+
 # times = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 # print times
+
 # changed = calendar.timegm(time.struct_time(time.strptime(times, '%Y-%m-%d %H:%M:%S'))) - 9 * 3600
 # print datetime.datetime.fromtimestamp(changed).strftime('%Y-%m-%d %H:%M:%S')

@@ -8,15 +8,22 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
+
+    String Server_IP="106.10.40.50";
+    private int Server_PORT=6000;
+    private int MODE_PRIVATE = 0;
 
     public MyBroadcastReceiver() {
 
@@ -77,9 +84,28 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     .addAction(R.drawable.ic_access_time_black, "Skip", PendingIntent.getBroadcast(context, 2, skip, PendingIntent.FLAG_ONE_SHOT));
             notificationManager.notify(333, builder.build());
         } else if (intent.getStringExtra("Type").compareTo("Taken") == 0) {
+
+            String current = String.valueOf(Calendar.getInstance().getTimeInMillis()/1000.0);
+
             DB db = new DB(context, "Taken.db", null, 1);
             db.getWritableDatabase();
-            db.myInsert("medicine_taken", "medicine_name, time", "\"" + intent.getStringExtra("Title") + "\", \"" + String.valueOf(Calendar.getInstance().getTimeInMillis())+"\"");
+            db.myInsert("medicine_taken", "medicine_name, time", "\"" + intent.getStringExtra("Title") + "\", \"" + current +"\"");
+            /* TODO
+            In this place we have to implement socket communication
+            */
+            try {
+                JSONObject info = new JSONObject();
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Login_Session", MODE_PRIVATE);
+                String user_id = sharedPreferences.getString("Id", "None");
+                MySocket socket = new MySocket(Server_IP, Server_PORT);
+                info.put("Id", user_id);
+                info.put("Medicine_Name", intent.getStringExtra("Title"));
+                info.put("Date", current);
+                info.put("Type", "Medicine_Taken");
+                socket.request(info.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -153,9 +179,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 
-            /* TODO
-            In this place we have to implement socket communication
-            */
         } else if (intent.getStringExtra("Type").compareTo("Skip") == 0) {
             Log.d("REPEAT", intent.getIntExtra("repeat_no", 0) + "");
             if (intent.getIntExtra("repeat_no", 0) > 0) {

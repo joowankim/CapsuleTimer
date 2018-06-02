@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web_server.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="web_server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="226" column="92" lean-forward="true" selection-start-line="225" selection-start-column="12" selection-end-line="226" selection-end-column="92" />
+            <state relative-caret-position="155">
+              <caret line="220" column="116" selection-start-line="220" selection-start-column="116" selection-end-line="220" selection-end-column="116" />
             </state>
           </provider>
         </entry>
@@ -23,8 +23,8 @@
       <file leaf-file-name="client_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+            <state relative-caret-position="392">
+              <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -59,11 +59,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DB.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DB.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" column="12" selection-start-line="18" selection-end-line="19" />
+            <state relative-caret-position="512">
+              <caret line="162" column="19" lean-forward="true" selection-start-line="162" selection-start-column="19" selection-end-line="162" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,6 +90,7 @@
       <find>insert</find>
       <find>res</find>
       <find>result</find>
+      <find>change</find>
     </findStrings>
     <replaceStrings>
       <replace>result</replace>
@@ -110,9 +114,9 @@
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/templates/Memo_list.html" />
         <option value="$PROJECT_DIR$/templates/report.html" />
+        <option value="$PROJECT_DIR$/client_test.py" />
         <option value="$PROJECT_DIR$/DB.py" />
         <option value="$PROJECT_DIR$/web_server.py" />
-        <option value="$PROJECT_DIR$/client_test.py" />
       </list>
     </option>
   </component>
@@ -624,24 +628,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="12" selection-start-line="18" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+        <state relative-caret-position="392">
+          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="226" column="92" lean-forward="true" selection-start-line="225" selection-start-column="12" selection-end-line="226" selection-end-column="92" />
+        <state relative-caret-position="155">
+          <caret line="220" column="116" selection-start-line="220" selection-start-column="116" selection-end-line="220" selection-end-column="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="162" column="19" lean-forward="true" selection-start-line="162" selection-start-column="19" selection-end-line="162" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

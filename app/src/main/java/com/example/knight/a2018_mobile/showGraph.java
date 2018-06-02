@@ -4,6 +4,7 @@
 
 package com.example.knight.a2018_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,8 @@ public class showGraph extends AppCompatActivity {
 
     Fragment selectedLine;
 
+    Intent intent;
+
     // calendar fragments
     FragmentCalendar singleCalendar;
 
@@ -45,10 +48,13 @@ public class showGraph extends AppCompatActivity {
 
 
     String from = "20180508", to = "20180515";    //20180508 form
+    String medicine_name;
     int times = 4;
     List list = new ArrayList();    // report information
     ArrayList<Integer[]> day  = new ArrayList<Integer[]>();
     ArrayList<Integer[]> time = new ArrayList<Integer[]>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +66,13 @@ public class showGraph extends AppCompatActivity {
         MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
         String result = "";
 
+        intent = getIntent();
+        medicine_name = intent.getStringExtra("medicine_name");
+
         try {
             request.put("Type", "Medicine_Record");  // Put data to create JSON
             request.put("Id", "TEST");
-            request.put("Medicine_Name", "Tylenol");       // 시작 날짜
+            request.put("Medicine_Name", medicine_name);       // 시작 날짜
             request.put("From", from);         // 종료 날짜
             request.put("To", to);
 
