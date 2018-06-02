@@ -16,6 +16,7 @@ validation = "select * from User where id=?"
 login = "select * from User where id=? and password=?"
 
 medicine_taking_sql = "select * from Medicine where User=? and Medicine_Name=? and Date >= ? and Date <= ?"
+medicine_taken_sql = "insert into Medicine (User, Medicine_Name, Date) values (?, ?, ?)"
 
 conn = sqlite3.connect("CapsuleTimer.db", check_same_thread=False)
 cur = conn.cursor()
@@ -134,6 +135,13 @@ def medicine_taking(user, medicine_name, from_date, to_date):
         d = list(d)
         d[2] = ''.join(datetime.datetime.fromtimestamp(d[2]).strftime('%Y-%m-%d %H:%M:%S'))
         result["record"].append(dict(zip(index, list(d))))
+    return json.dumps(result)
+
+def medicine_taken(user, medicine_name, date):
+    result = {}
+    cur.execute(medicine_taken_sql, (user, medicine_name, date))
+    conn.commit()
+    result["result"] = "Yes"
     return json.dumps(result)
 
 # times = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')

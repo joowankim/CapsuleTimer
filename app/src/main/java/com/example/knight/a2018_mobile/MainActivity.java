@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         to_alarmList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Alarm_main.class);
+                Intent intent = new Intent(getApplicationContext(), AlarmList.class);
                 if (flag == 0) {
                     intent.setClass(getApplicationContext(), Login.class);
                     Log.d("Test", "TEST");

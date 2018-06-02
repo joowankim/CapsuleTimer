@@ -1,34 +1,54 @@
-# -*- encoding:utf-8 -*-
-
-# import pyPdf
-# pdf = pyPdf.PdfFileReader(open("/Users/Knight/Desktop/2018 학부생RA/p42-wei.pdf", "rb"))
-# for page in pdf.pages:
-#     a = page.extractText()
-#     a.replace(".", "\n.")
-#     print a
-
-import DB
-
-# print DB.user_login("test", "test")
-
-
-
-# a = 1
-# for i in range(1, 14):
-#     a *= i
-# print a
-
+# import os
+# from flask import Flask
+# from flask import request, url_for
+# from flask import render_template, redirect, make_response
+# from nltk.tree import Tree
+# import pprint
+# os.environ['CLASSPATH'] = os.environ['CLASSPATH']+"/Users/Knight/Downloads/stanford-parser-full-2018-02-27:"
+# import nltk
 # import random
 #
-# def lotery(n):
-#     for _ in range(n):
-#         print ''.join([str(random.randint(1, 45))+" " for _ in range(6)])
+# print os.environ['CLASSPATH']
+# from nltk.parse import stanford
+# print nltk.__version__
+# # print Tree(sentences).flatten()
+# # GUI
 #
-# lotery(input())
+# app = Flask(__name__, static_url_path="/image", static_folder="image")
+#
+# def traverse_tree(tree, n, res):
+#     if n == 0:
+#         res.append([' '.join(tree.leaves()), random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
+#         return
+#     for subtree in tree:
+#         if type(subtree) == nltk.tree.Tree:
+#             traverse_tree(subtree, n-1, res)
+#         else:
+#             print subtree
+#             res.append(
+#                 [subtree, random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
+# def parsing(sentences, level, res):
+#     parser = stanford.StanfordParser()
+#     sentences = parser.raw_parse_sents((sentences, u''))
+#     for line in sentences:
+#         for sentence in line:
+#             print dir(sentence)
+#             traverse_tree(sentence, 2 + level, res)
+#
+# @app.route("/", methods=["GET", "POST"])
+# def home():
+#     if request.method == "GET":
+#         return render_template("nltk_home.html")
+#     elif request.method == "POST":
+#         sentence = request.form['sentence']
+#         level = request.form['level']
+#         res = []
+#         parsing(sentence, int(level), res)
+#         return render_template("nltk_home.html", res=res)
+#
+# if __name__ == '__main__':
+#     app.run()
 
 import time
-import datetime
 
-print datetime.datetime.fromtimestamp(0).strftime("%Y-%m-%d")
-print datetime.datetime.fromtimestamp(0).strftime("%Y-%m-%d")
-print datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d-%H-%M-%S")
+print time.time()

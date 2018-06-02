@@ -1,21 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CapsuleTimer</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+    </style>
 </head>
 <body>
-<form method="post" action="/search/medicine">
-    <input type="text" name="medicine_name">
-    <button type="submit">SEARCH</button>
-</form>
-<button type="button"><a href="/memo">Memo</a></button>
-{% if login.bool == "true" %}
-<button type="button"><a href="/logout">Logout</a></button>
-{% endif %}
-{% if login.bool == "false" %}
-<button type="button"><a href="/login">Login</a></button>
-{% endif %}
-<img src="/image/images-2.jpeg">
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Capsule Timer</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/memo">Memo</a> </li>
+                <li><a href="/report/Tylenol">Report</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if result.login.bool == "false" %}
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
+                {% if result.login.bool == "true" %}
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron" style="background-image: url(image/background2.jpg)">
+    <div class="container text-center">
+        <h1>약물 정보 검색</h1>
+        <form method="post" action="/search/medicine">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="약을 검색해 보세요!" name="medicine_name">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                            <i type="submit" class="glyphicon glyphicon-search "></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+    <h3>Memos</h3><br>
+    <div class="row">
+        {% for memo in result.memos1.memo %}
+        <div class="col-sm-3">
+            <img src="{{ memo.image + ".jpeg" }}" class="img-responsive" style="width:100%" alt="Image">
+            <p>{{ memo.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div><br>
+
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        {% for memo in result.memos2.memo %}
+        <div class="col-sm-3">
+            <img src="{{ memo.image }}" class="img-responsive" style="width:100%" alt="Image">
+            <p>{{ memo.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div><br><br>
+
+<footer class="container-fluid text-center">
+    <p>Footer Text</p>
+</footer>
+
 </body>
 </html>
+

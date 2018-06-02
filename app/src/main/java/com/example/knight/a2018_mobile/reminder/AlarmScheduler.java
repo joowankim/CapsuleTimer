@@ -223,6 +223,7 @@ public class AlarmScheduler {
             manager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, operation);
         } else {
             manager.set(AlarmManager.RTC_WAKEUP, alarmTime, operation);
+//            operation.s
         }
     }
 

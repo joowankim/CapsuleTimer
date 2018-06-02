@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.knight.a2018_mobile">
+    package="com.example.knight.a2018_mobile"> <!-- for calendar appWidget -->
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
-    <!-- for calendar appWidget -->
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="18" />
+    <uses-permission android:name="READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".FontApplication"
@@ -19,8 +22,8 @@
         android:label="CapsuleTimer"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:node="replace"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:node="replace">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,28 +36,31 @@
         <activity android:name=".edit_memo" />
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
-        <activity android:name=".showGraph"/>
-        <activity android:name=".Alarm_main"/>
-        <activity android:name =".Login" android:theme="@style/AppTheme.Dark"/>
-        <activity android:name=".Register" android:theme="@style/AppTheme.Dark"/>
-        <activity android:name=".AddReminderActivity"
+        <activity android:name=".showGraph" />
+        <activity android:name=".Alarm_main" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".Register"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".AddReminderActivity"
             android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".Alarm_main"
             android:theme="@style/AppTheme">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Alarm_main"
-                />
+                android:value=".Alarm_main" />
         </activity>
-
-        <activity android:name = ".reminder.AlarmCheckActivity"/>
+        <activity android:name=".reminder.AlarmCheckActivity" />
 
         <provider
             android:name=".data.AlarmReminderProvider"
             android:authorities="com.example.knight.a2018_mobile"
             android:exported="false" />
-
         <provider
             android:name=".data.medicineReportProvider"
             android:authorities="com.example.knight.a2018_mobile"
@@ -64,18 +70,31 @@
             android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
 
-        <receiver
-            android:name = ".AlertReceiver"/>
+        <receiver android:name=".AlertReceiver" />
 
         <!-- for calendar appWidget -->
         <receiver android:name=".MonthCalendarWidget">
-        <intent-filter>
-            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-        </intent-filter>
-        <meta-data
-            android:name="android.appwidget.provider"
-            android:resource="@xml/month_calendar_widget_info" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/month_calendar_widget_info" />
         </receiver>
+
+        <receiver
+            android:name=".MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.knight.alarm.AlarmRinging" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".SettingAlarm" />
+        <activity android:name=".AlarmList" />
+
     </application>
 
 </manifest>
