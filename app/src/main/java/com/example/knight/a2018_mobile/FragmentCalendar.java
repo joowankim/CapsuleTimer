@@ -82,7 +82,7 @@ public class FragmentCalendar extends Fragment {
                     calendarView.addDecorator(new takingDecoratorSingle(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
                     i += (time - 1);
                 }
-                greenText.setText("복용 완료");
+                greenText.setText("4회 복용");
                 yellow.setVisibility(View.INVISIBLE);
                 yellowText.setVisibility(View.INVISIBLE);
                 red.setVisibility(View.INVISIBLE);

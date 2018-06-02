@@ -6,6 +6,10 @@
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="slug_padding">20dp</dimen>
 
+    <!-- search view-->
+    <dimen name="search_view_inset">5dp</dimen>
+    <dimen name="sliding_search_view_header_height">250dp</dimen>
+
     <!--
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
