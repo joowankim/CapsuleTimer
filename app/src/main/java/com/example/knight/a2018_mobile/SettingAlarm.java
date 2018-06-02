@@ -114,37 +114,37 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {sunday.setTextColor(Color.WHITE); sunday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {sunday.setTextColor(Color.WHITE); sunday.setBackgroundColor(Color.rgb(111,181,255));} } });
         monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {monday.setTextColor(Color.WHITE); monday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {monday.setTextColor(Color.WHITE); monday.setBackgroundColor(Color.rgb(111,181,255));} } });
         tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {tuesday.setTextColor(Color.WHITE); tuesday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {tuesday.setTextColor(Color.WHITE); tuesday.setBackgroundColor(Color.rgb(111,181,255));} } });
         wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {wednesday.setTextColor(Color.WHITE); wednesday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {wednesday.setTextColor(Color.WHITE); wednesday.setBackgroundColor(Color.rgb(111,181,255));} } });
         thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {thursday.setTextColor(Color.WHITE); thursday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {thursday.setTextColor(Color.WHITE); thursday.setBackgroundColor(Color.rgb(111,181,255));} } });
         friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {friday.setTextColor(Color.WHITE); friday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {friday.setTextColor(Color.WHITE); friday.setBackgroundColor(Color.rgb(111,181,255));} } });
         saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {saturday.setTextColor(Color.WHITE); saturday.setBackgroundColor(Color.rgb(27,52,64));} } });
+                else {saturday.setTextColor(Color.WHITE); saturday.setBackgroundColor(Color.rgb(111,181,255));} } });
 
 
         addTime.setOnClickListener(new View.OnClickListener() {

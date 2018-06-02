@@ -18,14 +18,14 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="16dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/setting2" />
+        android:background="@color/primary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:id="@+id/add_reminder_layout_top"
-        android:background="@color/setting2"
+        android:background="@color/primary"
         android:orientation="vertical"
         android:layout_height="148dp">
 
@@ -34,6 +34,7 @@
             android:id="@+id/reminder_title"
             android:layout_marginLeft="72dp"
             android:hint="알람 이름"
+            android:textStyle="bold"
             android:textSize="25dp"
             android:lines="4"
             android:minLines="4"
@@ -52,7 +53,7 @@
         android:layout_width="fill_parent"
         android:layout_below="@id/add_reminder_layout_top"
         android:layout_height="fill_parent"
-        android:background="@color/setting2">
+        android:background="@color/primary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,8 +93,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="월"
                         android:textOff="월"
                         />
@@ -102,8 +104,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="화"
                         android:textOff="화"
                         />
@@ -112,8 +115,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="수"
                         android:textOff="수"
                         />
@@ -122,8 +126,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="목"
                         android:textOff="목"
                         />
@@ -132,8 +137,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="금"
                         android:textOff="금"
                         />
@@ -142,8 +148,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="토"
                         android:textOff="토"
                         />
@@ -153,8 +160,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/setting2"
+                        android:background = "@color/primary"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textOn="일"
                         android:textOff="일"
                         />
@@ -193,6 +201,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="날짜 선택" />
 
@@ -200,6 +209,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_date"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -263,6 +273,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="시간 선택" />
 
@@ -270,6 +281,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_time1"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -308,6 +320,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="시간 선택" />
 
@@ -315,6 +328,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_time2"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -353,6 +367,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="시간 선택" />
 
@@ -360,6 +375,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_time3"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -398,6 +414,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="시간 선택" />
 
@@ -405,6 +422,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_time4"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -443,6 +461,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="시간 선택" />
 
@@ -450,6 +469,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_time5"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -486,6 +506,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="자동 모드" />
 
@@ -494,6 +515,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:text="켜짐"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -542,6 +564,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="다시 울림" />
 
@@ -550,6 +573,7 @@
                         android:id="@+id/set_repeat"
                         android:textSize="15dp"
                         android:text="꺼짐"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -598,6 +622,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="반복 횟수" />
 
@@ -605,6 +630,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_repeat_no"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -642,6 +668,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="반복 간격" />
 
@@ -649,6 +676,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_repeat_type"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -686,6 +714,7 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="남은 약 개수" />
 
@@ -693,6 +722,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/set_remain_no"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
                         android:layout_height="wrap_content"/>
 
@@ -729,6 +759,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/test"
         android:text="저장"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:background="@drawable/background_transparent"/>
