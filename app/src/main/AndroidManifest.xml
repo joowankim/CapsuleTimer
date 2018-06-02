@@ -39,38 +39,13 @@
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
         <activity android:name=".showGraph" />
-        <activity android:name=".Alarm_main" />
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme.Dark" />
-        <activity
-            android:name=".AddReminderActivity"
-            android:label="@string/title_activity_add_reminder"
-            android:parentActivityName=".Alarm_main"
-            android:theme="@style/AppTheme">
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Alarm_main" />
-        </activity>
-        <activity android:name=".reminder.AlarmCheckActivity" />
-
-        <provider
-            android:name=".data.AlarmReminderProvider"
-            android:authorities="com.example.knight.a2018_mobile"
-            android:exported="false" />
-        <provider
-            android:name=".data.medicineReportProvider"
-            android:authorities="com.example.knight.a2018_mobile"
-            android:exported="false" />
-
-        <service
-            android:name=".reminder.ReminderAlarmService"
-            android:exported="false" />
 
         <!-- for calendar appWidget -->
         <receiver android:name=".MonthCalendarWidget">

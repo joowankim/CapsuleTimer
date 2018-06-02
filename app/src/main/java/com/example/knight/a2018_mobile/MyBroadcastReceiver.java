@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+//씀
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
     String Server_IP="106.10.40.50";

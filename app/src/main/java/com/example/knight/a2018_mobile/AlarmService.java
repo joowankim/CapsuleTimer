@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+//씀
 public class AlarmService extends Service {
 
     public AlarmManager alarm;
