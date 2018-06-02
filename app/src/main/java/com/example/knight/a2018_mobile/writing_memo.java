@@ -117,7 +117,6 @@ public class writing_memo extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     /**

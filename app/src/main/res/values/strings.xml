@@ -3,8 +3,8 @@
     <string name="name">Enter your First name and Last name</string>
     <string name="medicine_info_search_hint">약물 정보 검색</string>
     <string name="search">Search</string>
-    <string name="memo_content">Memo</string>
-    <string name="memo_hint">메모 내용</string>
+    <string name="memo_content">Memo:</string>
+    <string name="memo_hint">메모 내용 입력</string>
     <string name="submit">업로드</string>
     <string name="memo">메모</string>
     <string name="title_activity_test">test</string>

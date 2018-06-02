@@ -170,7 +170,11 @@
 
             </RelativeLayout>
             <!--요일 반복 구현 끝 -->
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:clickable="true"
@@ -216,7 +220,11 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -476,7 +484,11 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <!--자동 / 수동 버튼 -->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -535,7 +547,11 @@
             </RelativeLayout>
 
             <!--자동 / 수동 버튼 -->
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/repeat"
@@ -591,7 +607,11 @@
                     android:textOn="On"
                     android:textOff="Off"/>
             </RelativeLayout>
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/RepeatNo"
@@ -637,7 +657,11 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/RepeatType"
@@ -683,7 +707,11 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
+            <View
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/RemainNo"
@@ -735,6 +763,7 @@
     </ScrollView>
 
     <View
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/add_reminder_layout_top" />
@@ -746,7 +775,7 @@
         android:clickable="true"
         android:onClick="selectFab2"
         fab:fab_icon="@drawable/ic_notification_active"
-        fab:fab_colorNormal="@color/colorAccent"
+        fab:fab_colorNormal="@color/primary_darker"
         fab:fab_colorPressed="#000000"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
