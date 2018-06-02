@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -177,7 +178,14 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(":")[1]));
 
             Log.d("TIME", calendar.getTimeInMillis() + "");
-            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            if (Build.VERSION.SDK_INT >= 23) {
+                alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }else if (Build.VERSION.SDK_INT >= 19){
+                alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+            else {
+                alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
 
 
         } else if (intent.getStringExtra("Type").compareTo("Skip") == 0) {
@@ -201,8 +209,14 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
                 Calendar calendar = Calendar.getInstance();
                 AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + intent.getIntExtra("repeat_time", 0)*60000, pendingIntent);
-            }
+                if (Build.VERSION.SDK_INT >= 23) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }else if (Build.VERSION.SDK_INT >= 19){
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+                else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }}
         }
     }
 }
