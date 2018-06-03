@@ -2,6 +2,7 @@ package com.example.knight.a2018_mobile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -50,9 +51,13 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     private String repeatNo = "0";
     private String auto = "true";
     private String mRemain = "0";
+    private String exist = "";
+    private int alarm_id = 0;
+    private int medicine_id = 0;
     private int weekOfDate = 0;
     private int timeIdx = 1;
     private int dataIdx = 1;
+    private Intent intent = null;
     private String user_id;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
@@ -78,6 +83,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public ToggleButton saturday;
     public RelativeLayout []timeLayout = new RelativeLayout[6];
     public ImageButton addTime;
+    public Switch aSwitch1, aSwitch2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,15 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         db.getWritableDatabase();
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         user_id = sharedPreferences.getString("Id", "None");
+
+        intent = getIntent();
+        try {
+            Log.d("INTENT", intent.getStringExtra("Exist"));
+            exist = intent.getStringExtra("Exist");
+        } catch (Exception e) {
+            exist = "";
+            e.printStackTrace();
+        }
 
         alarm_name = findViewById(R.id.reminder_title);
         dateText = findViewById(R.id.set_date);
@@ -115,7 +130,67 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeLayout[4] = findViewById(R.id.time4);
         timeLayout[5] = findViewById(R.id.time5);
         addTime = findViewById(R.id.addTime);
+        aSwitch1 = findViewById(R.id.repeat_switch);
+        aSwitch2 = findViewById(R.id.auto_manual_btn_switch);
 
+        if (exist.compareTo("") != 0) {
+            try {
+                JSONObject tmp = new JSONObject(exist);
+                alarm_name.setText(tmp.getString("medicine_name"));
+                alarm_id = tmp.getInt("alarm_id");
+                medicine_id = tmp.getInt("medicine_id");
+                if (tmp.getString("date") != "")
+                    dateText.setText(tmp.getString("date"));
+                int nVisible = tmp.getString("time").split(" ").length;
+                for (int i = 2; i < nVisible; i++)
+                    timeLayout[i].setVisibility(View.VISIBLE);
+                for (int i = 1; i < nVisible; i++)
+                    timeText[i].setText(tmp.getString("time").split(" ")[i]);
+                if (tmp.getString("repeat").compareTo("true") == 0) {
+                    repeatText.setText("켜짐");
+                    repeat = "true";
+                    aSwitch1.setChecked(true);
+                }
+                if (tmp.getInt("weekOfDate") > 0) {
+                    int date = tmp.getInt("weekOfDate");
+                    if ((date & 0x00000001) > 0) {
+                        sunday.setChecked(true);
+                        sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x00000010) > 0) {
+                        monday.setChecked(true);
+                        monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x00000100) > 0) {
+                        tuesday.setChecked(true);
+                        tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x00001000) > 0) {
+                        wednesday.setChecked(true);
+                        wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x00010000) > 0) {
+                        thursday.setChecked(true);
+                        thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x00100000) > 0) {
+                        friday.setChecked(true);
+                        friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                    if ((date & 0x01000000) > 0) {
+                        saturday.setChecked(true);
+                        saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
+                    }
+                }
+                if (tmp.getString("auto").compareTo("false") == 0) {
+                    autoText.setText("꺼짐");
+                    auto = "false";
+                    aSwitch2.setChecked(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -222,7 +297,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                         }
                     }
                     tmpTime.trim();
-                    db.myInsert("medicine_alarm", "medicine_id, medicine_name, date, time, repeat, repeat_no, repeat_type, active, weekOfDate, auto", resJson.getInt("medicine_id") + ", \"" + alarm_name.getText().toString() + "\", "+"\""+date+"\", \""+tmpTime+"\", \""+repeat+"\", \""+repeatNo+"\", \""+repeatType+"\", \""+active+"\", "+weekOfDate+", \""+auto+"\"");
+                    Log.d("CHECK_INSERT", exist);
+                    if (exist.compareTo("") == 0)
+                        db.myInsert("medicine_alarm", "medicine_id, medicine_name, date, time, repeat, repeat_no, repeat_type, active, weekOfDate, auto", resJson.getInt("medicine_id") + ", \"" + alarm_name.getText().toString() + "\", "+"\""+date+"\", \""+tmpTime+"\", \""+repeat+"\", \""+repeatNo+"\", \""+repeatType+"\", \""+active+"\", "+weekOfDate+", \""+auto+"\"");
+                    else
+                        db.myUpdate("medicine_alarm", "medicine_id = " + medicine_id + ", medicine_name = \"" + alarm_name.getText().toString() + "\", date = "+"\""+date+"\", time = \""+tmpTime+"\", repeat = \""+repeat+"\", repeat_no = \""+repeatNo+"\", repeat_type = \""+repeatType+"\", active = \""+active+"\", weekOfDate = "+weekOfDate+", auto = \""+auto+"\"", "alarm_id="+alarm_id);
 //
                 } catch (Exception e) {
                     e.printStackTrace();

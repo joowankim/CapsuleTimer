@@ -31,20 +31,6 @@ public class MedicineListAdapter extends BaseAdapter {
             myMedicine = new JSONObject(jsonString);
             medicines = myMedicine.getJSONArray("medicine");
             inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            for (int i = 0; i < medicines.length(); i++) {
-//
-//                JSONObject medicine = medicines.getJSONObject(i);
-//
-//                Log.i("Seq", "" + medicine.getString("Sequence"));
-//                Log.i("name","" + medicine.getString("name"));
-//                Log.i("link", "" + medicine.getString("link"));
-//                Log.i("ingredient", "" + medicine.getString("ingredient"));
-//                Log.i("ningredient","" + medicine.getString("ningredient"));
-//                Log.i("company", "" + medicine.getString("company"));
-//                Log.i("type", "" + medicine.getString("type"));
-//
-//
-//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

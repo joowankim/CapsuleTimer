@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,6 +90,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         list.setAdapter(alarmAdapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), position+", "+id, Toast.LENGTH_SHORT).show();
+                JSONObject tmp = (JSONObject) alarmAdapter.getItem(position);
+                switch ((int) id) {
+                    case 0:
+                        try {
+                            Intent intent = new Intent(getApplicationContext(), showGraph.class);
+                            intent.putExtra("Medicine_Name", tmp.getString("medicine_name"));
+                            getApplicationContext().startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        break;
+                }
+            }
+        });
 
         /**
          * @description add button event click listener

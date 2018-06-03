@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class AlarmAdapter extends BaseAdapter {
     public DB db;
     public JSONArray result;
     public LayoutInflater inflater;
+    JSONObject tmp = null;
 
     public AlarmAdapter(Context context) {
         this.context = context;
@@ -63,7 +65,6 @@ public class AlarmAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
-        JSONObject tmp = null;
         try {
             tmp = result.getJSONObject(position);
             if (convertView == null) {
@@ -80,6 +81,7 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
+                viewHolder.idx = position;
 
                 viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -134,18 +136,65 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
+//                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        try {
+//                            Intent intent = new Intent(context, showGraph.class);
+//                            intent.putExtra("Medicine_Name", tmp.getString("medicine_name"));
+//                            context.startActivity(intent);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//
+//                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        try {
+//                            Intent intent = new Intent(context, SettingAlarm.class);
+//                            intent.putExtra("Exist", tmp.toString());
+//                            context.startActivity(intent);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//
+//                viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        try {
+//                            db = new DB(context, "Alarm.db", null, 1);
+//                            db.getWritableDatabase();
+//                            db.myDelete("medicine_alarm", "medicine_name = \"" + tmp.getString("medicine_name") + "\"");
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
                 viewHolder.report.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 0);
+                    }
+                });
 
-                        try {
-                            JSONObject current = result.getJSONObject(position);
-                            Intent intent = new Intent(context, showGraph.class);
-                            intent.putExtra("medicine_name", current.getString("medicine_name"));
-                            context.startActivity(intent);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 1);
+                    }
+                });
+
+                viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 2);
                     }
                 });
 
@@ -155,6 +204,28 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
+                viewHolder.idx = position;
+
+                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 0);
+                    }
+                });
+
+                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 1);
+                    }
+                });
+
+                viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 2);
+                    }
+                });
 
             }
         } catch (Exception e) {
@@ -173,5 +244,6 @@ public class AlarmAdapter extends BaseAdapter {
         public ImageButton delete;
         public ImageView img;
         public Button btn;
+        public int idx;
     };
 }

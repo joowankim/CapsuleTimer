@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class FragmentMemoList extends Fragment {
         try {
             request.put("Type", "Search_Memo");
             request.put("User", id);
+            Log.d("FRAG", medicine_name);
             request.put("Medicine_Name", medicine_name);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -67,12 +68,12 @@ public class showGraph extends AppCompatActivity {
         String result = "";
 
         intent = getIntent();
-        medicine_name = intent.getStringExtra("medicine_name");
+        medicine_name = intent.getStringExtra("Medicine_Name");
 
         try {
             request.put("Type", "Medicine_Record");  // Put data to create JSON
             request.put("Id", "TEST");
-            request.put("Medicine_Name", medicine_name);       // 시작 날짜
+            request.put("Medicine_Name", "Tylenol");       // 시작 날짜
             request.put("From", from);         // 종료 날짜
             request.put("To", to);
 
