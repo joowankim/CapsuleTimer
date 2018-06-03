@@ -1,75 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.knight.a2018_mobile.showGraph">
+    android:background="#FFFFFF">
+
+    <!-- 여기다가 약 정보 쓰기 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/medi_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tyrenol"
+            android:gravity="center"
+            android:textSize="50dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#0288D1"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/bottom_sheet"
+        android:background="@drawable/rounded"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        app:behavior_peekHeight="?attr/actionBarSize"
+        app:behavior_hideable="false"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        tools:context="com.example.knight.a2018_mobile.showGraph">
 
-        <!--<android.support.design.widget.AppBarLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-            <!--<android.support.v7.widget.Toolbar-->
+            <!--<android.support.design.widget.AppBarLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:background="@color/colorPrimaryDark"-->
-                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
-                <!--android:elevation="1dp"-->
-                <!--android:id="@+id/toolbar">-->
+                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/titleText"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"-->
-                    <!--android:text="리포트" />-->
-
-            <!--</android.support.v7.widget.Toolbar>-->
-
-            <!--<android.support.design.widget.TabLayout-->
-                <!--android:id="@+id/tabs"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:tabMode="fixed"-->
-                <!--app:tabGravity="fill"-->
-                <!--app:tabTextColor="@color/colorPrimary"-->
-                <!--app:tabSelectedTextColor="@color/colorAccent"-->
-                <!--android:elevation="1dp"-->
-                <!--android:background="@android:color/background_light" />-->
-
-        <!--</android.support.design.widget.AppBarLayout>-->
-
-                <!-- first tab -->
-                <!--<FrameLayout-->
-                    <!--android:id="@+id/container"-->
+                <!--<android.support.v7.widget.Toolbar-->
                     <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@color/colorPrimaryDark"-->
+                    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
+                    <!--android:elevation="1dp"-->
+                    <!--android:id="@+id/toolbar">-->
 
-                <!--</FrameLayout>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/titleText"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"-->
+                        <!--android:text="리포트" />-->
 
-        <com.astuetz.PagerSlidingTabStrip
-            android:id="@+id/tabs"
-            android:gravity="center_horizontal"
-            app:pstsIndicatorColor="#00ff00"
-            app:pstsShouldExpand="true"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+                <!--</android.support.v7.widget.Toolbar>-->
 
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tabs"
-            android:id="@+id/container"/>
+                <!--<android.support.design.widget.TabLayout-->
+                    <!--android:id="@+id/tabs"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:tabMode="fixed"-->
+                    <!--app:tabGravity="fill"-->
+                    <!--app:tabTextColor="@color/colorPrimary"-->
+                    <!--app:tabSelectedTextColor="@color/colorAccent"-->
+                    <!--android:elevation="1dp"-->
+                    <!--android:background="@android:color/background_light" />-->
+
+            <!--</android.support.design.widget.AppBarLayout>-->
+
+                    <!-- first tab -->
+                    <!--<FrameLayout-->
+                        <!--android:id="@+id/container"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+                    <!--</FrameLayout>-->
+
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/tabs"
+                android:gravity="center_horizontal"
+                app:pstsIndicatorColor="#00ff00"
+                app:pstsShouldExpand="true"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/rounded"/>
+
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tabs"
+                android:id="@+id/container"
+                android:background="#FFFFFF"/>
+        </RelativeLayout>
+
+
     </RelativeLayout>
-
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -67,12 +67,13 @@
         </receiver>
         <receiver android:name=".buttonAppWidget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="Click1"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="Click1" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/button_app_widget_info"/>
+                android:resource="@xml/button_app_widget_info" />
         </receiver>
 
         <activity android:name=".SettingAlarm" />

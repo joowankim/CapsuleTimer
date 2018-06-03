@@ -6,6 +6,8 @@ package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -30,6 +34,7 @@ public class showGraph extends AppCompatActivity {
     private final int Server_PORT = 6000;
 
     Toolbar toolbar;
+    RelativeLayout llBottomSheet;
 
     // graph fragments
     FragmentSingle  singleLine;
@@ -109,6 +114,8 @@ public class showGraph extends AppCompatActivity {
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
 
+        llBottomSheet = findViewById(R.id.bottom_sheet);
+
         singleLine  = new FragmentSingle();
         doubleLine  = new FragmentDouble();
         tripleLine  = new FragmentTriple();
@@ -164,9 +171,9 @@ public class showGraph extends AppCompatActivity {
 //        tabs.addTab(tabs.newTab().setText("메모"));
 
         // 지금은 많이 사용하는게 아니라 줄 그어 진다는데 사실 잘 모르겠지만 돌아가긴 합니다
-
-
     }
+
+
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
