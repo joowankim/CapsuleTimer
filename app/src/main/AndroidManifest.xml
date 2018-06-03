@@ -43,6 +43,7 @@
         <activity android:name=".EnrollEmail"/>
         <activity android:name=".AppInfo"/>
         <activity android:name=".AppInfoGit"/>
+        <activity android:name=".AppHomepage"/>
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.Dark" />

@@ -30,7 +30,10 @@
             android:layout_weight="5"
             android:id="@+id/medicine_name"
             android:hint="@string/medicine_info_search_hint"
-            android:backgroundTint="#7777ff"/>
+            android:backgroundTint="#7777ff"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

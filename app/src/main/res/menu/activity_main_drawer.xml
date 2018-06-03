@@ -10,9 +10,9 @@
             android:title="메모 리스트" />
 
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_person_black"
-            android:title="개인 설정" />
+            android:id="@+id/nav_homepage"
+            android:icon="@drawable/ic_homepage_black"
+            android:title="웹 페이지" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout_black"
@@ -26,8 +26,8 @@
                 android:icon="@drawable/ic_email_black"
                 android:title="e-mail" />
             <item
-                android:id="@+id/nav_homepage"
-                android:icon="@drawable/ic_homepage_black"
+                android:id="@+id/nav_appinfo"
+                android:icon="@drawable/ic_app_info"
                 android:title="앱 정보" />
         </menu>
     </item>

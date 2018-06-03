@@ -327,8 +327,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "memo", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_setting) {
-            Toast.makeText(getApplicationContext(), "setting", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_homepage) {
+            Intent intent = new Intent(getApplicationContext(), AppHomepage.class);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_logout) {
             if (flag == 1) {
                 Log.d("123", "1");
@@ -348,10 +350,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), EnrollEmail.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "email", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_homepage) {
+        } else if (id == R.id.nav_appinfo) {
             Intent intent = new Intent(getApplicationContext(), AppInfo.class);
             startActivity(intent);
-            Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "gitpage", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
