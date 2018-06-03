@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         break;
                 }
             }
@@ -351,6 +349,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "email", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_homepage) {
+            Intent intent = new Intent(getApplicationContext(), AppInfo.class);
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
         }
 
