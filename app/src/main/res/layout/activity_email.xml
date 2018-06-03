@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_warning1"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+    <TableLayout
+        android:layout_below="@+id/textView1"
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="2">
+        <TableRow>
+            <TextView
+                android:text="병원 이름: "/>
+            <EditText
+                android:layout_span = "2"
+                android:id = "@+id/name_hospital"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="담당 의사: "/>
+            <EditText
+                android:layout_span = "2"
+                android:id = "@+id/name_doctor"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:text="E-mail:"/>
+            <EditText
+                android:layout_span = "2"
+                android:id = "@+id/email"
+                android:inputType="textEmailAddress"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:layout_marginLeft="100dp"
+        android:text="등록"
+        />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:layout_toRightOf="@+id/update"
+        android:text="삭제"
+        />
+
+    <LinearLayout
+        android:layout_below="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+</RelativeLayout>
+

@@ -40,6 +40,7 @@
         <activity android:name=".Show_medicine_list" />
         <activity android:name=".Show_medicine_info" />
         <activity android:name=".showGraph" />
+        <activity android:name=".EnrollEmail"/>
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.Dark" />

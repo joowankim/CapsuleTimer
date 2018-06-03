@@ -108,5 +108,7 @@
     <string name="action_settings">settings</string>
     <string name="navigation_drawer_open">navigation open</string>
     <string name="navigation_drawer_close">navigation close</string>
-
+    <string name="email_type_hint">보내실 분의 이메일을 입력해주세요.</string>
+    <string name="email_warning1">입력된 이메일로 레포트가 전송됩니다.</string>
 </resources>
+

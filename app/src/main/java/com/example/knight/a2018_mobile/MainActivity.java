@@ -20,11 +20,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonRectangle;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.json.JSONException;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton fab;
     private ListView list;
     private AlarmAdapter alarmAdapter;
-    private Button medicine_search_btn;
+    private ImageButton medicine_search_btn;
     private EditText medicine_name_edt;
     private ImageView img;
     private Toolbar toolbar;
@@ -347,6 +347,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_email) {
+            Intent intent = new Intent(getApplicationContext(), EnrollEmail.class);
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "email", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_homepage) {
             Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
