@@ -57,6 +57,7 @@ dependencies {
 //    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
     // for font
     implementation 'com.github.katoro:typekit:1.0.1'
+    // for material design
 }
 
 repositories {

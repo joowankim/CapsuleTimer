@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         try {
                             Intent intent = new Intent(getApplicationContext(), showGraph.class);
                             intent.putExtra("Medicine_Name", tmp.getString("medicine_name"));
-                            getApplicationContext().startActivity(intent);
+                            startActivity(intent);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

@@ -45,12 +45,12 @@ public class FragmentSingle extends Fragment {
             i++;
         }
 
-        LineDataSet lineDataSet1 = new LineDataSet(entries, "1차 복용");
+        LineDataSet lineDataSet1 = new LineDataSet(entries, "1회 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
-        lineDataSet1.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setCircleColor(getResources().getColor(R.color.once));
         lineDataSet1.setCircleColorHole(Color.BLUE);
-        lineDataSet1.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setColor(getResources().getColor(R.color.once));
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 

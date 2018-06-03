@@ -62,39 +62,39 @@ public class FragmentQuad extends Fragment {
             }
         }
 
-        LineDataSet lineDataSet1 = new LineDataSet(entries1, "1차 복용");
+        LineDataSet lineDataSet1 = new LineDataSet(entries1, "1회 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
-        lineDataSet1.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setCircleColor(getResources().getColor(R.color.once));
         lineDataSet1.setCircleColorHole(Color.BLUE);
-        lineDataSet1.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setColor(getResources().getColor(R.color.once));
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 
-        LineDataSet lineDataSet2 = new LineDataSet(entries2, "2차 복용");
+        LineDataSet lineDataSet2 = new LineDataSet(entries2, "2회 복용");
         lineDataSet2.setLineWidth(2);
         lineDataSet2.setCircleRadius(6);
-        lineDataSet2.setCircleColor(Color.parseColor("#FF00B4DC"));
+        lineDataSet2.setCircleColor(getResources().getColor(R.color.twice));
         lineDataSet2.setCircleColorHole(Color.RED);
-        lineDataSet2.setColor(Color.parseColor("#FF00B4DC"));
+        lineDataSet2.setColor(getResources().getColor(R.color.twice));
         lineDataSet2.setDrawCircleHole(true);
         lineDataSet2.setDrawCircles(true);
 
-        LineDataSet lineDataSet3 = new LineDataSet(entries3, "3차 복용");
+        LineDataSet lineDataSet3 = new LineDataSet(entries3, "3회 복용");
         lineDataSet3.setLineWidth(2);
         lineDataSet3.setCircleRadius(6);
-        lineDataSet3.setCircleColor(Color.parseColor("#FF00B4FF"));
+        lineDataSet3.setCircleColor(getResources().getColor(R.color.triple));
         lineDataSet3.setCircleColorHole(Color.GREEN);
-        lineDataSet3.setColor(Color.parseColor("#FF00B4FF"));
+        lineDataSet3.setColor(getResources().getColor(R.color.triple));
         lineDataSet3.setDrawCircleHole(true);
         lineDataSet3.setDrawCircles(true);
 
-        LineDataSet lineDataSet4 = new LineDataSet(entries4, "4차 복용");
+        LineDataSet lineDataSet4 = new LineDataSet(entries4, "4회 복용");
         lineDataSet4.setLineWidth(2);
         lineDataSet4.setCircleRadius(6);
-        lineDataSet4.setCircleColor(Color.parseColor("#FFA3FF3C"));
+        lineDataSet4.setCircleColor(getResources().getColor(R.color.quad));
         lineDataSet4.setCircleColorHole(Color.LTGRAY);
-        lineDataSet4.setColor(Color.parseColor("#FFA3FF3C"));
+        lineDataSet4.setColor(getResources().getColor(R.color.quad));
         lineDataSet4.setDrawCircleHole(true);
         lineDataSet4.setDrawCircles(true);
 

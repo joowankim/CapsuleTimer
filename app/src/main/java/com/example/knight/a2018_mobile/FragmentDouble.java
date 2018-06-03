@@ -55,21 +55,21 @@ public class FragmentDouble extends Fragment {
         }
 
 
-        LineDataSet lineDataSet1 = new LineDataSet(entries1, "1차 복용");
+        LineDataSet lineDataSet1 = new LineDataSet(entries1, "1회 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
-        lineDataSet1.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setCircleColor(getResources().getColor(R.color.once));
         lineDataSet1.setCircleColorHole(Color.BLUE);
-        lineDataSet1.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet1.setColor(getResources().getColor(R.color.once));
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 
-        LineDataSet lineDataSet2 = new LineDataSet(entries2, "2차 복용");
+        LineDataSet lineDataSet2 = new LineDataSet(entries2, "2회 복용");
         lineDataSet2.setLineWidth(2);
         lineDataSet2.setCircleRadius(6);
-        lineDataSet2.setCircleColor(Color.parseColor("#FF00B4DC"));
+        lineDataSet2.setCircleColor(getResources().getColor(R.color.twice));
         lineDataSet2.setCircleColorHole(Color.RED);
-        lineDataSet2.setColor(Color.parseColor("#FF00B4DC"));
+        lineDataSet2.setColor(getResources().getColor(R.color.twice));
         lineDataSet2.setDrawCircleHole(true);
         lineDataSet2.setDrawCircles(true);
 

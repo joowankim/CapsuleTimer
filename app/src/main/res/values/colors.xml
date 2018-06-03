@@ -34,4 +34,10 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- medicine taking count -->
+    <color name="once">#55AF8A4F</color>
+    <color name="twice">#5563B8FC</color>
+    <color name="triple">#559CD1FC</color>
+    <color name="quad">#551B6DAF</color>
 </resources>
