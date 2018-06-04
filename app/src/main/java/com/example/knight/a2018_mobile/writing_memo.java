@@ -120,7 +120,6 @@ public class writing_memo extends AppCompatActivity {
             }
         });
     }
-
     /**
      * @param requestCode unique ID to identify request
      * @param resultCode  unique ID to identify result is ok or not

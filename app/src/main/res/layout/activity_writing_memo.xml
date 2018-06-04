@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/memo_back"
+    android:background="@color/primary_darker"
     tools:context="com.example.knight.a2018_mobile.writing_memo"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/iamgelayout"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,36 +22,34 @@
             android:contextClickable="true"
             android:scaleType="fitXY"
             android:id="@+id/memo_image"/>
-        <View
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/add_reminder_layout_top" />
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:id="@+id/medicine_name">
         </Spinner>
-        <LinearLayout
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/iamgelayout"
+        android:background="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:gravity="top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:gravity="top"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:hint="@string/memo_hint"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:id="@+id/memo_content"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:hint="@string/memo_hint"
+            android:textColor="@color/primary_text"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/memo_content"/>
     </LinearLayout>
 
     <Button
         android:layout_alignParentRight="true"
 
-        android:background="@color/memo_upload"
+        android:background="@drawable/background_transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"

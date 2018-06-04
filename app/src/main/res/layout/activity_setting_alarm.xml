@@ -18,14 +18,14 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="16dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/primary" />
+        android:background="@color/primary_darker" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:id="@+id/add_reminder_layout_top"
-        android:background="@color/primary"
+        android:background="@color/primary_darker"
         android:orientation="vertical"
         android:layout_height="148dp">
 
@@ -53,7 +53,7 @@
         android:layout_width="fill_parent"
         android:layout_below="@id/add_reminder_layout_top"
         android:layout_height="fill_parent"
-        android:background="@color/primary">
+        android:background="#FFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="요일 반복"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     android:textSize="15dp"
                     />
@@ -86,6 +86,7 @@
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_centerVertical="true"
+                    android:background="#ffff"
                     android:layout_height="wrap_content">
 
                     <ToggleButton
@@ -93,8 +94,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="월"
                         android:textOff="월"
@@ -104,8 +105,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="화"
                         android:textOff="화"
@@ -115,8 +116,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="수"
                         android:textOff="수"
@@ -126,8 +127,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="목"
                         android:textOff="목"
@@ -137,8 +138,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="금"
                         android:textOff="금"
@@ -148,8 +149,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="토"
                         android:textOff="토"
@@ -160,8 +161,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background = "@color/primary"
-                        android:textColor="@color/white"
+                        android:background = "#ffff"
+                        android:textColor="@color/primary_text"
                         android:textStyle="bold"
                         android:textOn="일"
                         android:textOff="일"
@@ -171,8 +172,8 @@
             </RelativeLayout>
             <!--요일 반복 구현 끝 -->
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
@@ -191,7 +192,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_view_date_white"
+                    android:src="@drawable/ic_view_date_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -203,7 +204,7 @@
 
                     <TextView
                         android:id="@+id/date_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -215,15 +216,15 @@
                         android:id="@+id/set_date"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
@@ -237,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:text="시간 추가"
                     android:layout_toLeftOf="@+id/addTime"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     />
 
@@ -268,7 +269,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_white"
+                    android:src="@drawable/ic_access_time_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -280,7 +281,7 @@
 
                     <TextView
                         android:id="@+id/time_text1"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -292,7 +293,7 @@
                         android:id="@+id/set_time1"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -315,7 +316,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_black"
+                    android:src="@drawable/ic_access_time_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -327,7 +328,7 @@
 
                     <TextView
                         android:id="@+id/time_text2"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -339,7 +340,7 @@
                         android:id="@+id/set_time2"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -362,7 +363,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_black"
+                    android:src="@drawable/ic_access_time_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -374,7 +375,7 @@
 
                     <TextView
                         android:id="@+id/time_text3"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -386,7 +387,7 @@
                         android:id="@+id/set_time3"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -409,7 +410,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_black"
+                    android:src="@drawable/ic_access_time_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -421,7 +422,7 @@
 
                     <TextView
                         android:id="@+id/time_text4"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -433,7 +434,7 @@
                         android:id="@+id/set_time4"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -456,7 +457,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_access_time_black"
+                    android:src="@drawable/ic_access_time_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -468,7 +469,7 @@
 
                     <TextView
                         android:id="@+id/time_text5"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -480,15 +481,15 @@
                         android:id="@+id/set_time5"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
@@ -505,7 +506,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_alarm_on_white"
+                    android:src="@drawable/ic_alarm_on_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -518,7 +519,7 @@
 
                     <TextView
                         android:id="@+id/auto_manual_btn_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -531,7 +532,7 @@
                         android:textSize="15dp"
                         android:text="켜짐"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
@@ -551,8 +552,8 @@
 
             <!--자동 / 수동 버튼 -->
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
@@ -568,7 +569,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_sync_white"
+                    android:src="@drawable/ic_repeat_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -581,7 +582,7 @@
 
                     <TextView
                         android:id="@+id/repeat_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -594,7 +595,7 @@
                         android:textSize="15dp"
                         android:text="꺼짐"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
@@ -612,15 +613,15 @@
                     android:textOff="Off"/>
             </RelativeLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/RepeatNo"
-                android:clickable="true"
+                android:clickable="false"
                 android:onClick="setRepeatNo"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_height="72dp">
@@ -632,7 +633,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_unfold_more_white"
+                    android:src="@drawable/ic_unfold_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -644,7 +645,7 @@
 
                     <TextView
                         android:id="@+id/repeat_no_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -656,22 +657,22 @@
                         android:id="@+id/set_repeat_no"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:id="@+id/RepeatType"
-                android:clickable="true"
+                android:id="@+id/RepeatInterval"
+                android:clickable="false"
                 android:onClick="selectRepeatType"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_height="72dp">
@@ -683,7 +684,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_subject_white"
+                    android:src="@drawable/ic_subject_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -695,7 +696,7 @@
 
                     <TextView
                         android:id="@+id/repeat_type_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -707,15 +708,15 @@
                         android:id="@+id/set_repeat_type"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
             </RelativeLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="300dp"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_below="@+id/add_reminder_layout_top" />
@@ -734,7 +735,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:src="@drawable/ic_unfold_more_white"
+                    android:src="@drawable/ic_unfold_icon"
                     android:layout_centerVertical="true" />
 
                 <LinearLayout
@@ -746,7 +747,7 @@
 
                     <TextView
                         android:id="@+id/remain_no_text"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/primary_text"
                         android:layout_width="wrap_content"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -758,7 +759,7 @@
                         android:id="@+id/set_remain_no"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/secondary_text"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -770,7 +771,7 @@
     </ScrollView>
 
     <View
-        android:background="@color/white"
+        android:background="@color/divider_color"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/add_reminder_layout_top" />
@@ -779,10 +780,8 @@
         android:id="@+id/starred2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="selectFab2"
         fab:fab_icon="@drawable/ic_notification_active"
-        fab:fab_colorNormal="@color/primary_darker"
+        fab:fab_colorNormal="@color/accent"
         fab:fab_colorPressed="#000000"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
