@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,8 +76,9 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.img = convertView.findViewById(R.id.img);
                 viewHolder.btn = convertView.findViewById(R.id.Taken);
                 viewHolder.edit = convertView.findViewById(R.id.edit);
-                viewHolder.report = convertView.findViewById(R.id.report);
+//                viewHolder.report = convertView.findViewById(R.id.report);
                 viewHolder.delete = convertView.findViewById(R.id.delete);
+                viewHolder.card = convertView.findViewById(R.id.card);
 
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
@@ -177,7 +179,14 @@ public class AlarmAdapter extends BaseAdapter {
 //                        }
 //                    }
 //                });
-                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+//                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ((ListView) parent).performItemClick(v, position, 0);
+//                    }
+//                });
+
+                viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ((ListView) parent).performItemClick(v, position, 0);
@@ -206,7 +215,7 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
                 viewHolder.idx = position;
 
-                viewHolder.report.setOnClickListener(new View.OnClickListener() {
+                viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ((ListView) parent).performItemClick(v, position, 0);
@@ -245,5 +254,6 @@ public class AlarmAdapter extends BaseAdapter {
         public ImageView img;
         public Button btn;
         public int idx;
+        public RelativeLayout card;
     };
 }

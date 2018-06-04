@@ -43,29 +43,31 @@ public class writing_memo extends AppCompatActivity {
     String user_id;
     SharedPreferences sharedPreferences;
     public static final int PICK_IMAGE = 1;
-    private String Server_IP="106.10.40.50";
-    private int Server_PORT=6000;
+    private String Server_IP = "106.10.40.50";
+    private int Server_PORT = 6000;
     private Uri selectedimg;
     DB db;
+    Intent getIntents;
 
     /**
-     * @description java class of writing memo activity
      * @param savedInstanceState
+     * @description java class of writing memo activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_memo);
 
-        memo_edit_image = (ImageView)findViewById(R.id.memo_image);
-        memo_edit_content = (EditText)findViewById(R.id.memo_content);
-        memo_edit_submit = (Button)findViewById(R.id.memo_upload);
+        memo_edit_image = (ImageView) findViewById(R.id.memo_image);
+        memo_edit_content = (EditText) findViewById(R.id.memo_content);
+        memo_edit_submit = (Button) findViewById(R.id.memo_upload);
         spinner = findViewById(R.id.medicine_name);
 
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         user_id = sharedPreferences.getString("Id", "None");
 
-        select();
+        getIntents = getIntent();
+        select(0);
 
         /**
          * @description add button event click listener
@@ -98,7 +100,7 @@ public class writing_memo extends AppCompatActivity {
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte array [] = baos.toByteArray();
+                    byte array[] = baos.toByteArray();
                     request.put("Type", "Write_Memo");  // Add data to create request
                     request.put("Id", user_id);
                     request.put("Text", memo_text);
@@ -120,16 +122,15 @@ public class writing_memo extends AppCompatActivity {
     }
 
     /**
-     * @description get result when picture is selected from gallery
      * @param requestCode unique ID to identify request
-     * @param resultCode unique ID to identify result is ok or not
-     * @param data data send by other activity
+     * @param resultCode  unique ID to identify result is ok or not
+     * @param data        data send by other activity
+     * @description get result when picture is selected from gallery
      */
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //    @SuppressLint("NewApi")
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE) {
             try {
                 selectedimg = data.getData();  // Get image from received intent
@@ -137,7 +138,7 @@ public class writing_memo extends AppCompatActivity {
                 Log.d("IMAGE", selectedimg.toString());
 //                Log.d("Base64", Base64.encodeToString("Hello".getBytes(), Base64.DEFAULT));
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
                 Log.d("Memo", "Get image error");
@@ -146,12 +147,13 @@ public class writing_memo extends AppCompatActivity {
     }
 
     //    Check existing sutdent data in DB and show it in list view
-    public void select() {
+    public void select(int flag) {
 
 //        Get readable database
         db = new DB(getApplicationContext(), "Alarm.db", null, 1);
         db.getWritableDatabase();
-        String []medicine = null;
+        String[] medicine = null;
+        int init = 0;
         try {
             JSONArray result = new JSONArray(db.mySelect("medicine_alarm", "*", "1 = 1"));
             medicine = new String[result.length()];
@@ -159,6 +161,8 @@ public class writing_memo extends AppCompatActivity {
                 JSONObject tmp = result.getJSONObject(idx);
                 Log.d("DB TEST", "");
                 medicine[idx] = tmp.getString("medicine_name");
+                if (medicine[idx].compareTo(getIntents.getStringExtra("Medicine_Name")) == 0)
+                    init = idx;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,27 +172,10 @@ public class writing_memo extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, medicine);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
+        if (flag == 0) {
+            flag = 1;
+            Log.d("TEST", getIntents.getStringExtra("Medicine_Name"));
+            spinner.setSelection(adapter.getPosition(getIntents.getStringExtra("Medicine_Name")));
+        }
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @SuppressLint("NewApi")
-//    private String getRealPathFromURI(Uri contentUri) {
-//        if (contentUri.getPath().startsWith("/storage")) {
-//            return contentUri.getPath();
-//        }
-//        String id = DocumentsContract.getDocumentId(contentUri).split(":")[1];
-//        String[] columns = { MediaStore.Files.FileColumns.DATA };
-//        String selection = MediaStore.Files.FileColumns._ID + " = " + id;
-//        Cursor cursor = getContentResolver().query(MediaStore.Files.getContentUri("external"), columns, selection, null, null);
-//        try {
-//            int columnIndex = cursor.getColumnIndex(columns[0]);
-//            if (cursor.moveToFirst()) {
-//                return cursor.getString(columnIndex);
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-//        return null;
-//    }
-
 }

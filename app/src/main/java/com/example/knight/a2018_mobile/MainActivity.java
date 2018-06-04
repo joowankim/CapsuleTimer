@@ -115,6 +115,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             e.printStackTrace();
                         }
                         break;
+
+                    case 2:
+                        try {
+                            DB db;
+                            db = new DB(getApplicationContext(), "Alarm.db", null, 1);
+                            db.getWritableDatabase();
+                            db.myDelete("medicine_alarm", "medicine_name = \"" + tmp.getString("medicine_name") + "\"");
+                            db.close();
+                            alarmAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                 }
             }
         });

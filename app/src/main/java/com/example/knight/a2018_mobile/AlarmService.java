@@ -107,9 +107,9 @@ public class AlarmService extends Service {
                 int flag = 0;
 
                 if (date.compareTo("") != 0) {
-                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date.split("/")[0]));
+                    calendar.set(Calendar.YEAR, Integer.parseInt(date.split("/")[0]));
                     calendar.set(Calendar.MONTH, Integer.parseInt(date.split("/")[1]) - 1);
-                    calendar.set(Calendar.YEAR, Integer.parseInt(date.split("/")[2]));
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date.split("/")[2]));
                 }
 
                 if (weekOfDate > 0) {

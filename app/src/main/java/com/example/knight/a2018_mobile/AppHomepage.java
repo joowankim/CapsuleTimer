@@ -22,7 +22,7 @@ public class AppHomepage extends AppCompatActivity {
         browser = findViewById(R.id.webkit);
         browser.getSettings().setJavaScriptEnabled(true);
         browser.setWebViewClient(new WebViewClient());
-        browser.loadUrl("106.10.40.50:5000");
+        browser.loadUrl("https://www.naver.com");
 
     }
 
