@@ -33,6 +33,7 @@
             android:id="@+id/medicine_name"
             android:hint="@string/medicine_info_search_hint"
             android:backgroundTint="#7777ff"
+            android:inputType="text"
             />
         <ImageButton
             android:layout_width="wrap_content"

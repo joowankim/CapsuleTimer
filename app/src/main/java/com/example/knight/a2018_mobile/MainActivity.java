@@ -14,14 +14,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
@@ -173,6 +176,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } catch (Exception e) {
                 }
 
+            }
+        });
+
+        // 약 검색 시 키보드에서 완료 버튼 누르면 약 검색 이벤트가 완료된것
+        medicine_name_edt.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        medicine_name_edt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                if(actionid == EditorInfo.IME_ACTION_DONE){
+                    String medicine_name = medicine_name_edt.getText().toString();  // Get medicine name from edit text widget
+                    String result = "";  // String to result
+                    JSONObject request = new JSONObject();  // JSON Object to send request to server
+
+                    if(medicine_name.compareTo("") == 0){
+                        return false;
+                    }else {
+                        MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
+                        try {
+                            request.put("Type", "Search_Medicine");  // Put data to create JSON
+                            request.put("Name", medicine_name);
+                            result = sock.request(request.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getApplicationContext(), Show_medicine_list.class);
+                        intent.putExtra("json", result);
+                        startActivity(intent);
+                    }
+
+                    try {
+                        URL url = new URL("http://106.10.40.50:5000/image/test2018-05-16-21-59-08");
+                        URLConnection conn = url.openConnection();
+                        conn.connect();
+                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                        Bitmap bm = BitmapFactory.decodeStream(bis);
+                        bis.close();
+                        img.setImageBitmap(bm);
+                    } catch (Exception e) {
+                    }
+                    return true;
+                }
+                return false;
             }
         });
 

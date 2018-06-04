@@ -130,5 +130,6 @@ public class EnrollEmail extends AppCompatActivity{
         select();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, studentInfo);
         listView.setAdapter(adapter);
+
     }
 }
