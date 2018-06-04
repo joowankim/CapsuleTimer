@@ -122,7 +122,7 @@ public class MemoListAdapter extends BaseAdapter {
                     @Override
                     public void run() {
                         try {
-                            URL url = new URL("http://106.10.40.50:5000/" + memo.get("image") + ".jpeg");
+                            URL url = new URL("http://106.10.40.50:5000" + memo.get("image") + ".jpeg");
                             HttpURLConnection image_http = (HttpURLConnection) url.openConnection();
                             image_http.setDoInput(true);
                             image_http.connect();
@@ -177,11 +177,6 @@ public class MemoListAdapter extends BaseAdapter {
                         ((ListView) parent).performItemClick(v, position, 1);
                     }
                 });
-
-                if (fragment == 1) {
-                    viewHolder.close.setVisibility(View.GONE);
-                    viewHolder.edit.setVisibility(View.GONE);
-                }
 
                 convertView.setId(memo.getInt("id"));
                 convertView.setTag(viewHolder);

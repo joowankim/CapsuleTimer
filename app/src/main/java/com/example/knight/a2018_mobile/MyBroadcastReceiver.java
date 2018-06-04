@@ -34,8 +34,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.d("NOTI", "NOTIFICATION " + intent.getStringExtra("Type"));
-        Log.d("NOTI", intent.getStringExtra("Type"));
+        Log.d("NOTI", "NOTIFICATION ");
+        Log.d("NOTI", intent.getStringExtra("Type") + intent.getIntExtra("Id", 0)+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1]);
 
         if (intent.getStringExtra("Type").compareTo("Alarm") == 0) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -50,7 +50,15 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 builder = new NotificationCompat.Builder(context);
             }
 
+            String reqId = "";
+            if (intent.getStringExtra("time").split(":")[0].length() == 1)
+                reqId = intent.getIntExtra("Id", 0)+"0"+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+            else if (intent.getStringExtra("time").split(":")[0].length() == 2)
+                reqId = intent.getIntExtra("Id", 0)+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+
+
             Intent taken = new Intent("com.example.knight.alarm.AlarmRinging");
+            taken.putExtra("Id", intent.getIntExtra("Id", 0));
             taken.putExtra("Type", "Taken");
             taken.putExtra("Title", intent.getStringExtra("Title"));
             taken.putExtra("repeat_no", intent.getIntExtra("repeat_no",0));
@@ -63,6 +71,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             taken.setClass(context, MyBroadcastReceiver.class);
 
             Intent skip = new Intent("com.example.knight.alarm.AlarmRinging");
+            skip.putExtra("Id", intent.getIntExtra("Id", 0));
             skip.putExtra("Type", "Skip");
             skip.putExtra("Title", intent.getStringExtra("Title"));
             skip.putExtra("repeat_no", intent.getIntExtra("repeat_no",0));
@@ -82,8 +91,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     .setContentText(intent.getStringExtra("Title") + " " + "먹어야할 시간입니다.")
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
-                    .addAction(R.drawable.ic_launcher_background, "Take", PendingIntent.getBroadcast(context, 1, taken, PendingIntent.FLAG_ONE_SHOT))
-                    .addAction(R.drawable.ic_access_time_black, "Skip", PendingIntent.getBroadcast(context, 2, skip, PendingIntent.FLAG_ONE_SHOT));
+                    .addAction(R.drawable.ic_launcher_background, "Take", PendingIntent.getBroadcast(context, Integer.parseInt(reqId+1), taken, PendingIntent.FLAG_ONE_SHOT))
+                    .addAction(R.drawable.ic_access_time_black, "Skip", PendingIntent.getBroadcast(context, Integer.parseInt(reqId+2), skip, PendingIntent.FLAG_ONE_SHOT));
             notificationManager.notify(333, builder.build());
         } else if (intent.getStringExtra("Type").compareTo("Taken") == 0) {
 
@@ -112,6 +121,14 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent newAlarm = new Intent("com.example.knight.alarm.AlarmRinging");
+
+            String reqId = "";
+            if (intent.getStringExtra("time").split(":")[0].length() == 1)
+                reqId = intent.getIntExtra("Id", 0)+"0"+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+            else if (intent.getStringExtra("time").split(":")[0].length() == 2)
+                reqId = intent.getIntExtra("Id", 0)+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+
+            newAlarm.putExtra("Id", intent.getIntExtra("Id", 0));
             newAlarm.putExtra("Title", intent.getStringExtra("Title"));
             newAlarm.putExtra("Type", "Alarm");
             newAlarm.putExtra("repeat_no", intent.getIntExtra("repeat_no", 0)-1);
@@ -121,7 +138,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             newAlarm.putExtra("time", intent.getStringExtra("time"));
             newAlarm.putExtra("weekOfDate", intent.getIntExtra("weekOfDate", 0));
             newAlarm.putExtra("auto", intent.getStringExtra("auto"));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, newAlarm, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId+0), newAlarm, PendingIntent.FLAG_ONE_SHOT);
 
             Calendar calendar = Calendar.getInstance();
             Calendar today = Calendar.getInstance();
@@ -131,9 +148,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             int flag = 0;
 
             if (weekOfDate > 0) {
-
-//                Log.d("VALUE", today.get(Calendar.HOUR_OF_DAY) + ", " + Integer.parseInt(time.split(":")[0]) + ", " + today.get(Calendar.MINUTE) + ", " + Integer.parseInt(time.split(":")[1]));
-//                Log.d("STATEMENT", !(today.get(Calendar.HOUR_OF_DAY) >= Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) >= Integer.parseInt(time.split(":")[1])) + "");
 
                 for (int i = 0; i < 7; i++) {
                     if ((weekOfDate & (0x00000001 << (4*i))) > 0 && today.get(Calendar.DAY_OF_WEEK) <= (i + 1)) {
@@ -179,11 +193,14 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             Log.d("TIME", calendar.getTimeInMillis() + "");
             if (Build.VERSION.SDK_INT >= 23) {
+                Log.d("VER", 0+"");
                 alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }else if (Build.VERSION.SDK_INT >= 19){
+                Log.d("VER", 0+"");
                 alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }
             else {
+                Log.d("VER", 0+"");
                 alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }
 
@@ -194,7 +211,14 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
                 Intent newAlarm = new Intent("com.example.knight.alarm.AlarmRinging");
 
+                String reqId = "";
+                if (intent.getStringExtra("time").split(":")[0].length() == 1)
+                    reqId = intent.getIntExtra("Id", 0)+"0"+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+                else if (intent.getStringExtra("time").split(":")[0].length() == 2)
+                    reqId = intent.getIntExtra("Id", 0)+intent.getStringExtra("time").split(":")[0]+intent.getStringExtra("time").split(":")[1];
+
                 newAlarm.setClass(context, MyBroadcastReceiver.class);
+                newAlarm.putExtra("Id", intent.getIntExtra("Id", 0));
                 newAlarm.putExtra("Title", intent.getStringExtra("Title"));
                 newAlarm.putExtra("Type", "Alarm");
                 newAlarm.putExtra("original_repeat_no", intent.getIntExtra("repeat_no",0));
@@ -205,17 +229,17 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 newAlarm.putExtra("weekOfDate", intent.getIntExtra("weekOfDate", 0));
                 newAlarm.putExtra("auto", intent.getStringExtra("auto"));
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 3, newAlarm, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId+0), newAlarm, PendingIntent.FLAG_ONE_SHOT);
 
                 Calendar calendar = Calendar.getInstance();
                 AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                 if (Build.VERSION.SDK_INT >= 23) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + intent.getIntExtra("repeat_time", 0) * 60000, pendingIntent);
                 }else if (Build.VERSION.SDK_INT >= 19){
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + intent.getIntExtra("repeat_time", 0) * 60000, pendingIntent);
                 }
                 else {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + intent.getIntExtra("repeat_time", 0) * 60000, pendingIntent);
                 }}
         }
     }

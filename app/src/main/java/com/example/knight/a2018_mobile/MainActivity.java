@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
-//        list.setAdapter(new AlarmAdapter(getApplicationContext()));
+        list.setAdapter(new AlarmAdapter(getApplicationContext()));
 
         user_id = sharedPreferences.getString("Id", "None");
         user_pw = sharedPreferences.getString("Password", "None");

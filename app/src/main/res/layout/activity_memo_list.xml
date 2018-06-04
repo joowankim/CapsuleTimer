@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#99f"
     tools:context="com.example.knight.a2018_mobile.memo_list">
 
     <!--<RelativeLayout-->
@@ -12,6 +13,7 @@
 
         <ListView
             android:id="@+id/listView"
+            android:background="#99f"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"

@@ -303,6 +303,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                     else
                         db.myUpdate("medicine_alarm", "medicine_id = " + medicine_id + ", medicine_name = \"" + alarm_name.getText().toString() + "\", date = "+"\""+date+"\", time = \""+tmpTime+"\", repeat = \""+repeat+"\", repeat_no = \""+repeatNo+"\", repeat_type = \""+repeatType+"\", active = \""+active+"\", weekOfDate = "+weekOfDate+", auto = \""+auto+"\"", "alarm_id="+alarm_id);
 //
+                    res = new JSONArray(db.mySelect("medicine_alarm", "*", "medicine_name = \""+alarm_name.getText().toString()+"\""));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
