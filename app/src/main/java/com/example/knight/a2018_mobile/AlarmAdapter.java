@@ -4,6 +4,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class AlarmAdapter extends BaseAdapter {
 
@@ -29,7 +33,24 @@ public class AlarmAdapter extends BaseAdapter {
     public DB db;
     public JSONArray result;
     public LayoutInflater inflater;
+
+    Random random = new Random();
     JSONObject tmp = null;
+
+    public int[] color = {
+            Color.rgb(239,222,239),
+            Color.rgb(222,239,255),
+            Color.rgb(184,243,184),
+            Color.rgb(255,221,166),
+            Color.rgb(255,204,204),
+            Color.rgb(187,209,232),
+            Color.rgb(255,173,197),
+            Color.rgb(204,209,255),
+            Color.rgb(168,200,249),
+            Color.rgb(236,175,181)
+    };
+
+    public int colorsetting;
 
     public AlarmAdapter(Context context) {
         this.context = context;
@@ -41,7 +62,6 @@ public class AlarmAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -79,11 +99,16 @@ public class AlarmAdapter extends BaseAdapter {
 //                viewHolder.report = convertView.findViewById(R.id.report);
                 viewHolder.delete = convertView.findViewById(R.id.delete);
                 viewHolder.card = convertView.findViewById(R.id.card);
+                viewHolder.cardView = convertView.findViewById(R.id.cardView);
 
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
                 viewHolder.idx = position;
+
+                viewHolder.cardView.setCardBackgroundColor(color[random.nextInt(10)]);
+
+
 
                 viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -130,7 +155,14 @@ public class AlarmAdapter extends BaseAdapter {
                                 intent.putExtra("auto", "true");
                                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-                                alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }else if (Build.VERSION.SDK_INT >= 19){
+                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }
+                                else {
+                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -236,6 +268,8 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
+                viewHolder.cardView.setCardBackgroundColor(color[random.nextInt(10)]);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -255,5 +289,6 @@ public class AlarmAdapter extends BaseAdapter {
         public Button btn;
         public int idx;
         public RelativeLayout card;
+        public CardView cardView;
     };
 }
