@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
 
                 }
+
+                list.setAdapter(new AlarmAdapter(getApplicationContext()));
             }
         });
 
@@ -174,81 +176,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        /**
-         * @description add button event click listener
-         */
-//        to_memo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), memo_list.class);  // Create intent and move to memo activity
-//                String result = "";  // String to result
-//                JSONObject request = new JSONObject();  // JSON Object to send request to server
-//                try {
-//                    request.put("Type", "Search_Memo");  // Put data to create JSON
-//                    request.put("User", user_id);
-//                    request.put("Medicine_Name", "*");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                intent.putExtra("json", request.toString());
-//                if (flag == 0) {
-//                    intent.setClass(getApplicationContext(), Login.class);
-//                }
-//                startActivity(intent);
-//            }
-//        });
-//
-//        /**
-//         * @brief GO TO REPORT ACTIVITY@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//         */
-//
-//        to_report.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), showGraph.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        login.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                Intent intent = new Intent(getApplicationContext(), Login.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (flag == 1) {
-//                    Log.d("123", "1");
-//                    editor.remove("Id");
-//                    editor.remove("Password");
-//                    editor.commit();
-//                    flag = 0;
-//                    logout.setText("Login");
-//                } else if (flag == 0) {
-//                    Log.d("123", "0");
-//                    //logout.setText("Login");
-//                    Intent intent = new Intent(getApplicationContext(), Login.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
-
-//        to_alarmList.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), AlarmList.class);
-//                if (flag == 0) {
-//                    intent.setClass(getApplicationContext(), Login.class);
-//                    Log.d("Test", "TEST");
-//                }
-//                startActivity(intent);
-//            }
-//        });
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,8 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
-        super.onResume();
-        list.setAdapter(new AlarmAdapter(getApplicationContext()));
+//        list.setAdapter(new AlarmAdapter(getApplicationContext()));
 
         user_id = sharedPreferences.getString("Id", "None");
         user_pw = sharedPreferences.getString("Password", "None");
@@ -282,6 +208,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             flag = 1;
 //            logout.setText("Logout");
         }
+
+        super.onResume();
     }
 
     @Override
