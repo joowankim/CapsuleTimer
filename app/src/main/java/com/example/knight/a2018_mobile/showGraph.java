@@ -16,7 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -34,7 +34,7 @@ public class showGraph extends AppCompatActivity {
     private final int Server_PORT = 6000;
 
     Toolbar toolbar;
-    RelativeLayout llBottomSheet;
+    LinearLayout llBottomSheet;
 
     // graph fragments
     FragmentSingle  singleLine;

@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -23,10 +25,11 @@ public class EnrollEmail extends AppCompatActivity{
     EditText email;
     EditText name_doctor;
     EditText name_hospital;
-    Button updateBtn;
-    Button deleteBtn;
+    ImageButton updateBtn;
+    ImageButton deleteBtn;
     String nameOfHospital, nameOfDoctor, email_doctor;
     String[] studentInfo;
+    TextView textView;
 
     SQLiteDatabase db;
     DBforEmail helper;
@@ -44,8 +47,10 @@ public class EnrollEmail extends AppCompatActivity{
         updateBtn = findViewById(R.id.update);
         deleteBtn = findViewById(R.id.delete);
         listView = findViewById(R.id.listView);
+        textView = findViewById(R.id.textView2);
 
         helper = new DBforEmail(this, "Email.db", null, 2);
+
 
         // when "추가" button is clicked, first check whether name and number is not empty
         // if one of them is empty, then print error message
@@ -87,6 +92,8 @@ public class EnrollEmail extends AppCompatActivity{
 
                     name_doctor.setText(null);
                 }
+
+
             }
         });
         invalidate();
@@ -115,6 +122,9 @@ public class EnrollEmail extends AppCompatActivity{
         db = helper.getReadableDatabase();
         Cursor c = db.query("Email", null, null,null,null,null,null);
 
+        if(c == null) textView.setVisibility(View.VISIBLE);
+        else textView.setVisibility(View.INVISIBLE);
+
         studentInfo = new String[c.getCount()];
         int count = 0;
         while(c.moveToNext()){
@@ -122,7 +132,12 @@ public class EnrollEmail extends AppCompatActivity{
                     c.getString(c.getColumnIndex("email_doctor"));
             count++;
         }
+
+        if(count == 0) textView.setVisibility(View.VISIBLE);
+        else textView.setVisibility(View.INVISIBLE);
+
         c.close();
+
     }
 
     // update list view with student information

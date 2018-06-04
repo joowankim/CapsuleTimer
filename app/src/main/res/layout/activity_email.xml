@@ -1,120 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app ="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:stretchColumns="*"
-    android:background="#0000"
-    >
-<TextView
-    android:id="@+id/textView1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Email 등록"
-    android:gravity="center"
-    android:textColor="@color/black"
-    android:textStyle="bold"
-    android:textSize="30sp"
-    android:background="#BDBDBD"
-    />
+    android:background="#FFFFFF">
 
-    <View
-        android:background="#BDBDBD"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="1dp"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:background="#0000">
 
-        android:layout_below="@+id/textView1" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:background="#BDBDBD"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아래에 있는 탭을 올려 수신자를 추가해주세요"
+            android:textSize="15dp"
+            android:textColor="#BDBDBD"
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
+
+        <View
+            android:background="#BDBDBD"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="1dp"
+
+            android:layout_below="@+id/textView1" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_below="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <TableLayout
-        android:layout_below="@+id/textView1"
-        android:id="@+id/tableLayout"
+        android:id="@+id/btn_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="2">
+        android:background="#BDBDBD"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_peekHeight="50dp"
+        app:behavior_hideable="false"
+        android:stretchColumns="*"
+        android:focusable="false"
+        android:focusableInTouchMode="true">
+
+        <TableRow>
+            <TextView android:text="탭"
+                android:textSize="40dp"
+                android:layout_gravity="center"
+                android:layout_span="2"/>
+        </TableRow>
+
         <TableRow>
             <TextView
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="병원 이름 "/>
-            <EditText
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_span = "2"
-                android:id = "@+id/name_hospital"/>
+                android:text="병원 이름 "
+                android:layout_span="2"
+                android:layout_gravity="center"
+
+                />
+
         </TableRow>
         <TableRow>
-            <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="담당 의사"/>
             <EditText
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_span = "2"
-                android:id = "@+id/name_doctor"/>
+                android:background="#55dddddd"
+                android:id = "@+id/name_hospital"
+                android:layout_span="2"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/black"
+                android:text="담당 의사"
+                android:layout_span="2"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:textColor="@color/black"
+                android:background="#55dddddd"
+                android:id = "@+id/name_doctor"
+                android:layout_span="2"/>
         </TableRow>
 
         <TableRow
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
-
             <TextView
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="E-mail"/>
+                android:text="E-mail"
+                android:layout_span="2"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+        <TableRow>
             <EditText
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_span = "2"
                 android:id = "@+id/email"
-                android:inputType="textEmailAddress"/>
+                android:background="#55dddddd"
+                android:inputType="textEmailAddress"
+                android:layout_span="2"/>
         </TableRow>
+
+        <TableRow>
+            <ImageButton
+                android:background="#0000"
+                android:id="@+id/update"
+                android:src="@drawable/ic_enroll_email_done"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:background="#0000"
+                android:src="@drawable/ic_delete_email"
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+        </TableRow>
+
+
     </TableLayout>
-<RelativeLayout
-    android:id="@+id/btn_relative"
-    android:layout_below="@id/tableLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#BDBDBD"
-    >
-    <Button
-        android:background="#0000"
-        android:id="@+id/update"
-        android:drawableLeft="@drawable/ic_enroll_email_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="등록"
-        />
 
-    <Button
-        android:background="#0000"
-        android:drawableLeft="@drawable/ic_delete_black_24dp"
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/update"
-        android:layout_marginLeft="20dp"
-        android:text="삭제"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        />
-
-</RelativeLayout>
-
-    <LinearLayout
-        android:layout_below="@+id/btn_relative"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-    </LinearLayout>
-</RelativeLayout>
-
+</android.support.design.widget.CoordinatorLayout>

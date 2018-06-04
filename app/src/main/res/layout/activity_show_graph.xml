@@ -27,7 +27,7 @@
             android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/bottom_sheet"
         android:background="@drawable/rounded"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,7 +38,8 @@
         app:behavior_peekHeight="?attr/actionBarSize"
         app:behavior_hideable="false"
         app:layout_behavior="@string/bottom_sheet_behavior"
-        tools:context="com.example.knight.a2018_mobile.showGraph">
+        tools:context="com.example.knight.a2018_mobile.showGraph"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,5 +107,5 @@
         </RelativeLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
