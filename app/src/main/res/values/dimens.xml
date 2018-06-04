@@ -20,4 +20,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <integer name="max_width_short_month_label_dp">240</integer>
     <integer name="max_height_mini_view_dp">180</integer>
     <integer name="max_height_mini_view_1_row_dp">120</integer>
+
+    <!-- show graph table setting-->
+    <dimen name="table_height">32dp</dimen>
+    <dimen name="table_text_size">20dp</dimen>
+    <dimen name="table_margin">3dp</dimen>
 </resources>

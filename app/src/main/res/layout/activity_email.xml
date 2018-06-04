@@ -97,9 +97,11 @@
         <TableRow>
             <EditText
                 android:textColor="@color/secondary_text"
-                android:background="#55dddddd"
                 android:id = "@+id/name_hospital"
-                android:layout_span="2"/>
+                android:hint="병원 이름을 입력해주세요"
+                android:layout_span="2"
+                android:layout_marginTop="@dimen/table_margin"
+                android:background="#FFFFFF"/>
         </TableRow>
 
         <TableRow>
@@ -113,9 +115,11 @@
         <TableRow>
             <EditText
                 android:textColor="@color/secondary_text"
-                android:background="#55dddddd"
                 android:id = "@+id/name_doctor"
-                android:layout_span="2"/>
+                android:hint="의사 이름을 입력해주세요"
+                android:layout_span="2"
+                android:layout_marginTop="@dimen/table_margin"
+                android:background="#FFFFFF"/>
         </TableRow>
 
         <TableRow
@@ -132,15 +136,17 @@
             <EditText
                 android:textColor="@color/secondary_text"
                 android:id = "@+id/email"
-                android:background="#55dddddd"
                 android:inputType="textEmailAddress"
-                android:layout_span="2"/>
+                android:hint="담당의 E-mail을 입력해주세요"
+                android:layout_span="2"
+                android:layout_marginTop="@dimen/table_margin"
+                android:background="#FFFFFF"/>
         </TableRow>
 
         <TableRow>
             <ImageButton
-                android:background="#0000"
                 android:id="@+id/update"
+                android:background="#0000"
                 android:src="@drawable/ic_enroll_email_done"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -148,8 +154,8 @@
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:background="#0000"
                 android:src="@drawable/ic_delete_email"
+                android:background="#0000"
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"

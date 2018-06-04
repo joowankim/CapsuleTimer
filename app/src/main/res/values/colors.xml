@@ -44,4 +44,7 @@
     <color name="twice">#5563B8FC</color>
     <color name="triple">#559CD1FC</color>
     <color name="quad">#551B6DAF</color>
+
+    <!-- show graph table -->
+    <color name="table_item_color">#CC000000</color>
 </resources>

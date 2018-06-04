@@ -15,16 +15,168 @@
         <TextView
             android:id="@+id/medi_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="190dp"
             android:text="Tyrenol"
             android:gravity="center"
-            android:textSize="50dp"/>
-        <View
+            android:textSize="25dp"
+            android:background="@color/triple"
+            android:textColor="@android:color/black"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#0288D1"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_height="50dp"
+            android:background="#BFE2FC">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="20dp"
+                android:text="약 정보"
+                android:textSize="16dp"
+                android:textColor="@color/table_item_color"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+                <TableRow>
+                    <TextView
+                        android:text="복용량"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/dosage"
+                        android:gravity="right"
+                        android:text="1일 3회"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="남은 약"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/remainder"
+                        android:gravity="right"
+                        android:text="0 개"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#BFE2FC">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="20dp"
+                android:text="알람 정보"
+                android:textSize="16dp"
+                android:textColor="@color/table_item_color"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+                <TableRow>
+                    <TextView
+                        android:text="반복"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/repeatAlarm"
+                        android:gravity="right"
+                        android:text="0 회"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="반복 간격"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/repeatInterval"
+                        android:gravity="right"
+                        android:text="0 min"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="알람 종류"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/alarmType"
+                        android:gravity="right"
+                        android:text="수동"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="날짜"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/date"
+                        android:gravity="right"
+                        android:text="2018년 6월 3일"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="요일"
+                        android:gravity="left"
+                        android:textSize="@dimen/table_text_size"
+                        android:layout_marginTop="@dimen/table_margin"
+                        android:layout_marginBottom="@dimen/table_margin"
+                        android:textColor="@color/table_item_color"/>
+                    <TextView
+                        android:id="@+id/weekDay"
+                        android:gravity="right"
+                        android:text="월 화 수 목 금"
+                        android:textSize="@dimen/table_text_size"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
