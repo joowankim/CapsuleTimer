@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardCornerRadius="10dp"
         app:contentPadding="10dp"
         app:cardBackgroundColor="#86A8E7"
         android:layout_marginTop="10dp"

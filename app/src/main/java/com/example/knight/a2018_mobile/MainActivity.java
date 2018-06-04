@@ -119,6 +119,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         break;
 
+                    case 1:
+                        try {
+                            Intent intent = new Intent(getApplicationContext(), SettingAlarm.class);
+                            intent.putExtra("Exist", tmp.toString());
+                            getApplicationContext().startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
                     case 2:
                         try {
                             DB db;
