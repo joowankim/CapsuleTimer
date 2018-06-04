@@ -82,6 +82,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public ToggleButton friday;
     public ToggleButton saturday;
     public RelativeLayout []timeLayout = new RelativeLayout[6];
+    public RelativeLayout repeat_No, repeat_interval;
     public ImageButton addTime;
     public Switch aSwitch1, aSwitch2;
 
@@ -129,9 +130,14 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeLayout[3] = findViewById(R.id.time3);
         timeLayout[4] = findViewById(R.id.time4);
         timeLayout[5] = findViewById(R.id.time5);
+        repeat_No = findViewById(R.id.RepeatNo);
+        repeat_interval = findViewById(R.id.RepeatInterval);
         addTime = findViewById(R.id.addTime);
         aSwitch1 = findViewById(R.id.repeat_switch);
         aSwitch2 = findViewById(R.id.auto_manual_btn_switch);
+
+        repeat_No.setClickable(false);
+        repeat_interval.setClickable(false);
 
         if (exist.compareTo("") != 0) {
             try {
@@ -196,37 +202,37 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {sunday.setTextColor(Color.WHITE); sunday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {sunday.setTextColor(Color.rgb(21,21,21)); sunday.setBackgroundColor(Color.rgb(255,255,255));} } });
         monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {monday.setTextColor(Color.WHITE); monday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {monday.setTextColor(Color.rgb(21,21,21)); monday.setBackgroundColor(Color.rgb(255,255,255));} } });
         tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {tuesday.setTextColor(Color.WHITE); tuesday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {tuesday.setTextColor(Color.rgb(21,21,21)); tuesday.setBackgroundColor(Color.rgb(255,255,255));} } });
         wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {wednesday.setTextColor(Color.WHITE); wednesday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {wednesday.setTextColor(Color.rgb(21,21,21)); wednesday.setBackgroundColor(Color.rgb(255,255,255));} } });
         thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {thursday.setTextColor(Color.WHITE); thursday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {thursday.setTextColor(Color.rgb(21,21,21)); thursday.setBackgroundColor(Color.rgb(255,255,255));} } });
         friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {friday.setTextColor(Color.WHITE); friday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {friday.setTextColor(Color.rgb(21,21,21)); friday.setBackgroundColor(Color.rgb(255,255,255));} } });
         saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
-                else {saturday.setTextColor(Color.WHITE); saturday.setBackgroundColor(Color.rgb(111,181,255));} } });
+                else {saturday.setTextColor(Color.rgb(21,21,21)); saturday.setBackgroundColor(Color.rgb(255,255,255));} } });
 
 
         addTime.setOnClickListener(new View.OnClickListener() {
@@ -402,9 +408,13 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public void onSwitchRepeat(View view) {
         boolean on = ((Switch) view).isChecked();
         if (on) {
+            repeat_No.setClickable(true);
+            repeat_interval.setClickable(true);
             repeat = "true";
             repeatText.setText("매 " + repeatType + ", " + repeatNo + "회");
         } else {
+            repeat_No.setClickable(false);
+            repeat_interval.setClickable(false);
             repeat = "false";
             repeatText.setText("꺼짐");
         }
