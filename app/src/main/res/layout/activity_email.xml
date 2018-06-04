@@ -16,11 +16,11 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="Email 등록"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_text"
             android:textSize="30sp"
-            android:background="#BDBDBD"
+            android:background="@color/triple"
             />
 
         <TextView
@@ -60,7 +60,7 @@
         android:id="@+id/btn_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BDBDBD"
+        android:background="@color/triple"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_behavior="@string/bottom_sheet_behavior"
@@ -71,25 +71,32 @@
         android:focusableInTouchMode="true">
 
         <TableRow>
-            <TextView android:text="탭"
-                android:textSize="40dp"
+
+            <ImageView
+                android:src="@drawable/ic_tap_email"
                 android:layout_gravity="center"
-                android:layout_span="2"/>
+                android:layout_span="2"
+                android:layout_height="50dp"
+                />
+            <!--<TextView -->
+                <!---->
+                <!--android:text="탭"-->
+                <!--android:textSize="40dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_span="2"/>-->
         </TableRow>
 
         <TableRow>
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/primary_text"
                 android:text="병원 이름 "
                 android:layout_span="2"
                 android:layout_gravity="center"
-
                 />
-
         </TableRow>
         <TableRow>
             <EditText
-                android:textColor="@color/black"
+                android:textColor="@color/secondary_text"
                 android:background="#55dddddd"
                 android:id = "@+id/name_hospital"
                 android:layout_span="2"/>
@@ -97,7 +104,7 @@
 
         <TableRow>
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/primary_text"
                 android:text="담당 의사"
                 android:layout_span="2"
                 android:layout_gravity="center"
@@ -105,7 +112,7 @@
         </TableRow>
         <TableRow>
             <EditText
-                android:textColor="@color/black"
+                android:textColor="@color/secondary_text"
                 android:background="#55dddddd"
                 android:id = "@+id/name_doctor"
                 android:layout_span="2"/>
@@ -115,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/primary_text"
                 android:text="E-mail"
                 android:layout_span="2"
                 android:layout_gravity="center"
@@ -123,7 +130,7 @@
         </TableRow>
         <TableRow>
             <EditText
-                android:textColor="@color/black"
+                android:textColor="@color/secondary_text"
                 android:id = "@+id/email"
                 android:background="#55dddddd"
                 android:inputType="textEmailAddress"
