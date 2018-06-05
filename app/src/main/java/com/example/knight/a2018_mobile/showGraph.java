@@ -172,8 +172,8 @@ public class showGraph extends AppCompatActivity {
             remainder.setText(medicine.getInt("remain")+"개 남았습니다.");
 
             request.put("Type", "Medicine_Record");  // Put data to create JSON
-            request.put("Id", "TEST");
-            request.put("Medicine_Name", "Tylenol");       // 시작 날짜
+            request.put("Id", intent.getStringExtra("Id"));
+            request.put("Medicine_Name", medicine.getString("medicine_name"));       // 시작 날짜
             request.put("From", from);         // 종료 날짜
             request.put("To", to);
 

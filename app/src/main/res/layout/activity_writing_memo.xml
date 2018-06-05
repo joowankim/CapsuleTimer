@@ -22,27 +22,33 @@
             android:contextClickable="true"
             android:scaleType="fitXY"
             android:id="@+id/memo_image"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:visibility="gone"
-            android:textSize="20dp"
-            android:id="@+id/medicine_label" />
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="20dp"
-            android:id="@+id/medicine_name">
-        </Spinner>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_below="@+id/iamgelayout"
         android:background="#ffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="40dp"
+            android:id="@+id/medicine_label" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:textSize="40dp"
+            android:gravity="center"
+            android:id="@+id/medicine_name">
+        </Spinner>
+
         <EditText
             android:gravity="top"
             android:layout_width="match_parent"
