@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 /**
- * Created by leejisung on 2018-06-02.
+ * @brief
+ * @author Knight
+ * @date 2018.06.02
+ * @version 1.0.0.1
  */
 
 public class Splash extends Activity {
@@ -23,7 +26,7 @@ public class Splash extends Activity {
             }catch(InterruptedException e){
                 e.printStackTrace();
             }
-            Intent intent = new Intent (this, MainActivity.class);
+            Intent intent = new Intent (this, Login.class);
             intent.putExtra("state","launch");
             startActivity(intent);
             finish();
@@ -37,7 +40,7 @@ public class Splash extends Activity {
 
     private class splashhandler implements Runnable{
         public void run(){
-            startActivity(new Intent(getApplication(), MainActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
+            startActivity(new Intent(getApplication(), Login.class)); //로딩이 끝난 후, ChoiceFunction 이동
             Splash.this.finish(); // 로딩페이지 Activity stack에서 제거
         }
     }

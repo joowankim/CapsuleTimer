@@ -4,6 +4,13 @@ import android.app.Application;
 
 import com.tsengvn.typekit.Typekit;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class FontApplication extends Application {
     @Override
     public void onCreate() {

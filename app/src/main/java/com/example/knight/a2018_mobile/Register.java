@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 MySocket sock = new MySocket(Server_IP, Server_PORT);
                 JSONObject result;
                 try{

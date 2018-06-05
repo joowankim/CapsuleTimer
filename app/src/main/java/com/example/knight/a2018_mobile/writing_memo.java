@@ -24,11 +24,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
+
 /**
- * Created by Knight on 2018. 5. 4..
- *
- * Writing memo activity
- *
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
 
 

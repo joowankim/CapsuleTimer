@@ -5,6 +5,8 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -15,7 +17,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +58,9 @@ public class showGraph extends AppCompatActivity {
     Toolbar toolbar;
     LinearLayout llBottomSheet;
 
+    // sending email image
+    Button sendReport;
+
     // graph fragments
     FragmentSingle  singleLine;
     FragmentDouble  doubleLine;
@@ -68,6 +76,11 @@ public class showGraph extends AppCompatActivity {
 
     // memo list fragment
     FragmentMemoList memoList;
+
+    // for sending email
+    SQLiteDatabase db;
+    DBforEmail helper;
+    String[] emailInfo;
 
 
     String from = "19700101", to = "21001231";    //20180508 form
@@ -99,6 +112,9 @@ public class showGraph extends AppCompatActivity {
         alarmTypeLabel = findViewById(R.id.alarmType_label);
         alarmDateLabel = findViewById(R.id.date_label);
         weekDayLabel = findViewById(R.id.weekDay_label);
+
+        // sending email button
+        sendReport = findViewById(R.id.sendReport);
 
         //서버 닫혀있으면 걍 꺼짐미다
         JSONObject request = new JSONObject();  // JSON Object to send request to server
@@ -249,6 +265,55 @@ public class showGraph extends AppCompatActivity {
 //        tabs.addTab(tabs.newTab().setText("메모"));
 
         // 지금은 많이 사용하는게 아니라 줄 그어 진다는데 사실 잘 모르겠지만 돌아가긴 합니다
+
+        /**
+         * 리포트 의사한테 보내기
+         */
+        helper = new DBforEmail(this, "Email.db", null, 2);
+        registerForContextMenu(sendReport);
+
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+//        helper = new DBforEmail(this, "Email.db", null, 2);
+
+        db = helper.getReadableDatabase();
+        Cursor c = db.query("Email", null, null, null, null, null, null);
+
+        emailInfo = new String[c.getCount()];
+        int count = 0;
+        while (c.moveToNext()) {
+            emailInfo[count] = c.getString(c.getColumnIndex("email_doctor"));
+            count++;
+        }
+        c.close();
+
+        if(emailInfo.length > 0) {
+            menu.setHeaderTitle("Emails");
+            for (int i = 0; i < emailInfo.length; i++) {
+                menu.add(0, i, i, emailInfo[i]);
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "수신자의 메일주소를 등록해주세요", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // when menu's item selected, then change the button's color with selected menu.
+    public boolean onContextItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        Intent it = new Intent(Intent.ACTION_SEND);
+        String[] address = {emailInfo[id]};
+        it.putExtra(Intent.EXTRA_EMAIL, address);
+        it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
+                "https://106.10.40.50:5000");
+        it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
+        it.setType("message/rfc822");
+        startActivity(Intent.createChooser(it, "Choose Email Client"));
+
+        return super.onContextItemSelected(item);
     }
 
 
@@ -283,4 +348,3 @@ public class showGraph extends AppCompatActivity {
         }
     }
 }
-

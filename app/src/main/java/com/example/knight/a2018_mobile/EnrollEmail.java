@@ -140,6 +140,7 @@ public class EnrollEmail extends AppCompatActivity{
 
     }
 
+
     // update list view with student information
     public void invalidate(){
         select();

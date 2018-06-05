@@ -21,7 +21,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.widget.Toast;
 
 /**
- * Created by Kim on 2018-05-06.
+ * @brief
+ * @author Knight
+ * @date 2018.05.06
+ * @version 1.0.0.1
  */
 
 public class FragmentMemoList extends Fragment {

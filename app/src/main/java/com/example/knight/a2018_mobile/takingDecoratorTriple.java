@@ -10,9 +10,12 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
+
 /**
- * Created by Kim on 2018-05-06.
- * 두번 머금
+ * @brief
+ * @author Knight
+ * @date 2018.05.06
+ * @version 1.0.0.1
  */
 
 class takingDecoratorTriple implements DayViewDecorator {

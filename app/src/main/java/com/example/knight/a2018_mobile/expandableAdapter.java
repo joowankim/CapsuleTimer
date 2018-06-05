@@ -12,6 +12,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class expandableAdapter extends BaseExpandableListAdapter {
 
     private Context context;

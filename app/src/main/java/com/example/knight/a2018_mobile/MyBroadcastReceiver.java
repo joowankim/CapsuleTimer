@@ -21,7 +21,13 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-//씀
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
     String Server_IP="106.10.40.50";

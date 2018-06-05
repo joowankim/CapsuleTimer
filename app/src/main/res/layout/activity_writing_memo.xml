@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_darker"
+    android:background="@color/triple"
     tools:context="com.example.knight.a2018_mobile.writing_memo"
     android:orientation="vertical">
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_text"
         android:text="@string/submit"
         android:layout_gravity="right"
         android:id="@+id/memo_upload"/>

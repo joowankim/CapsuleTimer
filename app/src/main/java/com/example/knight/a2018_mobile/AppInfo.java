@@ -9,7 +9,10 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 /**
- * Created by leejisung on 2018-06-03.
+ * @brief
+ * @author Knight
+ * @date 2018.06.03
+ * @version 1.0.0.1
  */
 
 public class AppInfo extends AppCompatActivity {

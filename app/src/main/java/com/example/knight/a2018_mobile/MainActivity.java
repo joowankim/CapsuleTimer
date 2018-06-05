@@ -37,10 +37,10 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by Knight on 2018. 4. 30..
- *
- * Main activity
- *
+ * @brief
+ * @author Knight
+ * @date 2018.04.30
+ * @version 1.0.0.1
  */
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Intent intent = new Intent(getApplicationContext(), showGraph.class);
                             intent.putExtra("Medicine_Name", tmp.getString("medicine_name"));
                             intent.putExtra("Medicine", tmp.toString());
+                            intent.putExtra("Id", user_id);
                             startActivity(intent);
                         } catch (Exception e) {
                             e.printStackTrace();

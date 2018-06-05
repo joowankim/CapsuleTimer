@@ -11,10 +11,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Created by Knight on 2018. 4. 30..
- *
- * Socket class to communicate with web server
- *
+ * @brief
+ * @author Knight
+ * @date 2018.04.30
+ * @version 1.0.0.1
  */
 
 public class MySocket extends Thread {

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:textColor="@color/primary_text"
             android:textSize="30sp"
-            android:background="@color/triple"
+            android:background="@color/email"
             />
 
         <TextView
@@ -60,7 +60,7 @@
         android:id="@+id/btn_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/triple"
+        android:background="@color/email"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_behavior="@string/bottom_sheet_behavior"

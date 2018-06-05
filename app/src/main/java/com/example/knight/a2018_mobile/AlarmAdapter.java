@@ -25,6 +25,13 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.Random;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class AlarmAdapter extends BaseAdapter {
 
     public Context context;
@@ -41,23 +48,23 @@ public class AlarmAdapter extends BaseAdapter {
             Color.rgb(239,222,239),
             Color.rgb(222,239,255),
             Color.rgb(184,243,184),
+            Color.rgb(255,185,0),
             Color.rgb(255,221,166),
             Color.rgb(255,204,204),
             Color.rgb(187,209,232),
+            Color.rgb(140,189,237),
             Color.rgb(255,173,197),
             Color.rgb(204,209,255),
             Color.rgb(168,200,249),
+            Color.rgb(184,215,255),
+            Color.rgb(220,173,103),
             Color.rgb(236,175,181),
             Color.rgb(255,230,90),
-            Color.rgb(255,185,0),
             Color.rgb(255,198,165),
             Color.rgb(236,175,181),
             Color.rgb(240,180,105),
-            Color.rgb(220,173,103),
             Color.rgb(109,214,109),
-            Color.rgb(203,255,117),
-            Color.rgb(140,189,237),
-            Color.rgb(184,215,255)
+            Color.rgb(203,255,117)
     };
 
     public AlarmAdapter(Context context) {

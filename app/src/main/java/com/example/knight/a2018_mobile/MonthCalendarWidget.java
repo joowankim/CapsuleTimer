@@ -24,9 +24,14 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 /**
- * Implementation of App Widget functionality.
+ * @brief Implementation of App Widget functionality.
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
+
 public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String ACTION_PREVIOUS_MONTH = "com.example.android.monthcalendarwidget.action.PREVIOUS_MONTH";
     private static final String ACTION_NEXT_MONTH = "com.example.android.monthcalendarwidget.action.NEXT_MONTH";
