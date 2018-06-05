@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -32,6 +33,22 @@ public class showGraph extends AppCompatActivity {
 
     private final String Server_IP = "106.10.40.50";
     private final int Server_PORT = 6000;
+
+    TextView dosage;
+    TextView remainder;
+    TextView repeatAlarm;
+    TextView repeatInterval;
+    TextView alarmType;
+    TextView alarmDate;
+    TextView weekDay;
+
+    TextView dosageLabel;
+    TextView remainderLabel;
+    TextView repeatAlarmLabel;
+    TextView repeatIntervalLabel;
+    TextView alarmTypeLabel;
+    TextView alarmDateLabel;
+    TextView weekDayLabel;
 
     Toolbar toolbar;
     LinearLayout llBottomSheet;
@@ -67,6 +84,22 @@ public class showGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graph);
 
+        dosage = findViewById(R.id.dosage);
+        remainder = findViewById(R.id.remainder);
+        repeatAlarm = findViewById(R.id.repeatAlarm);
+        repeatInterval = findViewById(R.id.repeatInterval);
+        alarmType = findViewById(R.id.alarmType);
+        alarmDate = findViewById(R.id.date);
+        weekDay = findViewById(R.id.weekDay);
+
+        dosageLabel = findViewById(R.id.dosage_label);
+        remainderLabel = findViewById(R.id.remainder_label);
+        repeatAlarmLabel = findViewById(R.id.repeatAlarm_label);
+        repeatIntervalLabel = findViewById(R.id.repeatInterval_label);
+        alarmTypeLabel = findViewById(R.id.alarmType_label);
+        alarmDateLabel = findViewById(R.id.date_label);
+        weekDayLabel = findViewById(R.id.weekDay_label);
+
         //서버 닫혀있으면 걍 꺼짐미다
         JSONObject request = new JSONObject();  // JSON Object to send request to server
         MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
@@ -76,6 +109,50 @@ public class showGraph extends AppCompatActivity {
         medicine_name = intent.getStringExtra("Medicine_Name");
 
         try {
+
+            JSONObject medicine = new JSONObject(intent.getStringExtra("Medicine"));
+
+            dosage.setText("1일 "+medicine.getString("time").split(" ").length+"회");
+            //Todo
+            // DB에 remainder 추가해서 ...
+            // remainder.setText
+            if (medicine.getString("repeat").compareTo("true") == 0) {
+                repeatAlarm.setText(medicine.getString("repeat_no")+" 회");
+                repeatInterval.setText(medicine.getString("repeat_type"));
+            } else {
+                repeatAlarm.setVisibility(View.GONE);
+                repeatInterval.setVisibility(View.GONE);
+                repeatAlarmLabel.setVisibility(View.GONE);
+                repeatIntervalLabel.setVisibility(View.GONE);
+            }
+            if (medicine.getString("auto").compareTo("false") == 0)
+                alarmType.setText("수동");
+            else
+                alarmType.setText("자동");
+            if (medicine.getString("date").compareTo("") == 0) {
+                alarmDate.setVisibility(View.GONE);
+                alarmDateLabel.setVisibility(View.GONE);
+            }
+            else {
+                String []tmp = medicine.getString("date").split("/");
+                alarmDate.setText(tmp[0]+"년 "+tmp[1]+"월 "+tmp[2]+"일");
+            }
+            if (medicine.getInt("weekOfDate") > 0) {
+                String res = "";
+                int tmp = medicine.getInt("weekOfDate");
+                if ((tmp & 0x00000010) > 0) { res += " 월"; }
+                if ((tmp & 0x00000100) > 0) { res += " 화"; }
+                if ((tmp & 0x00001000) > 0) { res += " 수"; }
+                if ((tmp & 0x00010000) > 0) { res += " 목"; }
+                if ((tmp & 0x00100000) > 0) { res += " 금"; }
+                if ((tmp & 0x01000000) > 0) { res += " 토"; }
+                if ((tmp & 0x00000001) > 0) { res += " 일"; }
+                weekDay.setText(res);
+            } else {
+                weekDay.setVisibility(View.GONE);
+                weekDayLabel.setVisibility(View.GONE);
+            }
+
             request.put("Type", "Medicine_Record");  // Put data to create JSON
             request.put("Id", "TEST");
             request.put("Medicine_Name", "Tylenol");       // 시작 날짜

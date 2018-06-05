@@ -24,7 +24,7 @@ public class DB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         if (name.compareTo("Alarm.db") == 0) {
             String sql1 = "create table medicine(medicine_id integer primary key autoincrement, medicine_name text)";
-            String sql2 = "create table medicine_alarm(alarm_id integer primary key autoincrement, medicine_id integer, medicine_name text, date text, time text, repeat text, repeat_no integer, repeat_type text, active text, weekOfDate integer, auto text)";
+            String sql2 = "create table medicine_alarm(alarm_id integer primary key autoincrement, medicine_id integer, medicine_name text, date text, time text, repeat text, repeat_no integer, repeat_type text, active text, weekOfDate integer, auto text, remain integer)";
             db.execSQL(sql1);
             db.execSQL(sql2);
         } else if (name.compareTo("Taken.db") == 0) {

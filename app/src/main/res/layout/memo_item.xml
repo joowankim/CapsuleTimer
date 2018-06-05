@@ -10,8 +10,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:contentPadding="10dp"
     app:cardElevation="5dp"
-    app:cardBackgroundColor="#00ffffff"
-    android:layout_marginBottom="20dp"
+    app:cardBackgroundColor="#9999ff"
+    android:layout_margin="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

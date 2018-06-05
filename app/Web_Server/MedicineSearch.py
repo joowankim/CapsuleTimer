@@ -39,7 +39,20 @@ def medicine_info_parser(html):
     res['name'] = soup.findAll('div', attrs={'class': 'main_title'})[0].getText()
     res['effect'] = soup.findAll('div', attrs={'id': 'scroll_03'})[0].findAll('div', attrs={'class':'_preview __doc'})[0].findAll('div')[0].getText()
     res['usage'] = soup.findAll('div', attrs={'id': 'scroll_04'})[0].findAll('div', attrs={'class': '_preview __doc'})[0].findAll('div')[0].getText()
-    res['notice'] = soup.findAll('div', attrs={'id': 'scroll_05'})[0].findAll('div', attrs={'class': '_preview'})[0].findAll('div')[0].getText()
+    res['notice'] = ""
+    content = soup.findAll('div', attrs={'id': 'scroll_05'})[0].findAll('div', attrs={'class': '_preview'})[0].findAll('div')[0].findAll("div", recursive=False)
+    header = soup.findAll('div', attrs={'id': 'scroll_05'})[0].findAll('div', attrs={'class': '_preview'})[0].findAll('div')[0].findAll("p", attrs={'class':'title'})
+
+
+    for idx in range(len(content)):
+        res['notice'] += header[idx].getText() + "\n"
+        for sentence in content[idx].findAll("p"):
+            res["notice"] += sentence.getText() + "\n"
+            # print sentence.getText()
+        res["notice"] += "\n"
+        # print ""
+
+    print res["notice"]
     res['image'] = soup.findAll('div', attrs={'class':'main_img_02'})[0].findAll('img')[0]['src']
     return json.dumps(res)
 

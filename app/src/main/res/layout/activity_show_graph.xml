@@ -49,6 +49,7 @@
 
                 <TableRow>
                     <TextView
+                        android:id="@+id/dosage_label"
                         android:text="복용량"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -64,6 +65,7 @@
 
                 <TableRow>
                     <TextView
+                        android:id="@+id/remainder_label"
                         android:text="남은 약"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -107,6 +109,7 @@
 
                 <TableRow>
                     <TextView
+                        android:id="@+id/repeatAlarm_label"
                         android:text="반복"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -121,6 +124,7 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/repeatInterval_label"
                         android:text="반복 간격"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -135,6 +139,7 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/alarmType_label"
                         android:text="알람 종류"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -149,6 +154,7 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/date_label"
                         android:text="날짜"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"
@@ -163,6 +169,7 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/weekDay_label"
                         android:text="요일"
                         android:gravity="left"
                         android:textSize="@dimen/table_text_size"

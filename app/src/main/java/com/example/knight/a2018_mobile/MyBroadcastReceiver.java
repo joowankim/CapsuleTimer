@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -105,6 +106,37 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             In this place we have to implement socket communication
             */
             try {
+                db = new DB(context, "Alarm.db", null, 1);
+                db.getWritableDatabase();
+                JSONArray res = new JSONArray(db.mySelect("medicine_alarm", "remain", "alarm_id = "+intent.getIntExtra("Id", 0)));
+                JSONObject cur = res.getJSONObject(0);
+                db.myUpdate("medicine_alarm", "remain = "+(cur.getInt("remain")-1), "alarm_id = "+intent.getIntExtra("Id", 0));
+
+                if (cur.getInt("remain")-1 < 10) {
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder builder = null;
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
+                        notificationManager.createNotificationChannel(notificationChannel);
+                        builder = new NotificationCompat.Builder(context, notificationChannel.getId());
+                    } else {
+                        builder = new NotificationCompat.Builder(context);
+                    }
+
+                    builder = builder
+                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setColor(Color.BLUE)
+                            .setContentTitle(intent.getStringExtra("Title"))
+                            .setTicker("TEST")
+                            .setContentText(intent.getStringExtra("Title") + "약이 " + (cur.getInt("remain")-1) + "개만 남았습니다.")
+                            .setDefaults(Notification.DEFAULT_ALL)
+                            .setAutoCancel(true);
+                    notificationManager.notify(123, builder.build());
+
+                }
+
                 JSONObject info = new JSONObject();
                 SharedPreferences sharedPreferences = context.getSharedPreferences("Login_Session", MODE_PRIVATE);
                 String user_id = sharedPreferences.getString("Id", "None");

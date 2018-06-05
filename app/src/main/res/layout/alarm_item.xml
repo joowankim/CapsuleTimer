@@ -13,10 +13,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:contentPadding="10dp"
         app:cardBackgroundColor="#86A8E7"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_margin="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <RelativeLayout
             android:id="@+id/card"
