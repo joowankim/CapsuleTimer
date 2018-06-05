@@ -16,6 +16,12 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
 
 public class FragmentCalendar extends Fragment {
 

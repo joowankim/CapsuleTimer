@@ -30,6 +30,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class edit_memo extends AppCompatActivity {
 
     ImageView memo_edit_image;

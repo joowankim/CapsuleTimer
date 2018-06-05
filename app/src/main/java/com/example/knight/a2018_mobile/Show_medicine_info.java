@@ -23,6 +23,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
+
 public class Show_medicine_info extends AppCompatActivity {
 
     private String Server_IP="106.10.40.50";

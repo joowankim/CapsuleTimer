@@ -33,7 +33,12 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-//씀
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
 
 public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 

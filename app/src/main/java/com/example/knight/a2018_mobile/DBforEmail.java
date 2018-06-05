@@ -5,9 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by leejisung on 2018-05-31.
- *
- * Make Database to store student name and student number.
+ * @brief Database for email information
+ * @author Knight
+ * @date 2018.05.31
+ * @version 1.0.0.1
  */
 
 public class DBforEmail extends SQLiteOpenHelper {

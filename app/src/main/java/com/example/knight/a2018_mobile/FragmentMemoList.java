@@ -19,7 +19,10 @@ import org.json.JSONObject;
 import android.support.design.widget.FloatingActionButton;
 
 /**
- * Created by Kim on 2018-05-06.
+ * @brief
+ * @author Knight
+ * @date 2018.05.06
+ * @version 1.0.0.1
  */
 
 public class FragmentMemoList extends Fragment {

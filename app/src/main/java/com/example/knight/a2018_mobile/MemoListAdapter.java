@@ -28,8 +28,13 @@ import java.util.Map;
 //import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
- * Created by Knight on 2018. 5. 4..
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
+
+
 
 public class MemoListAdapter extends BaseAdapter {
     public JSONObject myMemo;

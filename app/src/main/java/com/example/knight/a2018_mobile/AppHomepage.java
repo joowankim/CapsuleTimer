@@ -7,9 +7,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
- * Created by leejisung on 2018-06-03.
+ * @brief
+ * @author Knight
+ * @date 2018.06.03
+ * @version 1.0.0.1
  */
-
 public class AppHomepage extends AppCompatActivity {
 
     WebView browser;

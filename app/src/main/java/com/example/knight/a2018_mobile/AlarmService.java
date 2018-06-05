@@ -16,6 +16,12 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+/**
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
+ */
 //씀
 public class AlarmService extends Service {
 

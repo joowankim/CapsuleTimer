@@ -15,7 +15,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Knight on 2018. 5. 4..
+ * @brief
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
 
 public class MedicineListAdapter extends BaseAdapter {

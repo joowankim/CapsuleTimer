@@ -11,8 +11,12 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 /**
- * Implementation of App Widget functionality.
+ * @brief Implementation of App Widget functionality
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
+
 public class buttonAppWidget extends AppWidgetProvider {
 
     @Override

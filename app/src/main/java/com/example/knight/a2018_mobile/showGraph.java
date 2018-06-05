@@ -5,6 +5,8 @@
 package com.example.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -76,8 +78,9 @@ public class showGraph extends AppCompatActivity {
     FragmentMemoList memoList;
 
     // for sending email
-    EnrollEmail email = new EnrollEmail();
-    String[] emailOfDoctor = email.emailSearch();
+    SQLiteDatabase db;
+    DBforEmail helper;
+    String[] emailInfo;
 
 
     String from = "19700101", to = "21001231";    //20180508 form
@@ -265,6 +268,7 @@ public class showGraph extends AppCompatActivity {
         /**
          * 리포트 의사한테 보내기
          */
+        helper = new DBforEmail(this, "Email.db", null, 2);
         registerForContextMenu(sendReport);
 
     }
@@ -272,10 +276,23 @@ public class showGraph extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        if(emailOfDoctor != null) {
+//        helper = new DBforEmail(this, "Email.db", null, 2);
+
+        db = helper.getReadableDatabase();
+        Cursor c = db.query("Email", null, null, null, null, null, null);
+
+        emailInfo = new String[c.getCount()];
+        int count = 0;
+        while (c.moveToNext()) {
+            emailInfo[count] = c.getString(c.getColumnIndex("email_doctor"));
+            count++;
+        }
+        c.close();
+
+        if(emailInfo.length > 0) {
             menu.setHeaderTitle("Emails");
-            for (int i = 0; i < emailOfDoctor.length; i++) {
-                menu.add(0, i, i, emailOfDoctor[i]);
+            for (int i = 0; i < emailInfo.length; i++) {
+                menu.add(0, i, i, emailInfo[i]);
             }
         } else {
             Toast.makeText(getApplicationContext(), "수신자의 메일주소를 등록해주세요", Toast.LENGTH_SHORT).show();
@@ -287,8 +304,8 @@ public class showGraph extends AppCompatActivity {
         int id = item.getItemId();
 
         Intent it = new Intent(Intent.ACTION_SEND);
-        String[] tos = {emailOfDoctor[id]};
-        it.putExtra(Intent.EXTRA_EMAIL, tos);
+        String[] address = {emailInfo[id]};
+        it.putExtra(Intent.EXTRA_EMAIL, address);
         it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
                 "https://106.10.40.50:5000");
         it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
@@ -330,4 +347,3 @@ public class showGraph extends AppCompatActivity {
         }
     }
 }
-
