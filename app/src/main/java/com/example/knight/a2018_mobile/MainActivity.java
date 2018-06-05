@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(getApplicationContext(), Show_medicine_list.class);
                     intent.putExtra("json", result);

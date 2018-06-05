@@ -49,7 +49,10 @@
 # if __name__ == '__main__':
 #     app.run()
 
-import MedicineSearch
-import json
+# import MedicineSearch
+# import json
+#
+# print json.loads(MedicineSearch.crawler("//bxsSearchDrugProduct.jsp?item_Seq=199402278"))["usage"]
 
-print json.loads(MedicineSearch.crawler("//bxsSearchDrugProduct.jsp?item_Seq=199402278"))["usage"]
+print hex(1118480)
+print 0x01000000 & 1118480

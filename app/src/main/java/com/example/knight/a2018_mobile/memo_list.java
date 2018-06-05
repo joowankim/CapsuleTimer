@@ -26,6 +26,7 @@ public class memo_list extends AppCompatActivity {
     FloatingActionButton add;
     String request;
     String user_id;
+    Intent intent = null;
     SharedPreferences sharedPreferences;
     private String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
@@ -36,11 +37,9 @@ public class memo_list extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_list);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         request = intent.getStringExtra("json");
         memoListAdapter = new MemoListAdapter(this,  request);
-//        textView = (TextView) findViewById(R.id.textView);
-//        textView.setText("무슨 약 메모");
         add = findViewById(R.id.add);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
 
@@ -57,34 +56,31 @@ public class memo_list extends AppCompatActivity {
                                                     case 1:
                                                         // open
                                                         Log.d("open", String.valueOf(memoListAdapter.getItemId(position)) + " " + String.valueOf(position) + " item selecteds ");
-                                                        Intent intent = new Intent(getApplicationContext(), edit_memo.class);
-                                                        intent.putExtra("position", Integer.parseInt(String.valueOf(memoListAdapter.getItemId(position))));
-                                                        intent.putExtra("writer", memoListAdapter.getWriter(position));
-                                                        intent.putExtra("index", position);
-                                                        startActivityForResult(intent, Edit_Request);
-                                                        listView.clearChoices();
-                                                        memoListAdapter.notifyDataSetChanged();
+                                                        JSONObject tmp = (JSONObject)memoListAdapter.getItem(position);
+                                                        Intent tmp_intent = new Intent(getApplicationContext(), edit_memo.class);
+                                                        tmp_intent.putExtra("memo", tmp.toString());
+                                                        startActivityForResult(tmp_intent, Edit_Request);
                                                         break;
                                                     case 0:
                                                         // delete
                                                         MySocket sock = new MySocket(Server_IP, Server_PORT);
                                                         try {
+                                                            JSONObject memo = (JSONObject)memoListAdapter.getItem(position);
                                                             JSONObject request = new JSONObject();
                                                             request.put("Type", "Delete_Memo");
-                                                            request.put("Position", Integer.parseInt(String.valueOf(memoListAdapter.getItemId(position))));
-                                                            request.put("Id", memoListAdapter.getWriter(position));
+                                                            request.put("Position", memo.getInt("id"));
+                                                            request.put("Id", memo.getString("user"));
                                                             JSONObject result = new JSONObject(sock.request(request.toString()));
                                                             if (result.get("result").toString().compareTo("No") == 0) {
                                                                 Toast.makeText(memo_list.this, "", Toast.LENGTH_SHORT).show();
                                                                 break;
                                                             } else
                                                                 Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
+                                                            Log.d("JSON", intent.getStringExtra("json"));
+                                                            listView.setAdapter(new MemoListAdapter(getApplicationContext(), intent.getStringExtra("json")));
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
-                                                        memoListAdapter.delete(position);
-                                                        listView.clearChoices();
-                                                        memoListAdapter.notifyDataSetChanged();
                                                         Log.d("delete", position + " item deleted ");
                                                         break;
                                                 }
@@ -150,6 +146,7 @@ public class memo_list extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), writing_memo.class);
+                intent.putExtra("Medicine_Name", "");
                 startActivity(intent);
             }
         });
@@ -208,10 +205,8 @@ public class memo_list extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
-        listView.clearChoices();
-        listView = findViewById(R.id.listView);
         listView.setAdapter(new MemoListAdapter(getApplicationContext(), request));
+        super.onResume();
     }
 
     private int dp2px(int dp) {

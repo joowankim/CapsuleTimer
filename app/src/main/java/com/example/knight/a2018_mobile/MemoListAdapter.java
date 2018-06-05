@@ -188,6 +188,21 @@ public class MemoListAdapter extends BaseAdapter {
                 viewHolder.text.setText(memo.getString("text"));
                 viewHolder.date.setText(memo.getString("time"));
                 convertView.setId(memo.getInt("id"));
+
+                viewHolder.close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 0);
+                    }
+                });
+
+                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 1);
+                    }
+                });
+
             }
 
         } catch (JSONException e) {

@@ -175,53 +175,6 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
-//                viewHolder.report.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        try {
-//                            Intent intent = new Intent(context, showGraph.class);
-//                            intent.putExtra("Medicine_Name", tmp.getString("medicine_name"));
-//                            context.startActivity(intent);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//
-//                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        try {
-//                            Intent intent = new Intent(context, SettingAlarm.class);
-//                            intent.putExtra("Exist", tmp.toString());
-//                            context.startActivity(intent);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//
-//                viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        try {
-//                            db = new DB(context, "Alarm.db", null, 1);
-//                            db.getWritableDatabase();
-//                            db.myDelete("medicine_alarm", "medicine_name = \"" + tmp.getString("medicine_name") + "\"");
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//                viewHolder.report.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        ((ListView) parent).performItemClick(v, position, 0);
-//                    }
-//                });
 
                 viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override

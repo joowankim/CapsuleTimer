@@ -152,6 +152,7 @@ public class showGraph extends AppCompatActivity {
                 weekDay.setVisibility(View.GONE);
                 weekDayLabel.setVisibility(View.GONE);
             }
+            remainder.setText(medicine.getInt("remain")+"개 남았습니다.");
 
             request.put("Type", "Medicine_Record");  // Put data to create JSON
             request.put("Id", "TEST");

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ public class edit_memo extends AppCompatActivity {
     ImageView memo_edit_image;
     EditText memo_edit_content;
     Button memo_edit_submit;
+    TextView medicine_label;
     Spinner spinner;
 
     int position;
@@ -66,26 +68,32 @@ public class edit_memo extends AppCompatActivity {
         memo_edit_content = (EditText)findViewById(R.id.memo_content);
         memo_edit_submit = (Button)findViewById(R.id.memo_upload);
         spinner = findViewById(R.id.medicine_name);
+        medicine_label = findViewById(R.id.medicine_label);
 
-        position = intent.getIntExtra("position", 0);
-        writer = intent.getStringExtra("writer");
-        index = intent.getIntExtra("index", 0);
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         user_id = sharedPreferences.getString("Id", "None");
 
         select();
 
         try {
+            JSONObject memo = new JSONObject(intent.getStringExtra("memo"));
             JSONObject request = new JSONObject();
+            Log.d("JSON", memo.toString());
             request.put("Type", "Edit_Memo");
-            request.put("Id", writer);
-            request.put("Position", position);
+            request.put("Id", memo.getString("user"));
+            request.put("Position", memo.getString("id"));
+            request.put("Medicine_Name", memo.getString("medicine_name"));
+
+            medicine_label.setVisibility(View.VISIBLE);
+            medicine_label.setText(memo.getString("medicine_name"));
+            spinner.setVisibility(View.GONE);
+
             final JSONObject result = new JSONObject(sock.request(request.toString()));
             Thread getBitmap = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        URL url = new URL("http://106.10.40.50:5000/" + result.get("image") + ".jpeg");
+                        URL url = new URL("http://106.10.40.50:5000" + result.get("image") + ".jpeg");
                         HttpURLConnection image_http = (HttpURLConnection) url.openConnection();
                         image_http.setDoInput(true);
                         image_http.connect();
@@ -143,7 +151,7 @@ public class edit_memo extends AppCompatActivity {
                     JSONObject request = new JSONObject();  // Create JSON Object to send request
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
                     String memo_text = memo_edit_content.getText().toString();  // Get memo text from edit text widget
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedimg);  // Get Image from gallery
+//                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedimg);  // Get Image from gallery
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -167,8 +175,7 @@ public class edit_memo extends AppCompatActivity {
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-                    Log.d("Memo", e.toString());
-                    Log.d("Memo", "Send to server error");
+                    e.printStackTrace();
                 }
             }
         });

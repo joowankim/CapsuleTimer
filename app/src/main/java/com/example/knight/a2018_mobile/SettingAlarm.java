@@ -248,6 +248,12 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (timeText[1].getText().toString().compareTo("") == 0 || remainText.getText().toString().compareTo("") == 0 || alarm_name.getText().toString().compareTo("") == 0) {
+                    Toast.makeText(getApplicationContext(), "알람 이름, 알람 시간, 남은 약 개수는 반드시 입력해주셔야 합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 JSONArray res = null;
                 JSONObject resJson = null;
 
