@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
             JSONObject result = new JSONObject(sock.request(request.toString()));
 
             if (result.get("result").toString().compareTo("Yes") == 0)  {
-                Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

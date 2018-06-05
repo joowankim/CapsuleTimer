@@ -41,7 +41,6 @@ public class AlarmAdapter extends BaseAdapter {
 
     public int Modul;
 
-    Random random = new Random();
     JSONObject tmp = null;
 
     public int[] color = {
@@ -203,18 +202,20 @@ public class AlarmAdapter extends BaseAdapter {
                         ((ListView) parent).performItemClick(v, position, 2);
                     }
                 });
-                Modul = 0;
-                String[] splitTime = tmp.getString("time").split(" ");
-                for(int i=0; i<splitTime.length; i++){
-                    String[] split = splitTime[i].split(":");
-                    Log.i("split time", split[i]);
-                    Modul += Integer.parseInt(split[i]);
-                }
-                Modul = Modul % 100;
-                if(Modul>20)
-                    Modul = Modul% 5;
-                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
-                convertView.setTag(viewHolder);
+
+
+//                Modul = 0;
+//                String[] splitTime = tmp.getString("time").split(" ");
+//                for(int i=0; i<splitTime.length; i++){
+//                    String[] split = splitTime[i].split(":");
+//                    Log.i("split time", split[i]);
+//                    Modul += Integer.parseInt(split[i]);
+//                }
+//                Modul = Modul % 100;
+//                if(Modul>20)
+//                    Modul = Modul% 5;
+//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+//                convertView.setTag(viewHolder);
 
             } else {
 
@@ -245,16 +246,16 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
-                Modul = 0;
-                String[] splitTime = tmp.getString("time").split(" ");
-                for(int i=0; i<splitTime.length; i++){
-                    String[] split = splitTime[i].split(":");
-                    Modul += Integer.parseInt(split[i]);
-                }
-                Modul = Modul % 100;
-                if(Modul>20)
-                    Modul = Modul% 5;
-                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+//                Modul = 0;
+//                String[] splitTime = tmp.getString("time").split(" ");
+//                for(int i=0; i<splitTime.length; i++){
+//                    String[] split = splitTime[i].split(":");
+//                    Modul += Integer.parseInt(split[i]);
+//                }
+//                Modul = Modul % 100;
+//                if(Modul>20)
+//                    Modul = Modul% 5;
+//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
             }
         } catch (Exception e) {
             e.printStackTrace();

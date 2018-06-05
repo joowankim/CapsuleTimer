@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //logout.setText("Login");
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
-                //  finish();  << 로그인 화면 고쳐야 함
+                finish();
             }
             Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_email) {

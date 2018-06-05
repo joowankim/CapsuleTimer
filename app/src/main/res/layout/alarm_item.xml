@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:contentPadding="10dp"
-        app:cardBackgroundColor="#86A8E7"
+        app:cardBackgroundColor="#33FFFFFF"
         android:layout_margin="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <RelativeLayout
@@ -31,27 +31,26 @@
                 <!--android:layout_toLeftOf="@+id/edit"-->
                 <!--android:clickable="true"-->
                 <!--android:id="@+id/report"/>-->
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_edit"
-                android:background="@drawable/background_transparent"
-                android:layout_toLeftOf="@+id/delete"
-                android:clickable="true"
-                android:id="@+id/edit"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_delete"
-                android:background="@drawable/background_transparent"
-                android:layout_alignParentRight="true"
-                android:clickable="true"
-                android:id="@+id/delete"/>
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/ic_action_edit"-->
+                <!--android:background="@drawable/background_transparent"-->
+                <!--android:layout_toLeftOf="@+id/delete"-->
+                <!--android:clickable="true"-->
+                <!--android:id="@+id/edit"/>-->
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/ic_action_delete"-->
+                <!--android:background="@drawable/background_transparent"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:clickable="true"-->
+                <!--android:id="@+id/delete"/>-->
             <TableLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/edit"
                 android:background="#00ffffff"
                 android:orientation="vertical">
                 <TableRow>
@@ -62,31 +61,62 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:id="@+id/img"/>
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:orientation="vertical">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_edit"
+                            android:background="@drawable/background_transparent"
+                            android:layout_toLeftOf="@+id/delete"
+                            android:clickable="true"
+                            android:id="@+id/edit"/>
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_delete"
+                            android:background="@drawable/background_transparent"
+                            android:layout_alignParentRight="true"
+                            android:clickable="true"
+                            android:id="@+id/delete"/>
                         <TextView
+                            android:textColor="@color/primary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/title"
+                            android:textSize="20dp"
                             android:textStyle="bold" />
                         <TextView
+                            android:layout_below="@+id/title"
+                            android:textColor="@color/primary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/dateTime" />
+                            android:id="@+id/dateTime"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            />
                         <TextView
+                            android:layout_below="@+id/dateTime"
+                            android:textColor="@color/primary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/repeat"/>
+                            android:id="@+id/repeat"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            />
                         <Button
+                            android:layout_below="@+id/repeat"
+                            android:textColor="@color/primary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/Taken"
                             android:text="약먹음"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
                 </TableRow>
 
             </TableLayout>

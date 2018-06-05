@@ -206,37 +206,37 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {sunday.setTextColor(Color.rgb(21,21,21)); sunday.setBackgroundColor(Color.rgb(255,255,255));} } });
         monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {monday.setTextColor(Color.rgb(21,21,21)); monday.setBackgroundColor(Color.rgb(255,255,255));} } });
         tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {tuesday.setTextColor(Color.rgb(21,21,21)); tuesday.setBackgroundColor(Color.rgb(255,255,255));} } });
         wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {wednesday.setTextColor(Color.rgb(21,21,21)); wednesday.setBackgroundColor(Color.rgb(255,255,255));} } });
         thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {thursday.setTextColor(Color.rgb(21,21,21)); thursday.setBackgroundColor(Color.rgb(255,255,255));} } });
         friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {friday.setTextColor(Color.rgb(21,21,21)); friday.setBackgroundColor(Color.rgb(255,255,255));} } });
         saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));}
+                if(b) {saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle)); date=""; dateText.setText(null);}
                 else {saturday.setTextColor(Color.rgb(21,21,21)); saturday.setBackgroundColor(Color.rgb(255,255,255));} } });
 
 
@@ -325,7 +325,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 AlarmService alarmService = new AlarmService(getApplicationContext());
                 alarmService.setFromButton(res);
                 finish();
@@ -334,14 +333,31 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void setDate(View v){
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-                this,
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
-        dpd.show(getFragmentManager(), "Datepickerdialog");
+
+        if(sunday.isChecked() || monday.isChecked() || tuesday.isChecked() || wednesday.isChecked() || thursday.isChecked()
+                || friday.isChecked() || saturday.isChecked()){
+            sunday.setChecked(false); monday.setChecked(false); tuesday.setChecked(false); wednesday.setChecked(false);
+            thursday.setChecked(false); friday.setChecked(false); saturday.setChecked(false);
+            weekOfDate = 0;
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog dpd = DatePickerDialog.newInstance(
+                    this,
+                    now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH),
+                    now.get(Calendar.DAY_OF_MONTH)
+            );
+            dpd.show(getFragmentManager(), "Datepickerdialog");
+        }
+        else {
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog dpd = DatePickerDialog.newInstance(
+                    this,
+                    now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH),
+                    now.get(Calendar.DAY_OF_MONTH)
+            );
+            dpd.show(getFragmentManager(), "Datepickerdialog");
+        }
     }
 
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/list_back"
     >
 
     <android.support.v7.widget.Toolbar
@@ -15,33 +16,39 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="16dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimary"
+        android:background="#0000"
         />
 
     <LinearLayout
         android:id="@+id/search_medicine"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
         android:focusable="false"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
+
         <EditText
+            android:id="@+id/medicine_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:id="@+id/medicine_name"
-            android:hint="@string/medicine_info_search_hint"
             android:backgroundTint="#7777ff"
+            android:hint="@string/medicine_info_search_hint"
             android:inputType="text"
-            />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textStyle="bold" />
+
         <ImageButton
+            android:id="@+id/medicine_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search"
             android:background="#0000"
             android:src="@drawable/ic_search"
-            android:id="@+id/medicine_search_btn"/>
+            android:text="@string/search" />
     </LinearLayout>
 
     <ListView

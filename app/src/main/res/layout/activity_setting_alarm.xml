@@ -18,14 +18,14 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="16dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/primary_darker" />
+        android:background="#A8C8F9" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:id="@+id/add_reminder_layout_top"
-        android:background="@color/primary_darker"
+        android:background="#A8C8F9"
         android:orientation="vertical"
         android:layout_height="148dp">
 
@@ -39,9 +39,9 @@
             android:lines="4"
             android:minLines="4"
             android:gravity="top|left"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primary_text"
             android:scrollHorizontally="false"
-            android:textColorHint="@color/primary_text_disabled_material_dark"
+            android:textColorHint="@color/secondary_text"
             android:inputType="textCapWords|textMultiLine"
             android:layout_marginRight="16dp"
             android:layout_height="140dp"/>
@@ -781,7 +781,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         fab:fab_icon="@drawable/ic_notification_active"
-        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorNormal="#FFDDA6"
         fab:fab_colorPressed="#000000"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
@@ -795,7 +795,7 @@
         android:id="@+id/test"
         android:text="저장"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_text"
         android:layout_alignParentRight="true"
         android:background="@drawable/background_transparent"/>
 
