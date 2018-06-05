@@ -12,15 +12,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/medi_name"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:text="Tyrenol"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:background="@color/triple"
-            android:textColor="@android:color/black"/>
+            android:background="@color/triple">
+
+            <TextView
+                android:id="@+id/medi_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tyrenol"
+                android:layout_centerInParent="true"
+                android:textSize="30dp"
+                android:textColor="@android:color/black"/>
+
+            <Button
+                android:id="@+id/sendReport"
+                android:background="#0000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:drawableLeft="@drawable/ic_email_black"
+                android:text="To doctor"
+                android:textSize="15dp"/>
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

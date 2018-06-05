@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,9 @@ public class showGraph extends AppCompatActivity {
 
     Toolbar toolbar;
     LinearLayout llBottomSheet;
+
+    // sending email image
+    Button sendReport;
 
     // graph fragments
     FragmentSingle  singleLine;
@@ -99,6 +103,9 @@ public class showGraph extends AppCompatActivity {
         alarmTypeLabel = findViewById(R.id.alarmType_label);
         alarmDateLabel = findViewById(R.id.date_label);
         weekDayLabel = findViewById(R.id.weekDay_label);
+
+        // sending email button
+        sendReport = findViewById(R.id.sendReport);
 
         //서버 닫혀있으면 걍 꺼짐미다
         JSONObject request = new JSONObject();  // JSON Object to send request to server
@@ -248,6 +255,25 @@ public class showGraph extends AppCompatActivity {
 //        tabs.addTab(tabs.newTab().setText("메모"));
 
         // 지금은 많이 사용하는게 아니라 줄 그어 진다는데 사실 잘 모르겠지만 돌아가긴 합니다
+
+        /**
+         * 리포트 의사한테 보내기
+         */
+        sendReport.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent it = new Intent(Intent.ACTION_SEND);
+                String[] tos = {"me@abc.com"};
+                String[] ccs = {"you@abc.com"};
+                it.putExtra(Intent.EXTRA_EMAIL, tos);
+                it.putExtra(Intent.EXTRA_CC, ccs);
+                it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
+                        "https://106.10.40.50:5000");
+                it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
+                it.setType("message/rfc822");
+                startActivity(Intent.createChooser(it, "Choose Email Client"));
+            }
+        });
     }
 
 
