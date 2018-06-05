@@ -86,7 +86,7 @@ public class showGraph extends AppCompatActivity {
 
     String from = "19700101", to = "21001231";    //20180508 form
     String medicine_name;
-    int times = 4;
+    int times = 1;
     List list = new ArrayList();    // report information
     ArrayList<Integer[]> day  = new ArrayList<Integer[]>();
     ArrayList<Integer[]> time = new ArrayList<Integer[]>();
@@ -128,6 +128,7 @@ public class showGraph extends AppCompatActivity {
         try {
 
             JSONObject medicine = new JSONObject(intent.getStringExtra("Medicine"));
+            times = medicine.getString("time").split(" ").length;
 
             dosage.setText("1일 "+medicine.getString("time").split(" ").length+"회");
             //Todo
@@ -226,18 +227,25 @@ public class showGraph extends AppCompatActivity {
             time.add(new Integer[]{Integer.parseInt(temp_time[0]),Integer.parseInt(temp_time[1]),Integer.parseInt(temp_time[2])});
         }
 
+        Log.d("DAY", day.toString());
+        Log.d("TIME", time.toString());
+
         // 약 먹는 횟수에 따라 그래프의 선의 개수가 달라진다
         switch(times) {
             case 1:
+                Log.d("taken", "1");
                 selectedLine = singleLine;
                 break;
             case 2:
+                Log.d("taken", "2");
                 selectedLine = doubleLine;
                 break;
             case 3:
+                Log.d("taken", "3");
                 selectedLine = tripleLine;
                 break;
             case 4:
+                Log.d("taken", "4");
                 selectedLine = quadLine;
                 break;
             default:

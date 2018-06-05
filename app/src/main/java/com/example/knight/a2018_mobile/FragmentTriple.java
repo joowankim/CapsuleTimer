@@ -3,6 +3,7 @@ package com.example.knight.a2018_mobile;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class FragmentTriple extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_single, container, false);
+        View view = inflater.inflate(R.layout.fragment_triple, container, false);
 
         ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
         ArrayList<Integer[]> Time = ((showGraph)getActivity()).time;
@@ -91,7 +92,14 @@ public class FragmentTriple extends Fragment {
         lineDataSet3.setDrawCircleHole(true);
         lineDataSet3.setDrawCircles(true);
 
-        LineData lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3);
+        LineData lineData = null;
+
+        if (entries1.size() > 0 && entries2.size() > 0 && entries3.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3);
+        else if (entries1.size() > 0 && entries2.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2);
+        else if (entries1.size() > 0)
+            lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();

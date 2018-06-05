@@ -61,7 +61,9 @@ public class FragmentSingle extends Fragment {
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 
-        LineData lineData = new LineData(lineDataSet1);
+        LineData lineData = null;
+        if (entries.size() > 0)
+            lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();

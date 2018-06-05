@@ -78,7 +78,11 @@ public class FragmentDouble extends Fragment {
         lineDataSet2.setDrawCircleHole(true);
         lineDataSet2.setDrawCircles(true);
 
-        LineData lineData = new LineData(lineDataSet1, lineDataSet2);
+        LineData lineData = null;
+        if (entries1.size() > 0 && entries2.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2);
+        else if (entries1.size() > 0)
+            lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
