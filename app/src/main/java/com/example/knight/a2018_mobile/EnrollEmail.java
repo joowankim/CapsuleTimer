@@ -140,6 +140,26 @@ public class EnrollEmail extends AppCompatActivity{
 
     }
 
+    public String[] emailSearch(){
+        try {
+            helper = new DBforEmail(this, "Email.db", null, 2);
+            db = helper.getReadableDatabase();
+            Cursor c = db.query("Email", null, null, null, null, null, null);
+
+            studentInfo = new String[c.getCount()];
+            int count = 0;
+            while (c.moveToNext()) {
+                studentInfo[count] = c.getString(c.getColumnIndex("email_doctor"));
+                count++;
+            }
+            c.close();
+            return studentInfo;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // update list view with student information
     public void invalidate(){
         select();

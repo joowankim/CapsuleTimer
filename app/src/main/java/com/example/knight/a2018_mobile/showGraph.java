@@ -15,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -72,6 +74,10 @@ public class showGraph extends AppCompatActivity {
 
     // memo list fragment
     FragmentMemoList memoList;
+
+    // for sending email
+    EnrollEmail email = new EnrollEmail();
+    String[] emailOfDoctor = email.emailSearch();
 
 
     String from = "19700101", to = "21001231";    //20180508 form
@@ -259,21 +265,37 @@ public class showGraph extends AppCompatActivity {
         /**
          * 리포트 의사한테 보내기
          */
-        sendReport.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent it = new Intent(Intent.ACTION_SEND);
-                String[] tos = {"me@abc.com"};
-                String[] ccs = {"you@abc.com"};
-                it.putExtra(Intent.EXTRA_EMAIL, tos);
-                it.putExtra(Intent.EXTRA_CC, ccs);
-                it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
-                        "https://106.10.40.50:5000");
-                it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
-                it.setType("message/rfc822");
-                startActivity(Intent.createChooser(it, "Choose Email Client"));
+        registerForContextMenu(sendReport);
+
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        if(emailOfDoctor != null) {
+            menu.setHeaderTitle("Emails");
+            for (int i = 0; i < emailOfDoctor.length; i++) {
+                menu.add(0, i, i, emailOfDoctor[i]);
             }
-        });
+        } else {
+            Toast.makeText(getApplicationContext(), "수신자의 메일주소를 등록해주세요", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // when menu's item selected, then change the button's color with selected menu.
+    public boolean onContextItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        Intent it = new Intent(Intent.ACTION_SEND);
+        String[] tos = {emailOfDoctor[id]};
+        it.putExtra(Intent.EXTRA_EMAIL, tos);
+        it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
+                "https://106.10.40.50:5000");
+        it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
+        it.setType("message/rfc822");
+        startActivity(Intent.createChooser(it, "Choose Email Client"));
+
+        return super.onContextItemSelected(item);
     }
 
 
