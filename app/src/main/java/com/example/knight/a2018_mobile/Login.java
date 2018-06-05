@@ -41,6 +41,26 @@ public class Login extends AppCompatActivity {
         login = (Button) findViewById(R.id.login_submit);
         register = (TextView) findViewById(R.id.register);
 
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        try {
+            JSONObject request = new JSONObject();
+            request.put("Type", "Login");
+            request.put("Id", sharedPreferences.getString("Id", ""));
+            request.put("Password", sharedPreferences.getString("Password", ""));
+
+            MySocket sock = new MySocket(Server_IP, Server_PORT);
+            JSONObject result = new JSONObject(sock.request(request.toString()));
+
+            if (result.get("result").toString().compareTo("Yes") == 0)  {
+                Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +75,7 @@ public class Login extends AppCompatActivity {
                 MySocket sock = new MySocket(Server_IP, Server_PORT);
                 JSONObject request = new JSONObject();
                 JSONObject result = new JSONObject();
+
                 try {
                     request.put("Type", "Login");
                     request.put("Id", id.getText().toString());
@@ -64,11 +85,12 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
-                        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
                         editor = sharedPreferences.edit();
                         editor.putString("Id", id.getText().toString());
                         editor.putString("Password", pw.getText().toString());
                         editor.commit();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                         finish();
                     }
                 } catch (JSONException e) {
