@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -56,7 +58,6 @@ public class showGraph extends AppCompatActivity {
     TextView weekDayLabel;
 
     Toolbar toolbar;
-    LinearLayout llBottomSheet;
 
     // sending email image
     Button sendReport;
@@ -208,8 +209,6 @@ public class showGraph extends AppCompatActivity {
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
 
-        llBottomSheet = findViewById(R.id.bottom_sheet);
-
         singleLine  = new FragmentSingle();
         doubleLine  = new FragmentDouble();
         tripleLine  = new FragmentTriple();
@@ -271,6 +270,8 @@ public class showGraph extends AppCompatActivity {
          */
         helper = new DBforEmail(this, "Email.db", null, 2);
         registerForContextMenu(sendReport);
+
+
 
     }
 

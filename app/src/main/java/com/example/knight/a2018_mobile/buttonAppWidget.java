@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 public class buttonAppWidget extends AppWidgetProvider {
 
+    DB db;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
