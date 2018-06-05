@@ -38,9 +38,11 @@ public class AlarmAdapter extends BaseAdapter {
     public DB db;
     public JSONArray result;
     public LayoutInflater inflater;
+    private int idx = 0;
 
     public int Modul;
 
+    Random random = new Random();
     JSONObject tmp = null;
 
     public int[] color = {
@@ -76,6 +78,7 @@ public class AlarmAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        db.close();
     }
 
     @Override
@@ -100,6 +103,7 @@ public class AlarmAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
+        Log.d("POS", position+"");
         try {
             tmp = result.getJSONObject(position);
             if (convertView == null) {
@@ -202,20 +206,18 @@ public class AlarmAdapter extends BaseAdapter {
                         ((ListView) parent).performItemClick(v, position, 2);
                     }
                 });
-
-
-//                Modul = 0;
-//                String[] splitTime = tmp.getString("time").split(" ");
-//                for(int i=0; i<splitTime.length; i++){
-//                    String[] split = splitTime[i].split(":");
-//                    Log.i("split time", split[i]);
-//                    Modul += Integer.parseInt(split[i]);
-//                }
-//                Modul = Modul % 100;
-//                if(Modul>20)
-//                    Modul = Modul% 5;
-//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
-//                convertView.setTag(viewHolder);
+                Modul = 0;
+                String[] splitTime = tmp.getString("time").split(" ");
+                for(int i=0; i<splitTime.length; i++){
+                    String[] s = splitTime[i].split(":");
+                    Log.i("split time", s[0] + ", " + s[1]);
+                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
+                }
+                Modul = Modul % 100;
+                if(Modul>20)
+                    Modul = Modul% 5;
+                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+                convertView.setTag(viewHolder);
 
             } else {
 
@@ -246,16 +248,18 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
-//                Modul = 0;
-//                String[] splitTime = tmp.getString("time").split(" ");
-//                for(int i=0; i<splitTime.length; i++){
-//                    String[] split = splitTime[i].split(":");
-//                    Modul += Integer.parseInt(split[i]);
-//                }
-//                Modul = Modul % 100;
-//                if(Modul>20)
-//                    Modul = Modul% 5;
-//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+                Modul = 0;
+                String[] splitTime = tmp.getString("time").split(" ");
+                for(int i=0; i<splitTime.length; i++){
+                    String[] s = splitTime[i].split(":");
+                    Log.i("split time", s[0] + ", " + s[1]);
+                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
+                }
+                Modul = Modul % 100;
+                if(Modul>20)
+                    Modul = Modul% 5;
+                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+                convertView.setTag(viewHolder);
             }
         } catch (Exception e) {
             e.printStackTrace();

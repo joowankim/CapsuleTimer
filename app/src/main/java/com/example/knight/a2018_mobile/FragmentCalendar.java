@@ -3,6 +3,7 @@ package com.example.knight.a2018_mobile;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class FragmentCalendar extends Fragment {
                 for(int i=0; i<Day.size(); i++) {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
-                    calendarView.addDecorator(new takingDecoratorSingle(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    calendarView.addDecorator(new takingDecoratorSingle(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
                     i += (time - 1);
                 }
                 greenText.setText("1회 복용");
@@ -100,7 +101,7 @@ public class FragmentCalendar extends Fragment {
                 for(int i=0; i<Day.size(); i++) {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
-                    calendarView.addDecorator(new takingDecoratorDouble(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    calendarView.addDecorator(new takingDecoratorDouble(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
                     i += (time - 1);
                 }
                 greenText.setText("2회 복용");
@@ -114,7 +115,7 @@ public class FragmentCalendar extends Fragment {
                 for(int i=0; i<Day.size(); i++) {
                     time = 0;
                     for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) time++;
-                    calendarView.addDecorator(new takingDecoratorTriple(Day.get(i-1)[0], Day.get(i-1)[1], Day.get(i-1)[2], time, getActivity()));
+                    calendarView.addDecorator(new takingDecoratorTriple(Day.get(i)[0], Day.get(i)[1], Day.get(i)[2], time, getActivity()));
                     i += (time - 1);
                 }
                 greenText.setText("3회 복용");

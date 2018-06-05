@@ -107,7 +107,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), position+", "+id, Toast.LENGTH_SHORT).show();
+                alarmAdapter.notifyDataSetChanged();
                 JSONObject tmp = (JSONObject) alarmAdapter.getItem(position);
+
                 switch ((int) id) {
                     case 0:
                         try {
@@ -255,7 +257,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
-        list.setAdapter(new AlarmAdapter(getApplicationContext()));
+        alarmAdapter = new AlarmAdapter(getApplicationContext());
+        list.setAdapter(alarmAdapter);
 
         user_id = sharedPreferences.getString("Id", "None");
         user_pw = sharedPreferences.getString("Password", "None");

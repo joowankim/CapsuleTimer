@@ -47,6 +47,7 @@ public class edit_memo extends AppCompatActivity {
     Spinner spinner;
 
     int position;
+    int flag = 0;
     String writer;
     String user_id;
     SharedPreferences sharedPreferences;
@@ -158,10 +159,14 @@ public class edit_memo extends AppCompatActivity {
                     JSONObject request = new JSONObject();  // Create JSON Object to send request
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
                     String memo_text = memo_edit_content.getText().toString();  // Get memo text from edit text widget
-//                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedimg);  // Get Image from gallery
+                    Bitmap curBmp;
+                    if (flag == 1)
+                        curBmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedimg);  // Get Image from gallery
+                    else
+                        curBmp = bmp;
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    curBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte array [] = baos.toByteArray();
                     request.put("Type", "Edit_Content");  // Add data to create request
                     request.put("Id", user_id);
@@ -199,6 +204,7 @@ public class edit_memo extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == PICK_IMAGE) {
+            flag = 1;
             try {
                 selectedimg = data.getData();  // Get image from received intent
                 memo_edit_image.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedimg));  // Change image view which is selected by gallery

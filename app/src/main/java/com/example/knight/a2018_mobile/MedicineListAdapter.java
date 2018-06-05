@@ -96,6 +96,7 @@ public class MedicineListAdapter extends BaseAdapter {
                 viewHolder.name.setText(medicine.getString("name"));
                 viewHolder.company.setText(medicine.getString("company"));
                 viewHolder.ingredient.setText(medicine.getString("ingredient"));
+                convertView.setTag(viewHolder);
             }
 
         } catch (JSONException e) {

@@ -207,6 +207,7 @@ public class MemoListAdapter extends BaseAdapter {
                         ((ListView) parent).performItemClick(v, position, 1);
                     }
                 });
+                convertView.setTag(viewHolder);
 
             }
 

@@ -104,7 +104,15 @@ public class FragmentQuad extends Fragment {
         lineDataSet4.setDrawCircleHole(true);
         lineDataSet4.setDrawCircles(true);
 
-        LineData lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3, lineDataSet4);
+        LineData lineData = null;
+        if (entries1.size() > 0 && entries2.size() > 0 && entries3.size() > 0 && entries4.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3, lineDataSet4);
+        if (entries1.size() > 0 && entries2.size() > 0 && entries3.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3);
+        else if (entries1.size() > 0 && entries2.size() > 0)
+            lineData = new LineData(lineDataSet1, lineDataSet2);
+        else if (entries1.size() > 0)
+            lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
         XAxis xAxis = lineChart.getXAxis();
