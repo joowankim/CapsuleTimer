@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -70,7 +71,7 @@ public class edit_memo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_memo);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         memo_edit_image = (ImageView)findViewById(R.id.memo_image);
         memo_edit_content = (EditText)findViewById(R.id.memo_content);
@@ -156,6 +157,7 @@ public class edit_memo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    JSONObject memo = new JSONObject(intent.getStringExtra("memo"));
                     JSONObject request = new JSONObject();  // Create JSON Object to send request
                     MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket for server IP and PORT
                     String memo_text = memo_edit_content.getText().toString();  // Get memo text from edit text widget
@@ -170,13 +172,14 @@ public class edit_memo extends AppCompatActivity {
                     byte array [] = baos.toByteArray();
                     request.put("Type", "Edit_Content");  // Add data to create request
                     request.put("Id", user_id);
-                    request.put("Position", position);
+                    request.put("Position", memo.getInt("id"));
                     request.put("Text", memo_text);
                     request.put("Image", array);
                     request.put("Medicine_Name", spinner.getSelectedItem().toString());
                     Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
-                    sock.request(request.toString());  // Send request
-                    sock.join();
+                    String jpeg = Base64.encodeToString(array, Base64.DEFAULT);
+                    Log.d("LENGTH", String.valueOf(jpeg.length()));
+                    sock.request(request.toString(), jpeg, 1);  // Send request
                     Intent result = new Intent();
                     result.putExtra("position", index);
                     result.putExtra("text", memo_text);

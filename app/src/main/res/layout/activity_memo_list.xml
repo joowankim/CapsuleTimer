@@ -11,9 +11,6 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <ListView
             android:id="@+id/listView"
             android:background="@color/triple"
@@ -21,7 +18,6 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:paddingBottom="10dp"/>
-    </ScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"

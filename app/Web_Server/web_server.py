@@ -191,7 +191,6 @@ def smartphone_connection():
                 client.send(MedicineSearch.crawler(req["Name"]))
             if req['Type'] == 'Write_Memo':
                 client.send("1\n")
-		print addr
                 length = int(client.recv(1024))
                 client.send("1\n")
                 image = ""
@@ -200,7 +199,6 @@ def smartphone_connection():
                     length /= 1024
                 else:
                     length = length/1024+1
-		print length
                 while length > 0:
                     length -= 1
                     image += client.recv(1024)

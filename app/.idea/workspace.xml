@@ -7,23 +7,16 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef988a81-6a20-4f4c-b131-04a5ecbdf544" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentCalendar.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentCalendar.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentDouble.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentDouble.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentQuad.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentQuad.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentSingle.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentSingle.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentTriple.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentTriple.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MemoListAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MemoListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/Web_Server/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Web_Server/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Web_Server/web_server.py" afterPath="$PROJECT_DIR$/Web_Server/web_server.py" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/showGraph.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/showGraph.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,108 +52,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
+      <file leaf-file-name="AlarmAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="260" column="36" lean-forward="false" selection-start-line="260" selection-start-column="36" selection-end-line="260" selection-end-column="36" />
+            <state relative-caret-position="-521">
+              <caret line="81" column="5" lean-forward="false" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MedicineListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java">
+      <file leaf-file-name="activity_memo_list.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-563">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="127">
+              <caret line="19" column="12" lean-forward="false" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemoListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MemoListAdapter.java">
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="209" column="47" lean-forward="false" selection-start-line="209" selection-start-column="47" selection-end-line="209" selection-end-column="47" />
+            <state relative-caret-position="174">
+              <caret line="45" column="40" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="45" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_memo.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="edit_memo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+            <state relative-caret-position="289">
+              <caret line="174" column="59" lean-forward="false" selection-start-line="174" selection-start-column="59" selection-end-line="174" selection-end-column="59" />
               <folding>
-                <element signature="e#3111#4018#0" expanded="true" />
-                <element signature="e#4017#4018#0" expanded="true" />
-                <element signature="e#4560#5010#0" expanded="true" />
-                <element signature="e#5009#5010#0" expanded="true" />
-                <element signature="e#5138#7162#0" expanded="true" />
-                <element signature="e#7161#7162#0" expanded="true" />
+                <element signature="e#3145#4052#0" expanded="true" />
+                <element signature="e#4051#4052#0" expanded="true" />
+                <element signature="e#4594#5044#0" expanded="true" />
+                <element signature="e#5043#5044#0" expanded="true" />
+                <element signature="e#5172#7414#0" expanded="true" />
+                <element signature="e#7413#7414#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showGraph.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/showGraph.java">
+      <file leaf-file-name="memo_list.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/memo_list.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-237">
-              <caret line="130" column="65" lean-forward="false" selection-start-line="130" selection-start-column="65" selection-end-line="130" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentTriple.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentTriple.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="101" column="50" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="101" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentQuad.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentQuad.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="106" column="33" lean-forward="false" selection-start-line="106" selection-start-column="33" selection-end-line="106" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentSingle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentSingle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="64" column="19" lean-forward="false" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="45" column="40" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="45" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentDouble.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentDouble.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="81" column="8" lean-forward="false" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+            <state relative-caret-position="-349">
+              <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -2698,7 +2644,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/res/xml/button_app_widget_info.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java" />
@@ -2716,7 +2661,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/introduceAlarm.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_introduce_alarm.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AppInfoGit.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentMemoList.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MemoListAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AppHomepage.java" />
@@ -2740,7 +2684,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_writing_memo.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/app_bar_main.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_show_graph.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/showGraph.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentCalendar.java" />
@@ -2749,6 +2692,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentDouble.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentSingle.java" />
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java" />
       </list>
     </option>
   </component>
@@ -2892,6 +2838,12 @@
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="app" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="app" type="1abcf292:AndroidViewProjectNode" />
@@ -4336,7 +4288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528184397474</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="그래프 하드코딩 제거">
+      <created>1528203034877</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1528203034877</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -4354,7 +4313,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42365888" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21182944" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -4479,36 +4438,14 @@
     <MESSAGE value="email 등록 화면 색상 수정&#10;activity_show_graph.xml 알람 정보 칸 추가" />
     <MESSAGE value="show_graph.xml To Doctor 버튼 추가&#10;showGraph.java toDoctor 버튼 onClick method 추가" />
     <MESSAGE value="to doctor 버튼 context menu 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="to doctor 버튼 context menu 추가" />
+    <MESSAGE value="그래프 하드코딩 제거" />
+    <option name="LAST_COMMIT_MESSAGE" value="그래프 하드코딩 제거" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="777">
-          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/example/knight/a2018_mobile/test.java" />
-    <entry file="file://$PROJECT_DIR$/src/androidTest/java/com/example/knight/a2018_mobile/ExampleInstrumentedTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/example/knight/a2018_mobile/ExampleUnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Register.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -4750,25 +4687,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="38" lean-forward="false" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -4842,21 +4760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding>
-            <element signature="e#3111#4018#0" expanded="true" />
-            <element signature="e#4017#4018#0" expanded="true" />
-            <element signature="e#4560#5010#0" expanded="true" />
-            <element signature="e#5009#5010#0" expanded="true" />
-            <element signature="e#5138#7162#0" expanded="true" />
-            <element signature="e#7161#7162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/showGraph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-237">
@@ -4897,19 +4800,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="45" column="40" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="45" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-563">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-502">
+          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-158">
+        <state relative-caret-position="-521">
           <caret line="81" column="5" lean-forward="false" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_memo_list.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="45" column="40" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="45" selection-end-column="40" />
+        <state relative-caret-position="127">
+          <caret line="19" column="12" lean-forward="false" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MySocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-866">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/writing_memo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="103" column="56" lean-forward="true" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/memo_list.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-349">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/edit_memo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="174" column="59" lean-forward="false" selection-start-line="174" selection-start-column="59" selection-end-line="174" selection-end-column="59" />
+          <folding>
+            <element signature="e#3145#4052#0" expanded="true" />
+            <element signature="e#4051#4052#0" expanded="true" />
+            <element signature="e#4594#5044#0" expanded="true" />
+            <element signature="e#5043#5044#0" expanded="true" />
+            <element signature="e#5172#7414#0" expanded="true" />
+            <element signature="e#7413#7414#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

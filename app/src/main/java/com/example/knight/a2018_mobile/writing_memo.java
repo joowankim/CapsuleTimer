@@ -24,12 +24,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
-
 /**
- * @brief
- * @author Knight
- * @date 2018.05.04
- * @version 1.0.0.1
+ * Created by Knight on 2018. 5. 4..
+ *
+ * Writing memo activity
+ *
  */
 
 
@@ -161,6 +160,7 @@ public class writing_memo extends AppCompatActivity {
                 JSONObject tmp = result.getJSONObject(idx);
                 Log.d("DB TEST", "");
                 medicine[idx] = tmp.getString("medicine_name");
+                Log.d("MEDI", medicine[idx]);
                 if (medicine[idx].compareTo(getIntents.getStringExtra("Medicine_Name")) == 0)
                     init = idx;
             }
