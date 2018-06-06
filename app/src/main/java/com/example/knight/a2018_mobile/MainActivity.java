@@ -1,10 +1,17 @@
 package com.example.knight.a2018_mobile;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -29,12 +36,16 @@ import android.widget.Toast;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Calendar;
+import android.support.v4.app.NotificationCompat;
+
 
 /**
  * @brief
@@ -141,6 +152,124 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             db.myDelete("medicine_alarm", "medicine_name = \"" + tmp.getString("medicine_name") + "\"");
                             db.close();
                             alarmAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    case 3:
+                        AlarmManager alarm = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                        Calendar c = Calendar.getInstance();
+
+                        try {
+                            String times = tmp.getString("time");
+                            String[] time = times.split(" ");
+
+                            if (tmp.get("auto") == "false")
+                                return;
+                            if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+                                return;
+
+                            Log.d("AUTO_ALARM", tmp.getString("auto") + ", " + c.get(Calendar.DAY_OF_WEEK));
+                            Toast.makeText(getApplicationContext(), tmp.getString("medicine_name") + " 약을 먹었습니다. 점심, 저녁 약시간에 알려드리도록 하겠습니다.", Toast.LENGTH_SHORT).show();
+
+                            String current = String.valueOf(Calendar.getInstance().getTimeInMillis()/1000.0);
+
+                            DB db = new DB(getApplicationContext(), "Taken.db", null, 1);
+                            db.getWritableDatabase();
+                            db.myInsert("medicine_taken", "medicine_name, time", "\"" + tmp.getString("medicine_name") + "\", \"" + current +"\"");
+                            try {
+                                db = new DB(getApplicationContext(), "Alarm.db", null, 1);
+                                db.getWritableDatabase();
+                                JSONArray res = new JSONArray(db.mySelect("medicine_alarm", "remain", "alarm_id = "+tmp.getInt("alarm_id")));
+                                JSONObject cur = res.getJSONObject(0);
+                                db.myUpdate("medicine_alarm", "remain = "+(cur.getInt("remain")-1), "alarm_id = "+tmp.getInt("alarm_id"));
+                                db.close();
+
+                                if (cur.getInt("remain")-1 < 10) {
+                                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    NotificationCompat.Builder builder = null;
+
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                                        NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
+                                        notificationManager.createNotificationChannel(notificationChannel);
+                                        builder = new NotificationCompat.Builder(getApplicationContext(), notificationChannel.getId());
+                                    } else {
+                                        builder = new NotificationCompat.Builder(getApplicationContext());
+                                    }
+
+                                    builder = builder
+                                            .setSmallIcon(R.drawable.ic_launcher_background)
+                                            .setColor(Color.BLUE)
+                                            .setContentTitle(tmp.getString("medicine_name"))
+                                            .setTicker("Capsule Timer")
+                                            .setContentText(tmp.getString("Title") + "약이 " + (cur.getInt("remain")-1) + "개만 남았습니다.")
+                                            .setDefaults(Notification.DEFAULT_ALL)
+                                            .setAutoCancel(true);
+                                    notificationManager.notify(123, builder.build());
+
+                                }
+
+                                JSONObject info = new JSONObject();
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Login_Session", MODE_PRIVATE);
+                                String user_id = sharedPreferences.getString("Id", "None");
+                                MySocket socket = new MySocket(Server_IP, Server_PORT);
+                                info.put("Id", user_id);
+                                info.put("Medicine_Name", tmp.getString("medicine_name"));
+                                info.put("Date", current);
+                                info.put("Type", "Medicine_Taken");
+                                socket.request(info.toString());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            double interval = 0.0;
+                            for (int idx = 1; idx < time.length; idx ++) {
+                                String []hhmm1 = time[idx].split(":");
+                                String []hhmm2 = time[idx-1].split(":");
+                                interval += (Double.parseDouble(hhmm1[0]) - Double.parseDouble(hhmm2[0]))*3600;
+                                interval += (Double.parseDouble(hhmm1[1]) - Double.parseDouble(hhmm2[1]))*60;
+                            }
+                            interval *= 1000;
+                            interval /= time.length - 1;
+
+                            for (int idx = 1; idx < time.length; idx ++) {
+                                long tmpTime = c.getTimeInMillis() + (long) interval * idx;
+                                Calendar currentTime = Calendar.getInstance();
+                                currentTime.setTimeInMillis(tmpTime);
+                                String curHHMM = String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(currentTime.get(Calendar.MINUTE));
+                                Intent intent = new Intent("com.example.knight.alarm.AlarmRinging");
+                                intent.setClass(getApplicationContext(), MyBroadcastReceiver.class);
+                                intent.putExtra("Id", tmp.getInt("alarm_id"));
+                                intent.putExtra("Title", tmp.getString("medicine_name"));
+                                intent.putExtra("Type", "Alarm");
+                                intent.putExtra("repeat_no", tmp.getInt("repeat_no"));
+                                intent.putExtra("original_repeat_no", tmp.getInt("repeat_no"));
+                                intent.putExtra("repeat_time", tmp.getInt("repeat_type"));
+                                intent.putExtra("date", tmp.getString("date"));
+                                intent.putExtra("time", curHHMM);
+                                intent.putExtra("weekOfDate", tmp.getInt("weekOfDate"));
+                                intent.putExtra("auto", "true");
+
+                                String reqId = "";
+                                Log.d("Alarm", curHHMM.split(":")[1]);
+                                if (curHHMM.split(":")[0].length() == 1)
+                                    reqId = tmp.getInt("alarm_id")+"0"+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
+                                else if (curHHMM.split(":")[0].length() == 2)
+                                    reqId = tmp.getInt("alarm_id")+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
+
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
+
+                                Log.d("DATA", currentTime.getTime()+", ");
+                                if (Build.VERSION.SDK_INT >= 23) {
+                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }else if (Build.VERSION.SDK_INT >= 19){
+                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }
+                                else {
+                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+                                }
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

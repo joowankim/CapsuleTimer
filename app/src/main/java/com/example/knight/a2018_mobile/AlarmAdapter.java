@@ -128,63 +128,9 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                        Calendar c = Calendar.getInstance();
-
-                        try {
-                            JSONObject current = result.getJSONObject(position);
-                            String times = current.getString("time");
-                            String[] time = times.split(" ");
-
-                            if (current.get("auto") == "false")
-                                return;
-                            if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
-                                return;
-
-                            double interval = 0.0;
-                            for (int idx = 1; idx < time.length; idx ++) {
-                                String []hhmm1 = time[idx].split(":");
-                                String []hhmm2 = time[idx-1].split(":");
-                                interval += (Double.parseDouble(hhmm1[0]) - Double.parseDouble(hhmm2[0]))*3600;
-                                interval += (Double.parseDouble(hhmm1[1]) - Double.parseDouble(hhmm2[1]))*60;
-                            }
-                            interval *= 1000;
-                            interval /= time.length - 1;
-
-                            for (int idx = 1; idx < time.length; idx ++) {
-                                long tmpTime = c.getTimeInMillis() + (long) interval * idx;
-                                Calendar currentTime = Calendar.getInstance();
-                                currentTime.setTimeInMillis(tmpTime);
-                                String curHHMM = String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(currentTime.get(Calendar.MINUTE));
-                                Intent intent = new Intent("com.example.knight.alarm.AlarmRinging");
-                                intent.setClass(context, MyBroadcastReceiver.class);
-                                intent.putExtra("Title", current.getString("medicine_name"));
-                                intent.putExtra("Type", "Alarm");
-                                intent.putExtra("repeat_no", current.getInt("repeat_no"));
-                                intent.putExtra("original_repeat_no", current.getInt("repeat_no"));
-                                intent.putExtra("repeat_time", current.getInt("repeat_time"));
-                                intent.putExtra("date", current.getString("date"));
-                                intent.putExtra("time", curHHMM);
-                                intent.putExtra("weekOfDate", current.getInt("weekOfDate"));
-                                intent.putExtra("auto", "true");
-                                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-                                if (Build.VERSION.SDK_INT >= 23) {
-                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }else if (Build.VERSION.SDK_INT >= 19){
-                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
-                                else {
-                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        ((ListView) parent).performItemClick(v, position, 3);
                     }
                 });
-
 
                 viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -227,6 +173,13 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
                 viewHolder.idx = position;
 
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 3);
+                    }
+                });
+
                 viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -252,7 +205,6 @@ public class AlarmAdapter extends BaseAdapter {
                 String[] splitTime = tmp.getString("time").split(" ");
                 for(int i=0; i<splitTime.length; i++){
                     String[] s = splitTime[i].split(":");
-                    Log.i("split time", s[0] + ", " + s[1]);
                     Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
                 }
                 Modul = Modul % 100;
