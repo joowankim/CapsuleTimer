@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 /**
- * @brief
+ * @brief make alarm with data that user settings and check whether alarm is repeat type or not
  * @author Knight
  * @date 2018.05.04
  * @version 1.0.0.1
@@ -37,6 +37,9 @@ public class AlarmService extends Service {
         alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
 
+    /**
+     * @brief make alarm with data that read from database
+     */
     public void setFromDB() {
         DB db = new DB(getApplicationContext(), "Alarm.db", null, 1);
         try {
@@ -147,6 +150,10 @@ public class AlarmService extends Service {
         }
     }
 
+    /**
+     * @brief when save button is clicked in alarm setting screen, make alarm with data that user input
+     * @param alarms
+     */
     public void setFromButton(JSONArray alarms) {
         try {
             Log.d("JSON", alarms.toString());

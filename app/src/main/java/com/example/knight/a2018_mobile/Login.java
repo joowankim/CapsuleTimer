@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * @brief
+ * @brief process login action class
  * @author Knight
  * @date 2018.05.04
  * @version 1.0.0.1
@@ -30,6 +30,11 @@ public class Login extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
+
+    /**
+     * @brief get id and password from text view and check valid of id and password
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

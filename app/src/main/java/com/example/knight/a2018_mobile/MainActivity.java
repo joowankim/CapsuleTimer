@@ -37,7 +37,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @brief
+ * @brief MainActivity that show first app screen with alarm list
  * @author Knight
  * @date 2018.04.30
  * @version 1.0.0.1
@@ -255,6 +255,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * @brief set alarm list to the list view and get id&password data from sharedPreferences
+     */
     @Override
     protected void onResume() {
         alarmAdapter = new AlarmAdapter(getApplicationContext());
@@ -263,16 +266,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user_id = sharedPreferences.getString("Id", "None");
         user_pw = sharedPreferences.getString("Password", "None");
 
-        if (user_id.compareTo("None") == 0 || user_pw.compareTo("None") == 0) {
-        }
-        else {
-            flag = 1;
-//            logout.setText("Logout");
-        }
-
         super.onResume();
     }
 
+    /**
+     * @brief process back button action
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -283,28 +282,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * @brief when user select menu in navigation, then execute proper action
+     * @param item
+     * @return boolean value
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

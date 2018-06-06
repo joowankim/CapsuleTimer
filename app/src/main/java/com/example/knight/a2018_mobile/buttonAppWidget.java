@@ -137,6 +137,12 @@ public class buttonAppWidget extends AppWidgetProvider {
     }
 
     //Click1 이라는 Action을 onReceive로 보낸다.
+
+    /**
+     * @brief send click action to the onReceive
+     * @param context
+     * @return pendingintnet
+     */
     private PendingIntent buildToastIntent(Context context)
     {
         // manifest에 지정해둔 Click1 액션으로 지정해 인텐트를 보낸 후 if문을 통해 다음 action을 결정한다
@@ -147,6 +153,12 @@ public class buttonAppWidget extends AppWidgetProvider {
     }
 
     //위젯에 멀티 버튼 추가하기
+
+    /**
+     * @biref add button to the widget
+     * @param context
+     * @return views
+     */
     private RemoteViews buildViews(Context context)
     {
         RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.button_app_widget);

@@ -25,12 +25,11 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Created by Knight on 2018. 5. 4..
- *
- * Writing memo activity
- *
+ * @brief process write memo that user input
+ * @author Knight
+ * @date 2018.05.04
+ * @version 1.0.0.1
  */
-
 
 public class writing_memo extends AppCompatActivity {
 
@@ -51,7 +50,7 @@ public class writing_memo extends AppCompatActivity {
 
     /**
      * @param savedInstanceState
-     * @description java class of writing memo activity
+     * @brief java class of writing memo activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class writing_memo extends AppCompatActivity {
         select(0);
 
         /**
-         * @description add button event click listener
+         * @brief add button event click listener
          */
         memo_edit_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +83,7 @@ public class writing_memo extends AppCompatActivity {
         });
 
         /**
-         * @description add button event click listener
+         * @brief add button event click listener
          */
         memo_edit_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +123,7 @@ public class writing_memo extends AppCompatActivity {
      * @param requestCode unique ID to identify request
      * @param resultCode  unique ID to identify result is ok or not
      * @param data        data send by other activity
-     * @description get result when picture is selected from gallery
+     * @brief get result when picture is selected from gallery
      */
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //    @SuppressLint("NewApi")
@@ -146,6 +145,11 @@ public class writing_memo extends AppCompatActivity {
     }
 
     //    Check existing sutdent data in DB and show it in list view
+
+    /**
+     * @brief check existing alarm data in database and show it in list view
+     * @param flag
+     */
     public void select(int flag) {
 
 //        Get readable database

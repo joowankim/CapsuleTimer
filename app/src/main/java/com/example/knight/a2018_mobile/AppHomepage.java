@@ -7,7 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
- * @brief
+ * @brief make web view for homepage
  * @author Knight
  * @date 2018.06.03
  * @version 1.0.0.1

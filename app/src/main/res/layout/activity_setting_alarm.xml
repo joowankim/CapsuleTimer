@@ -6,7 +6,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@drawable/list_back"
     >
 
     <android.support.v7.widget.Toolbar
@@ -18,14 +18,14 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="16dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="#A8C8F9" />
+        android:background="#0000" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/toolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:id="@+id/add_reminder_layout_top"
-        android:background="#A8C8F9"
+        android:background="#0000"
         android:orientation="vertical"
         android:layout_height="148dp">
 
@@ -39,7 +39,7 @@
             android:lines="4"
             android:minLines="4"
             android:gravity="top|left"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/white"
             android:scrollHorizontally="false"
             android:textColorHint="@color/secondary_text"
             android:inputType="textCapWords|textMultiLine"
@@ -75,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="요일 반복"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     android:textSize="15dp"
@@ -767,7 +768,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         fab:fab_icon="@drawable/ic_notification_active"
-        fab:fab_colorNormal="#FFDDA6"
+        fab:fab_colorNormal="@color/accent"
         fab:fab_colorPressed="#000000"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
@@ -781,7 +782,7 @@
         android:id="@+id/test"
         android:text="저장"
         android:textStyle="bold"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:background="@drawable/background_transparent"/>
 

@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 /**
- * @brief
+ * @brief show loading page when app first execute
  * @author Knight
  * @date 2018.06.02
  * @version 1.0.0.1

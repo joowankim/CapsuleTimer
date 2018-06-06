@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * @brief
+ * @brief make database to store alarm setting information
  * @author Knight
  * @date 2018.05.04
  * @version 1.0.0.1
@@ -27,6 +27,10 @@ public class DB extends SQLiteOpenHelper {
         this.name = name;
     }
 
+    /**
+     * @brief make database for alarm and taking medicine
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         if (name.compareTo("Alarm.db") == 0) {
@@ -40,6 +44,12 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * @brief if database's information is changed, then update database with new version
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (name.compareTo("Taken.db") == 0) {
@@ -55,20 +65,42 @@ public class DB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * @brief make cursor for write to database
+     * @return SQLiteDatabase cursor
+     */
     @Override
     public SQLiteDatabase getWritableDatabase() {
         db = super.getWritableDatabase();
         return super.getWritableDatabase();
     }
 
+    /**
+     * @brief delete data from database
+     * @param table
+     * @param query
+     */
     public void myDelete(String table, String query) {
         db.execSQL("delete from "+table+" where "+query);
     }
 
+    /**
+     * @brief update database with new data
+     * @param table
+     * @param column
+     * @param query
+     */
     public void myUpdate(String table, String column, String query) {
         db.execSQL("update "+table+" set "+column+" where "+query);
     }
 
+    /**
+     * @brief search database and put data into the JSONObject
+     * @param table
+     * @param column
+     * @param query
+     * @return string value
+     */
     public String mySelect(String table, String column, String query) {
         Cursor cursor = db.rawQuery("select "+column+" from " + table + " where "+query, null);
         JSONArray res = new JSONArray();
@@ -96,6 +128,12 @@ public class DB extends SQLiteOpenHelper {
         return res.toString();
     }
 
+    /**
+     * @brief insert data into the proper database
+     * @param table
+     * @param column
+     * @param value
+     */
     public void myInsert(String table, String column, String value) {
         Log.d("SQL", "insert into "+table+" ("+column+") values ("+value+")");
         db.execSQL("insert into "+table+" ("+column+") values ("+value+")");

@@ -27,7 +27,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 /**
- * @brief
+ * @brief get alarm information from database and make cardview with alarm data
  * @author Knight
  * @date 2018.05.04
  * @version 1.0.0.1
@@ -66,6 +66,10 @@ public class AlarmAdapter extends BaseAdapter {
 //            Color.rgb(203,255,117)
 //    };
 
+    /**
+     * @brief search data from alarm database and store string value into JSONObject
+     * @param context
+     */
     public AlarmAdapter(Context context) {
         this.context = context;
         db = new DB(context, "Alarm.db", null, 1);
@@ -79,11 +83,20 @@ public class AlarmAdapter extends BaseAdapter {
         db.close();
     }
 
+    /**
+     * @brief calculate JSONArray length
+     * @return JSONArray length
+     */
     @Override
     public int getCount() {
         return result.length();
     }
 
+    /**
+     * @brief get item from JSONArray
+     * @param position
+     * @return item value with proper position
+     */
     @Override
     public Object getItem(int position) {
         try {
@@ -93,11 +106,23 @@ public class AlarmAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * @brief get position
+     * @param position
+     * @return position
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * @brief make cardview with alarm information that user setting
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return cardview object
+     */
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
@@ -264,6 +289,7 @@ public class AlarmAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
 
     public class ViewHolder {
         public TextView title;
