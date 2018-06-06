@@ -18,24 +18,15 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#39b29c"
-            android:text="PuzzleLeaf Blog" />
+            android:text="CapsuleTimer" />
     </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:background="#39b29c"
-        android:text="Blog"
-        android:layout_marginTop="5dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:id="@+id/simple_btn"
-        android:layout_height="25dp" />
-    <Button
-        android:layout_width="wrap_content"
-        android:background="#39b29c"
-        android:layout_marginTop="10dp"
-        android:text="Test"
+        android:text="TAKE"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:id="@+id/simple_btn2"
-        android:layout_height="25dp" />
+        android:layout_height="30dp" />
 </LinearLayout>

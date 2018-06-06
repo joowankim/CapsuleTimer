@@ -62,11 +62,11 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         db2.getWritableDatabase();
 
         try {
-            JSONArray result = new JSONArray(db1.mySelect("medicine_alarm", "time", "1 = 1"));
+            JSONArray result = new JSONArray(db1.mySelect("medicine_alarm", "*", "1 = 1"));
             JSONObject tmp = result.getJSONObject(0);
             medicine_name = tmp.getString("medicine_name");
 
-            JSONArray taken = new JSONArray(db2.mySelect("medicine_taken", "time", "medicine_name = \"" + medicine_name + "\""));
+            JSONArray taken = new JSONArray(db2.mySelect("medicine_taken", "*", "medicine_name = \"" + medicine_name + "\""));
             records = new String[taken.length()];
             for (int idx = 0; idx < taken.length(); idx++) {
                 JSONObject tmpTaken = result.getJSONObject(idx);
