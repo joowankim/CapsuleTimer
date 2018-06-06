@@ -21,9 +21,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.widget.Toast;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.06
+ * @brief get the memo_list layout and inflate that
+ * @author Joo wan Kim
+ * @date 2018.05.20
  * @version 1.0.0.1
  */
 
@@ -42,15 +42,20 @@ public class FragmentMemoList extends Fragment {
 
     public FragmentMemoList () { }
 
+    /**
+     * @brief inflate memo list
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return memo list view group
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_memo_list, container, false);
 
-//        textView = (TextView) view.findViewById(R.id.textView);
-//        textView.setVisibility(View.INVISIBLE);
-//        textView.setHeight(0);
+        // get memo list from web server
         final String medicine_name = ((showGraph)getActivity()).medicine_name;
         sharedPreferences = getContext().getSharedPreferences("Login_Session", Context.MODE_PRIVATE);
         id = sharedPreferences.getString("Id", "None");
@@ -65,12 +70,15 @@ public class FragmentMemoList extends Fragment {
             e.printStackTrace();
         }
 
-        // 리스트 생성
+        // generate list
         listView = view.findViewById(R.id.listView);
         memoListAdapter = new MemoListAdapter(getContext(), request.toString(), 1);
 
         floatingActionButton = view.findViewById(R.id.add);
 
+        /**
+         * @brief when button is clicked, send intent edit memo activity
+         */
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,12 +90,15 @@ public class FragmentMemoList extends Fragment {
 
         listView.setAdapter(memoListAdapter);
 
+        /**
+         * @brief when item is clicked, it would act what it commanded
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch ((int)id) {
                     case 1:
-                        // open
+                        // open item in the list
                         Log.d("open", String.valueOf(memoListAdapter.getItemId(position)) + " " + String.valueOf(position) + " item selecteds ");
                         JSONObject tmp = (JSONObject)memoListAdapter.getItem(position);
                         Intent tmp_intent = new Intent(getActivity(), edit_memo.class);
@@ -95,7 +106,7 @@ public class FragmentMemoList extends Fragment {
                         startActivityForResult(tmp_intent, 666);
                         break;
                     case 0:
-                        // delete
+                        // delete item in web server
                         MySocket sock = new MySocket(Server_IP, Server_PORT);
                         try {
                             JSONObject memo = (JSONObject)memoListAdapter.getItem(position);
@@ -122,11 +133,19 @@ public class FragmentMemoList extends Fragment {
         return view;
     }
 
+    /**
+     * @brief convert dp size to pixel size
+     * @param dp
+     * @return
+     */
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getActivity().getResources().getDisplayMetrics());
     }
 
+    /**
+     * @brief when this fragment is resumed, this would generate memo list
+     */
     @Override
     public void onResume() {
         memoListAdapter = new MemoListAdapter(getContext(), request.toString(), 1);

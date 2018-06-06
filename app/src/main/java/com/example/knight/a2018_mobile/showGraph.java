@@ -1,5 +1,8 @@
 /**
- * @brief draw graph using MPAndroidChart library
+ * @brief generate report using MPAndroidChart library and Material Calendar View library
+ * @author Joo wan Kim
+ * @date 2018.05.12
+ * @version 1.0.0.1
  */
 
 package com.example.knight.a2018_mobile;
@@ -91,8 +94,10 @@ public class showGraph extends AppCompatActivity {
     ArrayList<Integer[]> day  = new ArrayList<Integer[]>();
     ArrayList<Integer[]> time = new ArrayList<Integer[]>();
 
-
-
+    /**
+     * @brief draw report layout
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +122,6 @@ public class showGraph extends AppCompatActivity {
         // sending email button
         sendReport = findViewById(R.id.sendReport);
 
-        //서버 닫혀있으면 걍 꺼짐미다
         JSONObject request = new JSONObject();  // JSON Object to send request to server
         MySocket sock = new MySocket(Server_IP, Server_PORT);  // Create socket with server IP and PORT
         String result = "";
@@ -179,6 +183,7 @@ public class showGraph extends AppCompatActivity {
             request.put("To", to);
 
             /**
+             * FORMAT
              * getString("Date") : "2018-05-09 01:18:24"
              *            User   : "TEST"
              *            Medicine_Name : "Tylenol"
@@ -204,17 +209,10 @@ public class showGraph extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayShowTitleEnabled(false);
-
         singleLine  = new FragmentSingle();
         doubleLine  = new FragmentDouble();
         tripleLine  = new FragmentTriple();
         quadLine    = new FragmentQuad();
-
 
         for (Object object : list) {
             String element = (String) object;
@@ -264,33 +262,30 @@ public class showGraph extends AppCompatActivity {
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(pager);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedLine).commit();
-
-//        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-//        tabs.addTab(tabs.newTab().setText("그래프"));
-//        tabs.addTab(tabs.newTab().setText("달력"));
-//        tabs.addTab(tabs.newTab().setText("메모"));
-
-        // 지금은 많이 사용하는게 아니라 줄 그어 진다는데 사실 잘 모르겠지만 돌아가긴 합니다
 
         /**
-         * 리포트 의사한테 보내기
+         * sending report to doctor
          */
         helper = new DBforEmail(this, "Email.db", null, 2);
         registerForContextMenu(sendReport);
 
-
-
     }
 
+    /**
+     * @brief showing doctors' E-mail list
+     * @param menu
+     * @param v
+     * @param menuInfo
+     * @return N/A
+     */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
 
-//        helper = new DBforEmail(this, "Email.db", null, 2);
-
+        // generate the E-mail list object from database
         db = helper.getReadableDatabase();
         Cursor c = db.query("Email", null, null, null, null, null, null);
 
+        // get the E-mail list into emailInfo
         emailInfo = new String[c.getCount()];
         int count = 0;
         while (c.moveToNext()) {
@@ -299,6 +294,7 @@ public class showGraph extends AppCompatActivity {
         }
         c.close();
 
+        // when the E-mail exists
         if(emailInfo.length > 0) {
             menu.setHeaderTitle("Emails");
             for (int i = 0; i < emailInfo.length; i++) {
@@ -309,10 +305,16 @@ public class showGraph extends AppCompatActivity {
         }
     }
 
-    // when menu's item selected, then change the button's color with selected menu.
+    /**
+     * @brief when menu's item selected, then change the button's color with selected menu.
+     * @param item selected item in E-mail list
+     * @return
+     */
     public boolean onContextItemSelected(MenuItem item){
+        // get the ID of selected item
         int id = item.getItemId();
 
+        // inflate sending E-mail activity set from and to
         Intent it = new Intent(Intent.ACTION_SEND);
         String[] address = {emailInfo[id]};
         it.putExtra(Intent.EXTRA_EMAIL, address);
@@ -325,8 +327,9 @@ public class showGraph extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-
-
+    /**
+     * @brief enable swipe UX and generate tab UI
+     */
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] TITLES = {"Graph", "Calendar", "Memo"};
@@ -335,16 +338,30 @@ public class showGraph extends AppCompatActivity {
             super(fm);
         }
 
+        /**
+         * @brief get each page title
+         * @param position
+         * @return page title
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             return TITLES[position];
         }
 
+        /**
+         * @brief count titles
+         * @return title size
+         */
         @Override
         public int getCount() {
             return TITLES.length;
         }
 
+        /**
+         * @brief assign each item
+         * @param position index of item
+         * @return fragment
+         */
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {

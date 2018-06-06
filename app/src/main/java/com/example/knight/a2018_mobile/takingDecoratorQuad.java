@@ -12,9 +12,9 @@ import java.util.Calendar;
 
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.06
+ * @brief decorate day when user taked medicine four times
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -27,6 +27,14 @@ class takingDecoratorQuad implements DayViewDecorator {
 
     private Drawable drawable;
 
+    /**
+     * @brief constructor of quad decorator
+     * @param year year has day when user taked medicine four times
+     * @param month month has day when user taked medicine four times
+     * @param day day when user taked medicine four times
+     * @param times count of medicine taking
+     * @param cont activity context
+     */
     public takingDecoratorQuad(int year, int month, int day, int times, Activity cont) {
         if (times >= 0 && times <= 4) {
             this.year = year;
@@ -43,6 +51,11 @@ class takingDecoratorQuad implements DayViewDecorator {
         }
     }
 
+    /**
+     * @brief judge that user taked medicine four times
+     * @param day date in calendar
+     * @return whether user taked medicine four times(true) or not(false)
+     */
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         day.copyTo(calendar);
@@ -52,6 +65,10 @@ class takingDecoratorQuad implements DayViewDecorator {
         return time != 0 && takingDay == date && takingYear == year && takingMonth == month - 1;
     }
 
+    /**
+     * @brief decorate the day grid
+     * @param view day grid
+     */
     @Override
     public void decorate(DayViewFacade view) {
         view.setBackgroundDrawable(drawable);

@@ -18,9 +18,9 @@ import java.util.Calendar;
 
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.06
+ * @brief decorate day when user taked medicine one time
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -33,6 +33,14 @@ class takingDecoratorSingle implements DayViewDecorator {
 
     private Drawable drawable;
 
+    /**
+     * @brief constructor of single decorator
+     * @param year year has day when user taked medicine one time
+     * @param month month has day when user taked medicine one time
+     * @param day day when user taked medicine one time
+     * @param times count of medicine taking
+     * @param cont activity context
+     */
     public takingDecoratorSingle(int year, int month, int day, int times, Activity cont) {
         if (times >= 0 && times <= 2) {
             this.year = year;
@@ -47,6 +55,11 @@ class takingDecoratorSingle implements DayViewDecorator {
         }
     }
 
+    /**
+     * @brief judge that user taked medicine one time
+     * @param day date in calendar
+     * @return whether user taked medicine one time(true) or not(false)
+     */
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         day.copyTo(calendar);
@@ -56,6 +69,10 @@ class takingDecoratorSingle implements DayViewDecorator {
         return time != 0 && takingDay == date && takingYear == year && takingMonth == month - 1;
     }
 
+    /**
+     * @brief decorate the day grid
+     * @param view day grid
+     */
     @Override
     public void decorate(DayViewFacade view) {
         view.setBackgroundDrawable(drawable);
