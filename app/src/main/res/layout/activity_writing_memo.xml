@@ -4,32 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/triple"
+    android:id="@+id/image_layout"
     tools:context="com.example.knight.a2018_mobile.writing_memo"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/iamgelayout"
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:src="@drawable/add_photo"
             android:contextClickable="true"
             android:scaleType="fitXY"
             android:id="@+id/memo_image"/>
 
-    </LinearLayout>
-
     <LinearLayout
-        android:layout_below="@+id/iamgelayout"
-        android:background="#ffff"
+        android:id="@+id/spinnerlayout"
+        android:layout_below="@+id/memo_image"
+        android:background="#BFE2FC"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -48,7 +42,14 @@
             android:gravity="center"
             android:id="@+id/medicine_name">
         </Spinner>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_below="@+id/spinnerlayout"
+        android:background="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <EditText
             android:gravity="top"
             android:layout_width="match_parent"

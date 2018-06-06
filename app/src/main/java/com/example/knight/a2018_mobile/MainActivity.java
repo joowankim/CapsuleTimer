@@ -334,19 +334,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_logout) {
-            if (flag == 1) {
-                Log.d("123", "1");
-                editor.remove("Id");
-                editor.remove("Password");
-                editor.commit();
-                flag = 0;
-            } else if (flag == 0) {
-                Log.d("123", "0");
-                //logout.setText("Login");
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
-            }
+            editor.remove("Id");
+            editor.remove("Password");
+            editor.commit();
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+            finish();
             Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_email) {
             Intent intent = new Intent(getApplicationContext(), EnrollEmail.class);
