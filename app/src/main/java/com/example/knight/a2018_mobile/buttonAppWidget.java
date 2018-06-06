@@ -21,9 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @brief Implementation of App Widget functionality
- * @author Knight
- * @date 2018.05.04
+ * @brief Implementation of Button App Widget functionality
+ * @author Kim joo wan
+ * @date 2018.05.29
  * @version 1.0.0.1
  */
 

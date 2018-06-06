@@ -14,7 +14,7 @@ import java.util.Date;
 
 
 /**
- * @brief
+ * @brief indicate today in calendar
  * @author Knight
  * @date 2018.05.06
  * @version 1.0.0.1
@@ -23,15 +23,27 @@ import java.util.Date;
 class oneDayDecorator implements DayViewDecorator {
     private CalendarDay date;
 
+    /**
+     * @brief constructor for this
+     */
     public oneDayDecorator() {
         date = CalendarDay.today();
     }
 
+    /**
+     * @brief judge the date is today
+     * @param day a date in calendar
+     * @return the day is today(true) or not(false)
+     */
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         return date != null && day.equals(date);
     }
 
+    /**
+     * @brief decorate today
+     * @param view
+     */
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new StyleSpan(Typeface.BOLD));
