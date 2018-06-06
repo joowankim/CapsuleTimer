@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.04
+ * @brief generate calendar in report page
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -38,10 +38,20 @@ public class FragmentCalendar extends Fragment {
     private TextView redText;
     private TextView grayText;
 
+    /**
+     * @brief constructor of this
+     */
     public FragmentCalendar() {
         // Required empty public constructor
     }
 
+    /**
+     * @brief generate views in calendar fragment
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return calendar fragment view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,8 +89,9 @@ public class FragmentCalendar extends Fragment {
 
         // decorate days of taking medicine
         ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
-        int time;   // 몇번 먹었는지
+        int time;   // taking count
 
+        // drawing calendar for following taking count
         switch(numOfTaking) {
             case 1:
                 for(int i=0; i<Day.size(); i++) {

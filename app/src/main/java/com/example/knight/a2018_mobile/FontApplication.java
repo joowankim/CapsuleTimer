@@ -5,9 +5,9 @@ import android.app.Application;
 import com.tsengvn.typekit.Typekit;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.04
+ * @brief changing fonts in this application
+ * @author Joo wan Kim
+ * @date 2018.06.01
  * @version 1.0.0.1
  */
 

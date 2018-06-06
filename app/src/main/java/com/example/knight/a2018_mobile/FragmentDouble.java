@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.04
+ * @brief two-line graph
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -30,16 +30,27 @@ public class FragmentDouble extends Fragment {
 
     private LineChart lineChart;
 
+    /**
+     * @brief constructor for this
+     */
     public FragmentDouble() {
         // Required empty public constructor
     }
 
+    /**
+     * @brief draw two-line graph
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return line graph view group
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_single, container, false);
 
+        // taking day and time
         ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
         ArrayList<Integer[]> Time = ((showGraph)getActivity()).time;
 
@@ -49,6 +60,7 @@ public class FragmentDouble extends Fragment {
         List<Entry> entries1 = new ArrayList<>();
         List<Entry> entries2 = new ArrayList<>();
 
+        // split the taking time data by date
         int i = 0;
         while (i < Day.size()) {
             entries1.add(new Entry(Day.get(i)[2], (float)Time.get(i)[0] + (float)Time.get(i)[1]/60));
@@ -59,7 +71,7 @@ public class FragmentDouble extends Fragment {
             }
         }
 
-
+        // set data of graph
         LineDataSet lineDataSet1 = new LineDataSet(entries1, "1회 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
@@ -78,6 +90,7 @@ public class FragmentDouble extends Fragment {
         lineDataSet2.setDrawCircleHole(true);
         lineDataSet2.setDrawCircles(true);
 
+        // integrate data
         LineData lineData = null;
         if (entries1.size() > 0 && entries2.size() > 0)
             lineData = new LineData(lineDataSet1, lineDataSet2);
@@ -85,10 +98,12 @@ public class FragmentDouble extends Fragment {
             lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
+        // draw x-axis
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
+        // draw y-axis
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
 
@@ -100,6 +115,7 @@ public class FragmentDouble extends Fragment {
         Description description = new Description();
         description.setText("");
 
+        // draw chart
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDrawGridBackground(false);
         lineChart.setDescription(description);

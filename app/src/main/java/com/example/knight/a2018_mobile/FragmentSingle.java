@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @brief
- * @author Knight
+ * @brief one-line graph
+ * @author Joo wan Kim
  * @date 2018.05.04
  * @version 1.0.0.1
  */
@@ -30,21 +30,33 @@ public class FragmentSingle extends Fragment {
 
     private LineChart lineChart;
 
+    /**
+     * @brief constructor for this
+     */
     public FragmentSingle() {
         // Required empty public constructor
     }
 
+    /**
+     * @brief one-line graph
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return one-line graph view group
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_single, container, false);
 
+        // taking day and time
         ArrayList<Integer[]> Day = ((showGraph)getActivity()).day;
         ArrayList<Integer[]> Time = ((showGraph)getActivity()).time;
 
         lineChart = (LineChart) view.findViewById(R.id.chart);
 
+        // make entry of taking time data
         List<Entry> entries = new ArrayList<>();
         int i = 0;
         while(i < Day.size()) {
@@ -52,6 +64,7 @@ public class FragmentSingle extends Fragment {
             i++;
         }
 
+        // set the taking time data
         LineDataSet lineDataSet1 = new LineDataSet(entries, "1회 복용");
         lineDataSet1.setLineWidth(2);
         lineDataSet1.setCircleRadius(6);
@@ -61,15 +74,18 @@ public class FragmentSingle extends Fragment {
         lineDataSet1.setDrawCircleHole(true);
         lineDataSet1.setDrawCircles(true);
 
+        // set the data
         LineData lineData = null;
         if (entries.size() > 0)
             lineData = new LineData(lineDataSet1);
         lineChart.setData(lineData);
 
+        // draw x-axis
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
 
+        // draw y-axis
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
 
@@ -79,7 +95,7 @@ public class FragmentSingle extends Fragment {
         yRAxis.setDrawGridLines(false);
 
         Description description = new Description();
-        description.setText("아아아아ㅏ");
+        description.setText("");
 
         lineChart.setDoubleTapToZoomEnabled(false);
         lineChart.setDrawGridBackground(false);

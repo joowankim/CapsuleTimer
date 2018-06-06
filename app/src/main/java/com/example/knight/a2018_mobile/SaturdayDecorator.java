@@ -10,9 +10,9 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import java.util.Calendar;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.06
+ * @brief decorate saturday grid
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -22,6 +22,11 @@ class SaturdayDecorator implements DayViewDecorator {
     public SaturdayDecorator() {
     }
 
+    /**
+     * @brief it decides that day is saturday
+     * @param day date in calendar
+     * @return day is saturday(true) or not(false)
+     */
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         day.copyTo(calendar);
@@ -29,6 +34,10 @@ class SaturdayDecorator implements DayViewDecorator {
         return weekDay == Calendar.SATURDAY;
     }
 
+    /**
+     * @brief decorate that grid
+     * @param view date grid
+     */
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new ForegroundColorSpan(Color.BLUE));

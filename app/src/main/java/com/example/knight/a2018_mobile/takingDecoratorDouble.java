@@ -11,9 +11,9 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import java.util.Calendar;
 
 /**
- * @brief
- * @author Knight
- * @date 2018.05.06
+ * @brief decorate day when user taked medicine two times
+ * @author Joo wan Kim
+ * @date 2018.05.18
  * @version 1.0.0.1
  */
 
@@ -26,6 +26,14 @@ class takingDecoratorDouble implements DayViewDecorator {
 
     private Drawable drawable;
 
+    /**
+     * @brief constructor of double decorator
+     * @param year year has day when user taked medicine two times
+     * @param month month has day when user taked medicine two times
+     * @param day day when user taked medicine two times
+     * @param times count of medicine taking
+     * @param cont activity context
+     */
     public takingDecoratorDouble(int year, int month, int day, int times, Activity cont) {
         if (times >= 0 && times < 3) {
             this.year = year;
@@ -40,6 +48,11 @@ class takingDecoratorDouble implements DayViewDecorator {
         }
     }
 
+    /**
+     * @brief judge that user taked medicine two times
+     * @param day date in calendar
+     * @return whether user taked medicine two times(true) or not(false)
+     */
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         day.copyTo(calendar);
@@ -49,6 +62,10 @@ class takingDecoratorDouble implements DayViewDecorator {
         return time != 0 && takingDay == date && takingYear == year && takingMonth == month - 1;
     }
 
+    /**
+     * @brief decorate the day grid
+     * @param view day grid
+     */
     @Override
     public void decorate(DayViewFacade view) {
         view.setBackgroundDrawable(drawable);
