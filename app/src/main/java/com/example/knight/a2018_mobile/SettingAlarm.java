@@ -91,6 +91,12 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     public ImageButton addTime;
     public Switch aSwitch1, aSwitch2;
 
+
+    /**
+     * @brief make database to store alarm information and get information from user
+     *         checking whether alarm is repeat alarm or not
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -332,8 +338,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         });
     }
 
+    /**
+     * @brief when user select date menu, setting current date to datepicker
+     * @param v
+     */
     public void setDate(View v){
-
         if(sunday.isChecked() || monday.isChecked() || tuesday.isChecked() || wednesday.isChecked() || thursday.isChecked()
                 || friday.isChecked() || saturday.isChecked()){
             sunday.setChecked(false); monday.setChecked(false); tuesday.setChecked(false); wednesday.setChecked(false);
@@ -360,6 +369,13 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
+    /**
+     * @brief get the date from datepicker that user set
+     * @param view
+     * @param year
+     * @param monthOfYear
+     * @param dayOfMonth
+     */
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear ++;
         day = dayOfMonth;
@@ -394,8 +410,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         setTime(v);
     }
 
-    // On clicking Time picker
-    // 현재 시간을 calendar에 얻어 timepicker에 setting
+
+    /**
+     * @brief when user select time menu, setting current time to timepicker
+     * @param v
+     */
     public void setTime(View v){
         Calendar now = Calendar.getInstance();
         TimePickerDialog tpd = TimePickerDialog.newInstance(
@@ -408,7 +427,12 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         tpd.show(getFragmentManager(), "Timepickerdialog");
     }
 
-
+    /**
+     * @brief get the time from timepicker that user set
+     * @param view
+     * @param hourOfDay
+     * @param minute
+     */
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
         hour = hourOfDay;
@@ -421,6 +445,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeText[dataIdx].setText(time[dataIdx]);
     }
 
+    /**
+     * @brief when auto switch clicked, change state of auto alarm
+     * @param view
+     */
     public void onSwitchAuto(View view) {
         boolean on = ((Switch) view).isChecked();
         if (on) {
@@ -434,6 +462,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
     // On clicking the repeat switch
     // repeat 스위치 check 여부 확인
+
+    /**
+     * @brief when repeat switch clicked, change state of repeating
+     * @param view
+     */
     public void onSwitchRepeat(View view) {
         boolean on = ((Switch) view).isChecked();
         if (on) {
@@ -450,6 +483,11 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
     }
 
     // On clicking repeat interval button
+
+    /**
+     * @brief when repeatNo text clicked, show dialog
+     * @param v
+     */
     public void setRepeatNo(View v){
         final String[] items = new String[5];
 
@@ -477,8 +515,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         alert.show();
     }
 
-    // On clicking repeat Interval button
-    // 알람 간격으로 바꿈
+    /**
+     * @brief when repeat Interval text clicked, show dialog
+     * @param v
+     */
     public void selectRepeatType(View v){
         final String[] items = new String[5];
 
@@ -506,6 +546,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         alert.show();
     }
 
+    /**
+     * @brief when remain of medicine text clicked, show dialog
+     * @param v
+     */
     public void setRemainNo(View v){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("숫자를 입력하세요");

@@ -16,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by leejisung on 2018-06-03.
+ * @brief take email information from enroll email activity
+ * @author Knight
+ * @date 2018.06.03
+ * @version 1.0.0.1
  */
 
 public class EnrollEmail extends AppCompatActivity{
@@ -34,7 +37,11 @@ public class EnrollEmail extends AppCompatActivity{
     SQLiteDatabase db;
     DBforEmail helper;
 
-
+    /**
+     * @param savedInstanceState
+     * @brief make database to store email and process update and delete event
+     * @return N/A
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +58,6 @@ public class EnrollEmail extends AppCompatActivity{
 
         helper = new DBforEmail(this, "Email.db", null, 2);
 
-
-        // when "추가" button is clicked, first check whether name and number is not empty
-        // if one of them is empty, then print error message
-        // and the other get a string from Edit Text and store in database
-        // and call invalidate function to update list view.
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,10 +78,6 @@ public class EnrollEmail extends AppCompatActivity{
             }
         });
 
-        // when "삭제" button is clicked, first check whether name is not empty
-        // if name is not entered, then print error message
-        // and the other get name and delete from database
-        // and call invalidate function to update list view
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +97,13 @@ public class EnrollEmail extends AppCompatActivity{
         invalidate();
     }
 
-    // insert data to database
+    /**
+     * @param nameOfHospital
+     * @param nameOfDoctor
+     * @param email_doctor
+     * @brief get email user's information and insert into the database
+     * @return N/A
+     */
     public void insert(String nameOfHospital, String nameOfDoctor, String email_doctor) {
         db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -110,14 +114,21 @@ public class EnrollEmail extends AppCompatActivity{
         Log.i("insert", "성공");
     }
 
-    // delete data from database
+    /**
+     * @param nameOfDoctor
+     * @brief get name of doctor and search information which have name and delete it from database
+     * @return N/A
+     */
     public void delete(String nameOfDoctor) {
         db = helper.getWritableDatabase();
         db.delete("Email", "nameOfDoctor=?", new String[]{nameOfDoctor});
         Log.i("delete", "성공");
     }
 
-    // search data from database.
+    /**
+     * @brief doing linear search in database and each of data store to the string array
+     * @return N/A
+     */
     public void select(){
         db = helper.getReadableDatabase();
         Cursor c = db.query("Email", null, null,null,null,null,null);
@@ -141,7 +152,10 @@ public class EnrollEmail extends AppCompatActivity{
     }
 
 
-    // update list view with student information
+    /**
+     * @brief update list view with email that user input
+     * @return N/A
+     */
     public void invalidate(){
         select();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, studentInfo);

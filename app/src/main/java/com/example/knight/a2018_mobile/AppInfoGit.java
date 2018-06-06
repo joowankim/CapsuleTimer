@@ -17,6 +17,10 @@ public class AppInfoGit extends AppCompatActivity {
 
     WebView browser;
 
+    /**
+     * @brief make web view to visit git page
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -109,11 +109,15 @@
                             android:textStyle="bold"
                             />
                         <Button
+                            android:layout_alignParentRight="true"
+                            android:drawableLeft="@drawable/taken_button"
                             android:layout_below="@+id/repeat"
                             android:textColor="@color/primary_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/Taken"
+                            android:background="#0000"
+                            android:textStyle="bold"
                             android:text="약먹음"/>
 
                     </RelativeLayout>

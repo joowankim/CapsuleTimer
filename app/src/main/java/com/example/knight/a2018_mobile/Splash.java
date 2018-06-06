@@ -16,6 +16,11 @@ import android.support.annotation.Nullable;
 
 public class Splash extends Activity {
 
+
+    /**
+     * @brief show loading page in 1500 milli seconds and start login screen
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,9 @@ public class Splash extends Activity {
         }
     }
 
+    /**
+     * @brief when loading is finish, then move to login screen and remove loading page from activity stack
+     */
     private class splashhandler implements Runnable{
         public void run(){
             startActivity(new Intent(getApplication(), Login.class)); //로딩이 끝난 후, ChoiceFunction 이동
@@ -45,6 +53,9 @@ public class Splash extends Activity {
         }
     }
 
+    /**
+     * @brief in splash screen, do not any action when back button is clicked
+     */
     @Override
     public void onBackPressed() {
         //초반 플래시 화면에서 넘어갈때 뒤로가기 버튼 못누르게 함

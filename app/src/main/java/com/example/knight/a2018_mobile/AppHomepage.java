@@ -16,6 +16,10 @@ public class AppHomepage extends AppCompatActivity {
 
     WebView browser;
 
+    /**
+     * @brief make web view to visit app home page
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

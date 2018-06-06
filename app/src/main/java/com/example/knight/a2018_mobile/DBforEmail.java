@@ -17,6 +17,11 @@ public class DBforEmail extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
+    /**
+     * @param db
+     * @brief create database to store email
+     * @return N/A
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -27,6 +32,7 @@ public class DBforEmail extends SQLiteOpenHelper {
         db.execSQL(sql);
 
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {

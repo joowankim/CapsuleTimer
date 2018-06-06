@@ -9,7 +9,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 /**
- * @brief
+ * @brief show app information when "앱 정보" button clicked in navigation menu
  * @author Knight
  * @date 2018.06.03
  * @version 1.0.0.1
@@ -21,6 +21,11 @@ public class AppInfo extends AppCompatActivity {
     private TextView textGit;
     private String version;
 
+    /**
+     * @brief show version and process click event that showing git page
+     * @param savedInstanceState
+     * @return N/A
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
