@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -40,6 +41,7 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
 
+    private int alarm_idx = 9;
     private String []records;
     private String medicine_name = "";
     DB db1, db2;
@@ -55,39 +57,6 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-        db1 = new DB(context, "Alarm.db", null, 1);
-        db2 = new DB(context, "Taken.db", null, 1);
-        db1.getWritableDatabase();
-        db2.getWritableDatabase();
-
-        try {
-            JSONArray result = new JSONArray(db1.mySelect("medicine_alarm", "*", "1 = 1"));
-            JSONObject tmp = result.getJSONObject(0);
-            medicine_name = tmp.getString("medicine_name");
-
-            JSONArray taken = new JSONArray(db2.mySelect("medicine_taken", "*", "medicine_name = \"" + medicine_name + "\""));
-            records = new String[taken.length()];
-            for (int idx = 0; idx < taken.length(); idx++) {
-                JSONObject tmpTaken = result.getJSONObject(idx);
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(Long.parseLong(tmpTaken.getString("time")));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                records[idx] = simpleDateFormat.format(c.getTime());
-
-                for (Object object : records) {
-                    String element = (String) object;
-                    String[] t = element.split(" ");
-
-                    String[] temp_day = t[0].split("-");
-
-                    Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Day.add(new Integer[]{0, 0, 0});
-        }
 
         //모든 widget을 업데이트 하기에 모든 widget ID를 호출하여 업데이트
         for (int appWidgetId : appWidgetIds) {
@@ -168,6 +137,47 @@ public class MonthCalendarWidget extends AppWidgetProvider {
      * @param appWidgetId
      */
     private void drawWidget(Context context, int appWidgetId) {
+
+        db1 = new DB(context, "Alarm.db", null, 1);
+        db2 = new DB(context, "Taken.db", null, 1);
+        db1.getWritableDatabase();
+        db2.getWritableDatabase();
+
+        try {
+            JSONArray result = new JSONArray(db1.mySelect("medicine_alarm", "*", "1 = 1"));
+            JSONObject tmp = result.getJSONObject(alarm_idx);
+            medicine_name = tmp.getString("medicine_name");
+
+            JSONArray taken = new JSONArray(db2.mySelect("medicine_taken", "*", "medicine_name = \"" + medicine_name + "\""));
+            records = new String[taken.length()];
+            for (int idx = 0; idx < taken.length(); idx++) {
+                JSONObject tmpTaken = taken.getJSONObject(idx);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis((long)(tmpTaken.getDouble("time")*1000));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                records[idx] = simpleDateFormat.format(c.getTime());
+                String element = records[idx].toString();
+                String[] t = element.split(" ");
+
+                String[] temp_day = t[0].split("-");
+
+                Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
+
+
+//                for (Object object : records) {
+//                    String element = object.toString();
+//                    String[] t = element.split(" ");
+//
+//                    String[] temp_day = t[0].split("-");
+//
+//                    Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
+//                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Day.add(new Integer[]{0, 0, 0});
+        }
+
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);  // 액티비티에서 설정한  여러 앱위젯의 상태를 appWidgetManager로 넘겨준다
         Resources res = context.getResources();                                     // 현재 어플리케이션 패키지에 리소스 객체를 반환한다
         // OPTION_APPWIDGET_MIN_WIDTH  : 위젯의 현재 너비에 대한 작은 쪽 경계의 크기
@@ -179,13 +189,16 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         boolean shortMonthName = false;
         boolean mini = false;
         int numWeeks = 6;
+        int monthStartDayOfWeek = 0;
+        int todayDayOfWeek = 0;
 
-        int[] count = { 0, };
+        int[] count = new int[Day.size()];
         int dateIdx = 0;
         for(int i=0; i<Day.size() && Day.size()>1; i++) {
             count[dateIdx] = 0;
             for(int j=i; j < Day.size() && Day.get(i)[2] == Day.get(j)[2]; j++) count[dateIdx]++;
             i += (count[dateIdx] - 1);
+            Log.d("Date", count[dateIdx]+"");
             dateIdx++;
         }
 
@@ -218,15 +231,17 @@ public class MonthCalendarWidget extends AppWidgetProvider {
             thisMonth = cal.get(Calendar.MONTH);
         }
 
+//        Log.d("Date", cal.getTime()+"");
+
         // RemoteView 위의 TextView 객체의 text를 수정하는 데 사용한다 (달 이름 결정)
         rv.setTextViewText(R.id.month_label, DateFormat.format(shortMonthName ? "MMM yy" : "MMMM yyyy", cal));
 
         if (!mini) {
             cal.set(Calendar.DAY_OF_MONTH, 1);
-            int monthStartDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            monthStartDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
             cal.add(Calendar.DAY_OF_MONTH, 1 - monthStartDayOfWeek);
         } else {
-            int todayDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            todayDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
             cal.add(Calendar.DAY_OF_MONTH, 1 - todayDayOfWeek);
         }
 
@@ -246,6 +261,55 @@ public class MonthCalendarWidget extends AppWidgetProvider {
 
         dateIdx = 0;
         // 각 주에 대한 view를 생성하는 루프
+//        for (int week = 0; week < numWeeks; week++) {
+//            RemoteViews rowRv = new RemoteViews(context.getPackageName(), R.layout.row_week);
+//
+//            //각 날짜에 대한 view를 생성하는 루프
+//            for (int day = 0; day < 7; day++) {
+//                boolean inMonth = cal.get(Calendar.MONTH) == thisMonth;
+//                boolean inYear  = cal.get(Calendar.YEAR) == todayYear;
+//                boolean isToday = inYear && inMonth && (cal.get(Calendar.DAY_OF_YEAR) == today);
+//                boolean isFirstOfMonth = cal.get(Calendar.DAY_OF_MONTH) == 1;
+//
+//                int cellLayoutResId = R.layout.cell_day;
+//
+//                // 여기서 날짜마다의 색 조정 가능
+//                if (isToday) {  // 해당 날짜가 오늘이라면 cell_today.xml을 view로 지정 (배경 하얀색)
+//                    cellLayoutResId = R.layout.cell_today;
+//                } else if (inMonth) {
+//                    cellLayoutResId = R.layout.cell_day_this_month;
+//                }
+//
+//                if (Day.size() > 0) {
+//                    Boolean isDate = (cal.get(Calendar.DAY_OF_MONTH) == Day.get(dateIdx)[2]) && (cal.get(Calendar.MONTH) == Day.get(dateIdx)[1]) && (cal.get(Calendar.YEAR) == Day.get(dateIdx)[0]);
+//                    if (isDate && count[dateIdx] == 1) {
+//                        cellLayoutResId = R.layout.cell_take_once; dateIdx++;
+//                    } else if (isDate && count[dateIdx] == 2) {
+//                        cellLayoutResId = R.layout.cell_take_twice; dateIdx++;
+//                    } else if (isDate && count[dateIdx] == 3) {
+//                        cellLayoutResId = R.layout.cell_take_three_times; dateIdx++;
+//                    } else if (isDate && count[dateIdx] == 4) {
+//                        cellLayoutResId = R.layout.cell_take_four_times; dateIdx++;
+//                    }
+//                }
+//
+//                RemoteViews cellRv = new RemoteViews(context.getPackageName(), cellLayoutResId);
+//                cellRv.setTextViewText(android.R.id.text1, Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+//
+//                if (isFirstOfMonth) {
+//                    cellRv.setTextViewText(R.id.month_label, DateFormat.format("MMM", cal));
+//                }
+//
+//                rowRv.addView(R.id.row_container, cellRv);
+//                cal.add(Calendar.DAY_OF_MONTH, 1);
+//            }
+//            rv.addView(R.id.calendar, rowRv);
+//        }
+
+        // 각 버튼들에 대한 action을 intent에 담아 onReceive() method 호출
+
+        Calendar curCal = Calendar.getInstance();
+
         for (int week = 0; week < numWeeks; week++) {
             RemoteViews rowRv = new RemoteViews(context.getPackageName(), R.layout.row_week);
 
@@ -265,16 +329,17 @@ public class MonthCalendarWidget extends AppWidgetProvider {
                     cellLayoutResId = R.layout.cell_day_this_month;
                 }
 
-                if (Day.size() > 1) {
-                    Boolean isDate = (cal.get(Calendar.DATE) == Day.get(dateIdx)[2]) && (cal.get(Calendar.MONTH) == Day.get(dateIdx)[1]) && (cal.get(Calendar.YEAR) == Day.get(dateIdx)[0]);
+                if (Day.size() > 0) {
+                    Boolean isDate = (cal.get(Calendar.DAY_OF_MONTH) == Day.get(dateIdx)[2]) && (cal.get(Calendar.MONTH) == Day.get(dateIdx)[1]-1) && (cal.get(Calendar.YEAR) == Day.get(dateIdx)[0]);
+                    Log.d("DATE", cal.getTime()+", "+isDate);
                     if (isDate && count[dateIdx] == 1) {
-                        cellLayoutResId = R.layout.cell_take_once;
+                        cellLayoutResId = R.layout.cell_take_once; dateIdx++;
                     } else if (isDate && count[dateIdx] == 2) {
-                        cellLayoutResId = R.layout.cell_take_twice;
+                        cellLayoutResId = R.layout.cell_take_twice; dateIdx++;
                     } else if (isDate && count[dateIdx] == 3) {
-                        cellLayoutResId = R.layout.cell_take_three_times;
+                        cellLayoutResId = R.layout.cell_take_three_times; dateIdx++;
                     } else if (isDate && count[dateIdx] == 4) {
-                        cellLayoutResId = R.layout.cell_take_four_times;
+                        cellLayoutResId = R.layout.cell_take_four_times; dateIdx++;
                     }
                 }
 
@@ -291,7 +356,6 @@ public class MonthCalendarWidget extends AppWidgetProvider {
             rv.addView(R.id.calendar, rowRv);
         }
 
-        // 각 버튼들에 대한 action을 intent에 담아 onReceive() method 호출
         rv.setViewVisibility(R.id.prev_month_button, mini ? View.GONE : View.VISIBLE);
         rv.setOnClickPendingIntent(R.id.prev_month_button, PendingIntent.getBroadcast(context, 0,
                         new Intent(context, MonthCalendarWidget.class).setAction(ACTION_PREVIOUS_MONTH),
