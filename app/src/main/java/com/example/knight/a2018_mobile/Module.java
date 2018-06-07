@@ -95,7 +95,6 @@ public class Module {
                 int weekOfDate = json.getInt("weekOfDate");
                 int flag = 0;
 
-
                 String reqId = genPendingIntentId(json.getInt("alarm_id"), time.split(" ")[idx]);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);

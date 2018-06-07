@@ -35,9 +35,10 @@ public class ModuleTest extends AndroidTestCase {
         cal = Calendar.getInstance();
 
         int thisMonth = cal.get(Calendar.MONTH);
-        ;
+
         assertTrue(cal.get(Calendar.MONTH) == thisMonth);
         Module.calendarMonthChaning(sp, cal, -1);   // previous
+
         assertTrue(thisMonth - 1 == cal.get(Calendar.MONTH));
 
         Module.calendarMonthChaning(sp, cal, 1);    // next
@@ -45,7 +46,6 @@ public class ModuleTest extends AndroidTestCase {
 
         Module.calendarMonthChaning(sp, cal, 1);    // next
         assertTrue(thisMonth + 1 == cal.get(Calendar.MONTH));
-
 
     }
 

@@ -469,6 +469,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         timeText[dataIdx].setText(time[dataIdx]);
     }
 
+
     /**
      * @brief when auto switch clicked, change state of auto alarm
      * @param view

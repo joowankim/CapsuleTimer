@@ -31,10 +31,6 @@ import java.util.Calendar;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-//    static final String AUDIO = "http://sites.google.com/site/ubiaccessmobile/sample_audio.amr";
-//    private MediaPlayer mediaPlayer;
-//    private int playbackPosition = 0;
-
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;
     private int MODE_PRIVATE = 0;
@@ -106,9 +102,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     .addAction(R.drawable.ic_access_time_black, "Skip", PendingIntent.getBroadcast(context, Integer.parseInt(reqId+2), skip, PendingIntent.FLAG_ONE_SHOT));
             notificationManager.notify(333, builder.build());
 
-//            try{
-//                playAudio(AUDIO);
-//            }catch(Exception e) {e.printStackTrace();}
         } else if (intent.getStringExtra("Type").compareTo("Taken") == 0) {
 
             String current = String.valueOf(Calendar.getInstance().getTimeInMillis()/1000.0);
@@ -257,11 +250,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-//            if(mediaPlayer != null && !mediaPlayer.isPlaying()){
-//                mediaPlayer.start();
-//                mediaPlayer.seekTo(playbackPosition);
-//            }
-
         } else if (intent.getStringExtra("Type").compareTo("Skip") == 0) {
             Log.d("REPEAT", intent.getIntExtra("repeat_no", 0) + "");
             if (intent.getIntExtra("repeat_no", 0) > 0) {
@@ -298,29 +286,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 else {
                     alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + intent.getIntExtra("repeat_time", 0) * 60000, pendingIntent);
                 }}
-//            if(mediaPlayer != null && !mediaPlayer.isPlaying()){
-//                mediaPlayer.start();
-//                mediaPlayer.seekTo(playbackPosition);
-//            }
+
         }
     }
 
-//    private void playAudio(String url) throws Exception{
-//        killMediaPlayer();
-//
-//        mediaPlayer = new MediaPlayer();
-//        mediaPlayer.setDataSource(url);
-//        mediaPlayer.prepare();
-//        mediaPlayer.start();
-//    }
-//
-//    private void killMediaPlayer() {
-//        if (mediaPlayer != null) {
-//            try {
-//                mediaPlayer.release();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+
 }

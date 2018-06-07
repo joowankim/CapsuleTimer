@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-
         list.setAdapter(alarmAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -430,9 +429,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 e.printStackTrace();
             }
             intent.putExtra("json", request.toString());
-            if (flag == 0) {
-                intent.setClass(getApplicationContext(), Login.class);
-            }
             startActivity(intent);
         } else if (id == R.id.nav_homepage) {
             Intent intent = new Intent(getApplicationContext(), AppHomepage.class);
