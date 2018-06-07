@@ -157,8 +157,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 alarm_name.setText(tmp.getString("medicine_name"));
                 alarm_id = tmp.getInt("alarm_id");
                 medicine_id = tmp.getInt("medicine_id");
-                if (tmp.getString("date") != "")
-                    dateText.setText(tmp.getString("date"));
+//                if (tmp.getString("date") != "")
+//                    dateText.setText(tmp.getString("date"));
                 int nVisible = tmp.getString("time").split(" ").length;
                 for (int i = 2; i <= nVisible; i++)
                     timeLayout[i].setVisibility(View.VISIBLE);
@@ -207,6 +207,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                         saturday.setChecked(true);
                         saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
+                } else{
+                    dateText.setText(tmp.getString("date"));
                 }
                 if (tmp.getString("auto").compareTo("false") == 0) {
                     autoText.setText("꺼짐");

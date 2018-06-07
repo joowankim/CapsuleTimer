@@ -46,26 +46,26 @@ public class AlarmAdapter extends BaseAdapter {
     JSONObject tmp = null;
 
     public int[] color = {
-            Color.rgb(239,222,239),
-            Color.rgb(222,239,255),
-            Color.rgb(184,243,184),
-            Color.rgb(255,185,0),
-            Color.rgb(255,221,166),
-            Color.rgb(255,204,204),
-            Color.rgb(187,209,232),
-            Color.rgb(140,189,237),
-            Color.rgb(255,173,197),
-            Color.rgb(204,209,255),
-            Color.rgb(168,200,249),
-            Color.rgb(184,215,255),
-            Color.rgb(220,173,103),
-            Color.rgb(236,175,181),
-            Color.rgb(255,230,90),
-            Color.rgb(255,198,165),
-            Color.rgb(236,175,181),
-            Color.rgb(240,180,105),
-            Color.rgb(109,214,109),
-            Color.rgb(203,255,117)
+            Color.argb(150,239,222,239),
+            Color.argb(150,222,239,255),
+            Color.argb(150,184,243,184),
+            Color.argb(150,255,185,0),
+            Color.argb(150,255,221,166),
+            Color.argb(150,255,204,204),
+            Color.argb(150,187,209,232),
+            Color.argb(150,140,189,237),
+            Color.argb(150,255,173,197),
+            Color.argb(150,204,209,255),
+            Color.argb(150,168,200,249),
+            Color.argb(150,184,215,255),
+            Color.argb(150,220,173,103),
+            Color.argb(150,236,175,181),
+            Color.argb(150,255,230,90),
+            Color.argb(150,255,198,165),
+            Color.argb(150,236,175,181),
+            Color.argb(150,240,180,105),
+            Color.argb(150,109,214,109),
+            Color.argb(150,203,255,117)
     };
 
     public AlarmAdapter(Context context) {
