@@ -105,13 +105,15 @@ public class buttonAppWidget extends AppWidgetProvider {
                         intent.putExtra("auto", "true");
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-                        if (Build.VERSION.SDK_INT >= 23) {
-                            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                        } else if (Build.VERSION.SDK_INT >= 19) {
-                            alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                        } else {
-                            alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                        }
+//                        if (Build.VERSION.SDK_INT >= 23) {
+//                            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                        } else if (Build.VERSION.SDK_INT >= 19) {
+//                            alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                        } else {
+//                            alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                        }
+
+                        Module.notiVersion(alarm, currentTime, pendingIntent);
                     }
                     Toast.makeText(context,"알람이 다음 복용 시간으로 설정되었습니다",Toast.LENGTH_SHORT).show();
                 }

@@ -246,24 +246,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 intent.putExtra("weekOfDate", tmp.getInt("weekOfDate"));
                                 intent.putExtra("auto", "true");
 
-                                String reqId = "";
+                                String reqId = Module.genPendingIntentId(tmp.getInt("alarm_id"), curHHMM);
                                 Log.d("Alarm", curHHMM.split(":")[1]);
-                                if (curHHMM.split(":")[0].length() == 1)
-                                    reqId = tmp.getInt("alarm_id")+"0"+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
-                                else if (curHHMM.split(":")[0].length() == 2)
-                                    reqId = tmp.getInt("alarm_id")+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
+//                                if (curHHMM.split(":")[0].length() == 1)
+//                                    reqId = tmp.getInt("alarm_id")+"0"+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
+//                                else if (curHHMM.split(":")[0].length() == 2)
+//                                    reqId = tmp.getInt("alarm_id")+curHHMM.split(":")[0]+curHHMM.split(":")[1]+"0";
+
 
                                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
 
                                 Log.d("DATA", currentTime.getTime()+", ");
-                                if (Build.VERSION.SDK_INT >= 23) {
-                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }else if (Build.VERSION.SDK_INT >= 19){
-                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
-                                else {
-                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
+//                                if (Build.VERSION.SDK_INT >= 23) {
+//                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                                }else if (Build.VERSION.SDK_INT >= 19){
+//                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                                }
+//                                else {
+//                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
+//                                }
+                                Module.notiVersion(alarm, currentTime, pendingIntent);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
