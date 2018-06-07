@@ -149,17 +149,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
         repeat_No.setClickable(false);
         repeat_interval.setClickable(false);
-        Calendar c = Calendar.getInstance();
-        dateText.setText(c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH));
-        date = c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH);
-        if(c.get(Calendar.MINUTE) <10){
-            time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + "0" + c.get(Calendar.MINUTE);
-            timeText[1].setText(time[1]);
-        }else{
-            time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
-            timeText[1].setText(time[1]);
-        }
-        remainText.setText(mRemain);
 
         if (exist.compareTo("") != 0) {
             Log.d("EXIST", exist);
@@ -168,8 +157,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 alarm_name.setText(tmp.getString("medicine_name"));
                 alarm_id = tmp.getInt("alarm_id");
                 medicine_id = tmp.getInt("medicine_id");
-                if (tmp.getString("date") != "")
-                    dateText.setText(tmp.getString("date"));
+//                if (tmp.getString("date") != "")
+//                    dateText.setText(tmp.getString("date"));
                 int nVisible = tmp.getString("time").split(" ").length;
                 for (int i = 2; i <= nVisible; i++)
                     timeLayout[i].setVisibility(View.VISIBLE);
@@ -218,6 +207,8 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                         saturday.setChecked(true);
                         saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
+                } else{
+                    dateText.setText(tmp.getString("date"));
                 }
                 if (tmp.getString("auto").compareTo("false") == 0) {
                     autoText.setText("꺼짐");
@@ -227,6 +218,18 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else{
+            Calendar c = Calendar.getInstance();
+            dateText.setText(c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH));
+            date = c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH);
+            if(c.get(Calendar.MINUTE) <10){
+                time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + "0" + c.get(Calendar.MINUTE);
+                timeText[1].setText(time[1]);
+            }else{
+                time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+                timeText[1].setText(time[1]);
+            }
+            remainText.setText(mRemain);
         }
 
         sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
