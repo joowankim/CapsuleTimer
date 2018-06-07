@@ -87,25 +87,13 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         if (ACTION_PREVIOUS_MONTH.equals(action)) { // 저번달로 가는 화살표를 클릭했을 때
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             Calendar cal = Calendar.getInstance();
-            int thisMonth = sp.getInt(PREF_MONTH, cal.get(Calendar.MONTH));
-            int thisYear = sp.getInt(PREF_YEAR, cal.get(Calendar.YEAR));
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            cal.set(Calendar.MONTH, thisMonth);
-            cal.set(Calendar.YEAR, thisYear);
-            cal.add(Calendar.MONTH, -1);
-            sp.edit().putInt(PREF_MONTH, cal.get(Calendar.MONTH)).putInt(PREF_YEAR, cal.get(Calendar.YEAR)).apply();
+            Module.calendarMonthChaning(sp, cal, -1);
             redrawWidgets(context);
 
         } else if (ACTION_NEXT_MONTH.equals(action)) {  // 다음달로 가는 화살표를 클릭했을 때
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             Calendar cal = Calendar.getInstance();
-            int thisMonth = sp.getInt(PREF_MONTH, cal.get(Calendar.MONTH));
-            int thisYear = sp.getInt(PREF_YEAR, cal.get(Calendar.YEAR));
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            cal.set(Calendar.MONTH, thisMonth);
-            cal.set(Calendar.YEAR, thisYear);
-            cal.add(Calendar.MONTH, 1);
-            sp.edit().putInt(PREF_MONTH, cal.get(Calendar.MONTH)).putInt(PREF_YEAR, cal.get(Calendar.YEAR)).apply();
+            Module.calendarMonthChaning(sp, cal, 1);
             redrawWidgets(context);
 
         } else if (ACTION_RESET_MONTH.equals(action)) { // 달이 써있는 부분을 클릭했을 때
@@ -163,15 +151,6 @@ public class MonthCalendarWidget extends AppWidgetProvider {
 
                 Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
 
-
-//                for (Object object : records) {
-//                    String element = object.toString();
-//                    String[] t = element.split(" ");
-//
-//                    String[] temp_day = t[0].split("-");
-//
-//                    Day.add(new Integer[]{Integer.parseInt(temp_day[0]),Integer.parseInt(temp_day[1]),Integer.parseInt(temp_day[2])});
-//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -308,7 +287,6 @@ public class MonthCalendarWidget extends AppWidgetProvider {
 
         // 각 버튼들에 대한 action을 intent에 담아 onReceive() method 호출
 
-        Calendar curCal = Calendar.getInstance();
 
         for (int week = 0; week < numWeeks; week++) {
             RemoteViews rowRv = new RemoteViews(context.getPackageName(), R.layout.row_week);

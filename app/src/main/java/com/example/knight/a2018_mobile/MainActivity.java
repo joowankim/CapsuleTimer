@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), position+", "+id, Toast.LENGTH_SHORT).show();
                 alarmAdapter.notifyDataSetChanged();
                 JSONObject tmp = (JSONObject) alarmAdapter.getItem(position);
 
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             e.printStackTrace();
                         }
                         break;
+
                     case 3:
                         AlarmManager alarm = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
                         Calendar c = Calendar.getInstance();
@@ -266,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        break;
+
                 }
 
                 list.setAdapter(new AlarmAdapter(getApplicationContext()));
@@ -335,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(getApplicationContext(), Show_medicine_list.class);
                         intent.putExtra("json", result);
@@ -428,10 +431,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 e.printStackTrace();
             }
             intent.putExtra("json", request.toString());
+            if (flag == 0) {
+                intent.setClass(getApplicationContext(), Login.class);
+            }
             startActivity(intent);
+            Toast.makeText(getApplicationContext(), "memo", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_homepage) {
             Intent intent = new Intent(getApplicationContext(), AppHomepage.class);
             startActivity(intent);
+            Toast.makeText(getApplicationContext(), "homepage", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_logout) {
             editor.remove("Id");
             editor.remove("Password");
@@ -439,12 +447,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
+            Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_email) {
             Intent intent = new Intent(getApplicationContext(), EnrollEmail.class);
             startActivity(intent);
+            Toast.makeText(getApplicationContext(), "email", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_appinfo) {
             Intent intent = new Intent(getApplicationContext(), AppInfo.class);
             startActivity(intent);
+            Toast.makeText(getApplicationContext(), "gitpage", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
