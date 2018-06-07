@@ -210,6 +210,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                         saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                 } else{
+                    date = tmp.getString("date");
                     dateText.setText(tmp.getString("date"));
                 }
                 if (tmp.getString("auto").compareTo("false") == 0) {
