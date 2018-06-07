@@ -160,42 +160,50 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 if (tmp.getString("date") != "")
                     dateText.setText(tmp.getString("date"));
                 int nVisible = tmp.getString("time").split(" ").length;
-                for (int i = 2; i < nVisible; i++)
+                for (int i = 2; i <= nVisible; i++)
                     timeLayout[i].setVisibility(View.VISIBLE);
-                for (int i = 1; i < nVisible; i++)
-                    timeText[i].setText(tmp.getString("time").split(" ")[i]);
+                for (int i = 1; i <= nVisible; i++)
+                    timeText[i].setText(tmp.getString("time").split(" ")[i-1]);
                 if (tmp.getString("repeat").compareTo("true") == 0) {
                     repeatText.setText("켜짐");
                     repeat = "true";
                     aSwitch1.setChecked(true);
                 }
+                remainText.setText(String.valueOf(tmp.getInt("remain")));
                 if (tmp.getInt("weekOfDate") > 0) {
                     int date = tmp.getInt("weekOfDate");
                     if ((date & 0x00000001) > 0) {
+                        Log.d("DATE", "SUN");
                         sunday.setChecked(true);
                         sunday.setTextColor(Color.RED); sunday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x00000010) > 0) {
+                        Log.d("DATE", "MON");
                         monday.setChecked(true);
                         monday.setTextColor(Color.RED); monday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x00000100) > 0) {
+                        Log.d("DATE", "TUE");
                         tuesday.setChecked(true);
                         tuesday.setTextColor(Color.RED); tuesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x00001000) > 0) {
+                        Log.d("DATE", "WED");
                         wednesday.setChecked(true);
                         wednesday.setTextColor(Color.RED); wednesday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x00010000) > 0) {
+                        Log.d("DATE", "THU");
                         thursday.setChecked(true);
                         thursday.setTextColor(Color.RED); thursday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x00100000) > 0) {
+                        Log.d("DATE", "FRI");
                         friday.setChecked(true);
                         friday.setTextColor(Color.RED); friday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
                     if ((date & 0x01000000) > 0) {
+                        Log.d("DATE", "SAT");
                         saturday.setChecked(true);
                         saturday.setTextColor(Color.RED); saturday.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_for_toggle));
                     }
