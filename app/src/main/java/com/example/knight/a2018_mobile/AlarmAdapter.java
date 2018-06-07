@@ -189,8 +189,8 @@ public class AlarmAdapter extends BaseAdapter {
                 convertView.setTag(viewHolder);
 
             } else {
-
                 viewHolder = (ViewHolder)convertView.getTag();
+                viewHolder.title.setText(tmp.getString("medicine_name"));
                 if(tmp.getInt("weekOfDate") > 0){
                     int date = tmp.getInt("weekOfDate");
                     int everyday = 0x01111111;

@@ -54,5 +54,5 @@
 #
 # print json.loads(MedicineSearch.crawler("//bxsSearchDrugProduct.jsp?item_Seq=199402278"))["usage"]
 
-print hex(1118480)
+print hex(17895697)
 print 0x01000000 & 1118480
