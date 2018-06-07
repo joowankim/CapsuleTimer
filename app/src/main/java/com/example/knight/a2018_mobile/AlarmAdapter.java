@@ -114,7 +114,6 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.img = convertView.findViewById(R.id.img);
                 viewHolder.btn = convertView.findViewById(R.id.Taken);
                 viewHolder.edit = convertView.findViewById(R.id.edit);
-//                viewHolder.report = convertView.findViewById(R.id.report);
                 viewHolder.delete = convertView.findViewById(R.id.delete);
                 viewHolder.card = convertView.findViewById(R.id.card);
                 viewHolder.cardView = convertView.findViewById(R.id.cardView);

@@ -149,6 +149,17 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
 
         repeat_No.setClickable(false);
         repeat_interval.setClickable(false);
+        Calendar c = Calendar.getInstance();
+        dateText.setText(c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH));
+        date = c.get(Calendar.YEAR) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH);
+        if(c.get(Calendar.MINUTE) <10){
+            time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + "0" + c.get(Calendar.MINUTE);
+            timeText[1].setText(time[1]);
+        }else{
+            time[1] = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+            timeText[1].setText(time[1]);
+        }
+        remainText.setText(mRemain);
 
         if (exist.compareTo("") != 0) {
             Log.d("EXIST", exist);
