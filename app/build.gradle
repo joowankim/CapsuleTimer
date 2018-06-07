@@ -36,7 +36,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'com.android.support.test:runner:+'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:+'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'       // graph library 바꿀 수 도 있음
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'

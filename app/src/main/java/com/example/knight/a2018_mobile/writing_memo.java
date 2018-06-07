@@ -173,7 +173,7 @@ public class writing_memo extends AppCompatActivity {
         spinner.setAdapter(adapter);
         if (flag == 0) {
             flag = 1;
-            Log.d("TEST", getIntents.getStringExtra("Medicine_Name"));
+            //Log.d("TEST", getIntents.getStringExtra("Medicine_Name"));
             spinner.setSelection(adapter.getPosition(getIntents.getStringExtra("Medicine_Name")));
         }
     }
