@@ -162,8 +162,10 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 int nVisible = tmp.getString("time").split(" ").length;
                 for (int i = 2; i <= nVisible; i++)
                     timeLayout[i].setVisibility(View.VISIBLE);
-                for (int i = 1; i <= nVisible; i++)
-                    timeText[i].setText(tmp.getString("time").split(" ")[i-1]);
+                for (int i = 1; i <= nVisible; i++) {
+                    time[i] = tmp.getString("time").split(" ")[i - 1];
+                    timeText[i].setText(tmp.getString("time").split(" ")[i - 1]);
+                }
                 if (tmp.getString("repeat").compareTo("true") == 0) {
                     repeatText.setText("켜짐");
                     repeat = "true";
