@@ -81,6 +81,8 @@
         </receiver>
 
         <activity android:name=".SettingAlarm" />
+
+        <uses-library android:name="android.test.runner" />
     </application>
 
 </manifest>
