@@ -194,6 +194,7 @@ public class AlarmAdapter extends BaseAdapter {
                     if((date & 0x00100000) >0) week_date += "금 ";
                     if((date & 0x01000000) >0) week_date += "토 ";
                     if((date & 0x00000001) >0) week_date += "일 ";
+                    week_date += tmp.getString("time");
                     viewHolder.date.setText(week_date);
                 }
                 viewHolder.title.setText(tmp.getString("medicine_name"));
