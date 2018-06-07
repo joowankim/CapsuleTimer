@@ -28,6 +28,19 @@ public class Module {
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
 
+    public final static void notiVersion(AlarmManager alarm, Calendar calendar, PendingIntent pendingIntent) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            Log.d("VER", 0 + "");
+            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            Log.d("VER", 0 + "");
+            alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else {
+            Log.d("VER", 0 + "");
+            alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+    }
+
     public final static void calendarMonthChaning(SharedPreferences sp, Calendar cal, int delta) {
         int thisMonth = sp.getInt(PREF_MONTH, cal.get(Calendar.MONTH));
         int thisYear = sp.getInt(PREF_YEAR, cal.get(Calendar.YEAR));
@@ -83,7 +96,7 @@ public class Module {
                 int flag = 0;
 
 
-                String reqId = genPendingIntentId(json.getInt("alarm_id"), time);
+                String reqId = genPendingIntentId(json.getInt("alarm_id"), time.split(" ")[idx]);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -147,16 +160,7 @@ public class Module {
 
                 Log.d("TIME", calendar.getTimeInMillis() + ", " + reqId);
 
-                if (Build.VERSION.SDK_INT >= 23) {
-                    Log.d("VER", 0 + "");
-                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                } else if (Build.VERSION.SDK_INT >= 19) {
-                    Log.d("VER", 0 + "");
-                    alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                } else {
-                    Log.d("VER", 0 + "");
-                    alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                }
+                notiVersion(alarm, calendar, pendingIntent);
             }
         } catch (Exception e) {
             e.printStackTrace();

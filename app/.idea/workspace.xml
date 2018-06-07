@@ -12,12 +12,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ef988a81-6a20-4f4c-b131-04a5ecbdf544" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Module.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Module.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MonthCalendarWidget.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MonthCalendarWidget.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Show_medicine_list.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Show_medicine_list.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,8 +53,8 @@
       <file leaf-file-name="Module.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Module.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="158" column="17" lean-forward="true" selection-start-line="149" selection-start-column="16" selection-end-line="158" selection-end-column="17" />
+            <state relative-caret-position="372">
+              <caret line="98" column="94" lean-forward="false" selection-start-line="98" selection-start-column="94" selection-end-line="98" selection-end-column="94" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,11 +62,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="takingDecoratorTriple.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/takingDecoratorTriple.java">
+      <file leaf-file-name="AlarmService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="-96">
+              <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="248" column="97" lean-forward="false" selection-start-line="248" selection-start-column="97" selection-end-line="248" selection-end-column="97" />
+              <folding>
+                <element signature="e#3665#14264#0" expanded="true" />
+                <element signature="e#13328#13396#0" expanded="false" />
+                <element signature="e#14263#14264#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buttonAppWidget.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="113" column="27" lean-forward="false" selection-start-line="107" selection-start-column="26" selection-end-line="113" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -2636,7 +2659,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Register.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_register.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/EnrollEmail.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_setting_alarm.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/memo_item.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_writing_memo.xml" />
@@ -2656,12 +2678,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentSingle.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentDouble.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentTriple.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MedicineListAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Show_medicine_list.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/FragmentQuad.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MonthCalendarWidget.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MyBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Module.java" />
       </list>
     </option>
@@ -3236,7 +3259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528355481776</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="약 검색 클릭이벤트 버그 수정&#10;캘린더 위젯 모듈화">
+      <created>1528363936275</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1528363936275</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3326,7 +3356,8 @@
     <MESSAGE value="메모 수정가능하도록 변경" />
     <MESSAGE value="알람 수정하는 부분 변경" />
     <MESSAGE value="알람, 그래프 그리는 부분 모듈화" />
-    <option name="LAST_COMMIT_MESSAGE" value="알람, 그래프 그리는 부분 모듈화" />
+    <MESSAGE value="약 검색 클릭이벤트 버그 수정&#10;캘린더 위젯 모듈화" />
+    <option name="LAST_COMMIT_MESSAGE" value="약 검색 클릭이벤트 버그 수정&#10;캘린더 위젯 모듈화" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -3504,34 +3535,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414">
-          <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AppHomepage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AppInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6">
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1384">
-          <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3592,24 +3599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="174" column="77" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594">
-          <caret line="112" column="91" lean-forward="false" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="91" />
-          <folding>
-            <element signature="e#14095#14096#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Show_medicine_list.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
@@ -3655,10 +3644,10 @@
         <state relative-caret-position="-672">
           <caret line="289" column="0" lean-forward="true" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
           <folding>
-            <element signature="e#1618#1629#0" expanded="true" />
-            <element signature="e#7539#7595#0" expanded="true" />
-            <element signature="e#7664#7713#0" expanded="true" />
-            <element signature="e#7783#7838#0" expanded="true" />
+            <element signature="e#1618#1629#0" expanded="false" />
+            <element signature="e#7539#7595#0" expanded="false" />
+            <element signature="e#7664#7713#0" expanded="false" />
+            <element signature="e#7783#7838#0" expanded="false" />
             <element signature="e#10028#10052#0" expanded="false" />
           </folding>
         </state>
@@ -3728,10 +3717,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-840">
+          <caret line="174" column="77" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AppHomepage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/buttonAppWidget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="113" column="27" lean-forward="false" selection-start-line="107" selection-start-column="26" selection-end-line="113" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/AlarmService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-96">
+          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="248" column="97" lean-forward="false" selection-start-line="248" selection-start-column="97" selection-end-line="248" selection-end-column="97" />
+          <folding>
+            <element signature="e#3665#14264#0" expanded="true" />
+            <element signature="e#13328#13396#0" expanded="false" />
+            <element signature="e#14263#14264#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/knight/a2018_mobile/Module.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="158" column="17" lean-forward="true" selection-start-line="149" selection-start-column="16" selection-end-line="158" selection-end-column="17" />
+        <state relative-caret-position="372">
+          <caret line="98" column="94" lean-forward="false" selection-start-line="98" selection-start-column="94" selection-end-line="98" selection-end-column="94" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
