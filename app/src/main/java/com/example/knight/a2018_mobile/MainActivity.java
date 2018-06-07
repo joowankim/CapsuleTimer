@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        break;
 
                     case 3:
                         AlarmManager alarm = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);

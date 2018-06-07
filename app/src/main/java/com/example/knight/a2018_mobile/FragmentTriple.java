@@ -80,31 +80,13 @@ public class FragmentTriple extends Fragment {
 
         // set the data of graph
         LineDataSet lineDataSet1 = new LineDataSet(entries1, "1회 복용");
-        lineDataSet1.setLineWidth(2);
-        lineDataSet1.setCircleRadius(6);
-        lineDataSet1.setCircleColor(getResources().getColor(R.color.once));
-        lineDataSet1.setCircleColorHole(Color.BLUE);
-        lineDataSet1.setColor(getResources().getColor(R.color.once));
-        lineDataSet1.setDrawCircleHole(true);
-        lineDataSet1.setDrawCircles(true);
+        Module.lineSetting(lineDataSet1, getResources().getColor(R.color.once));
 
         LineDataSet lineDataSet2 = new LineDataSet(entries2, "2회 복용");
-        lineDataSet2.setLineWidth(2);
-        lineDataSet2.setCircleRadius(6);
-        lineDataSet2.setCircleColor(getResources().getColor(R.color.twice));
-        lineDataSet2.setCircleColorHole(Color.RED);
-        lineDataSet2.setColor(getResources().getColor(R.color.twice));
-        lineDataSet2.setDrawCircleHole(true);
-        lineDataSet2.setDrawCircles(true);
+        Module.lineSetting(lineDataSet2, getResources().getColor(R.color.twice));
 
         LineDataSet lineDataSet3 = new LineDataSet(entries3, "3회 복용");
-        lineDataSet3.setLineWidth(2);
-        lineDataSet3.setCircleRadius(6);
-        lineDataSet3.setCircleColor(getResources().getColor(R.color.triple));
-        lineDataSet3.setCircleColorHole(Color.RED);
-        lineDataSet3.setColor(getResources().getColor(R.color.triple));
-        lineDataSet3.setDrawCircleHole(true);
-        lineDataSet3.setDrawCircles(true);
+        Module.lineSetting(lineDataSet3, getResources().getColor(R.color.triple));
 
         LineData lineData = null;
 

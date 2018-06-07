@@ -66,13 +66,7 @@ public class FragmentSingle extends Fragment {
 
         // set the taking time data
         LineDataSet lineDataSet1 = new LineDataSet(entries, "1회 복용");
-        lineDataSet1.setLineWidth(2);
-        lineDataSet1.setCircleRadius(6);
-        lineDataSet1.setCircleColor(getResources().getColor(R.color.once));
-        lineDataSet1.setCircleColorHole(Color.BLUE);
-        lineDataSet1.setColor(getResources().getColor(R.color.once));
-        lineDataSet1.setDrawCircleHole(true);
-        lineDataSet1.setDrawCircles(true);
+        Module.lineSetting(lineDataSet1, getResources().getColor(R.color.once));
 
         // set the data
         LineData lineData = null;
