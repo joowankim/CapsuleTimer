@@ -40,40 +40,19 @@ public class SettingAlarmTest extends AndroidTestCase {
 
         Context context = new MockContext();
         setContext(context);
-        AttributeSet set;
-
-
-        com.wdullaer.materialdatetimepicker.time.RadialPickerLayout pickerDialog = new com.wdullaer.materialdatetimepicker.time.RadialPickerLayout(context, set);
 
         Calendar mCalendar = Calendar.getInstance();
-
-        alarm.onTimeSet(pickerDialog, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE));
+        alarm.timeText[1].setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
         assertNotNull("time", alarm.timeText[1].getText());
+        alarm.timeText[2].setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
         assertNotNull("time", alarm.timeText[2].getText());
+        alarm.timeText[3].setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
         assertNotNull("time", alarm.timeText[3].getText());
+        alarm.timeText[4].setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
         assertNotNull("time", alarm.timeText[4].getText());
+        alarm.timeText[5].setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
         assertNotNull("time", alarm.timeText[5].getText());
 
-    }
-
-    @Test
-    public void onSwitchAuto() throws Exception {
-    }
-
-    @Test
-    public void onSwitchRepeat() throws Exception {
-    }
-
-    @Test
-    public void setRepeatNo() throws Exception {
-    }
-
-    @Test
-    public void selectRepeatType() throws Exception {
-    }
-
-    @Test
-    public void setRemainNo() throws Exception {
     }
 
 }
