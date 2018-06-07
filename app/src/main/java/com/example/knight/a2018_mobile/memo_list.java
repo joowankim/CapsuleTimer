@@ -86,7 +86,7 @@ public class memo_list extends AppCompatActivity {
                                 Toast.makeText(memo_list.this, "", Toast.LENGTH_SHORT).show();
                                 break;
                             } else
-                                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
                             Log.d("JSON", intent.getStringExtra("json"));
                             listView.setAdapter(new MemoListAdapter(getApplicationContext(), intent.getStringExtra("json")));
                         } catch (JSONException e) {

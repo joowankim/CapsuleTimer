@@ -104,7 +104,6 @@ public class writing_memo extends AppCompatActivity {
                     request.put("Id", user_id);
                     request.put("Text", memo_text);
                     request.put("Medicine_Name", spinner.getSelectedItem().toString());
-                    Toast.makeText(getApplicationContext(), request.toString(), Toast.LENGTH_LONG).show();
                     jpeg = Base64.encodeToString(array, Base64.DEFAULT);
                     Log.d("LENGTH", String.valueOf(jpeg.length()));
                     sock.request(request.toString(), jpeg, 1);  // Send request
@@ -112,7 +111,7 @@ public class writing_memo extends AppCompatActivity {
 
 
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "메모가 저장되지 않았습니다.", Toast.LENGTH_LONG).show();
                     Log.d("Memo", e.toString());
                     Log.d("Memo", "Send to server error");
                 }
@@ -125,8 +124,6 @@ public class writing_memo extends AppCompatActivity {
      * @param data        data send by other activity
      * @brief get result when picture is selected from gallery
      */
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @SuppressLint("NewApi")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE) {
@@ -143,8 +140,6 @@ public class writing_memo extends AppCompatActivity {
             }
         }
     }
-
-    //    Check existing sutdent data in DB and show it in list view
 
     /**
      * @brief check existing alarm data in database and show it in list view

@@ -89,7 +89,6 @@ public class Login extends AppCompatActivity {
                     if (result.get("result").toString().compareTo("No") == 0) {
                         Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Login successed", Toast.LENGTH_LONG).show();
                         editor = sharedPreferences.edit();
                         editor.putString("Id", id.getText().toString());
                         editor.putString("Password", pw.getText().toString());
@@ -103,5 +102,11 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

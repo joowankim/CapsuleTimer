@@ -78,12 +78,6 @@
                 android:layout_span="2"
                 android:layout_height="50dp"
                 />
-            <!--<TextView -->
-                <!---->
-                <!--android:text="탭"-->
-                <!--android:textSize="40dp"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_span="2"/>-->
         </TableRow>
 
         <TableRow>

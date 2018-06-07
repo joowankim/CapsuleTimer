@@ -58,7 +58,6 @@ public class Splash extends Activity {
      */
     @Override
     public void onBackPressed() {
-        //초반 플래시 화면에서 넘어갈때 뒤로가기 버튼 못누르게 함
     }
 
 }
