@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -78,13 +79,7 @@ public class MedicineListAdapter extends BaseAdapter {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        try {
-                            Intent intent = new Intent(myContext, Show_medicine_info.class);
-                            intent.putExtra("link", medicine.getString("link"));
-                            myContext.startActivity(intent);
-                            } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        ((ListView) parent).performItemClick(v, position, 0);
                     }
                 });
 
@@ -96,6 +91,12 @@ public class MedicineListAdapter extends BaseAdapter {
                 viewHolder.name.setText(medicine.getString("name"));
                 viewHolder.company.setText(medicine.getString("company"));
                 viewHolder.ingredient.setText(medicine.getString("ingredient"));
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 0);
+                    }
+                });
                 convertView.setTag(viewHolder);
             }
 

@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -23,6 +24,28 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 public class Module {
+
+    private static final String PREF_MONTH = "month";
+    private static final String PREF_YEAR = "year";
+
+    public final static void calendarMonthChaning(SharedPreferences sp, Calendar cal, int delta) {
+        int thisMonth = sp.getInt(PREF_MONTH, cal.get(Calendar.MONTH));
+        int thisYear = sp.getInt(PREF_YEAR, cal.get(Calendar.YEAR));
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, thisMonth);
+        cal.set(Calendar.YEAR, thisYear);
+        cal.add(Calendar.MONTH, delta);
+        sp.edit().putInt(PREF_MONTH, cal.get(Calendar.MONTH)).putInt(PREF_YEAR, cal.get(Calendar.YEAR)).apply();
+    }
+
+    public final static String genPendingIntentId(int id, String time) {
+        String reqId = "";
+        if (time.split(":")[0].length() == 1)
+            reqId = id+"0"+time.split(":")[0]+time.split(":")[1];
+        else if (time.split(":")[0].length() == 2)
+            reqId = id+time.split(":")[0]+time.split(":")[1];
+        return reqId;
+    }
 
     public final static void lineSetting(LineDataSet lineData, int color) {
         lineData.setLineWidth(2);
@@ -60,11 +83,7 @@ public class Module {
                 int flag = 0;
 
 
-                String reqId = "";
-                if (time.split(":")[0].length() == 1)
-                    reqId = json.getInt("alarm_id") + "0" + time.split(" ")[idx].split(":")[0] + time.split(" ")[idx].split(":")[1] + "0";
-                else if (time.split(":")[0].length() == 2)
-                    reqId = json.getInt("alarm_id") + time.split(" ")[idx].split(":")[0] + time.split(" ")[idx].split(":")[1] + "0";
+                String reqId = genPendingIntentId(json.getInt("alarm_id"), time);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
 
