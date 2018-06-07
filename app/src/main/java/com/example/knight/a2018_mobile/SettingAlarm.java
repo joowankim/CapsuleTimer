@@ -157,8 +157,6 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
                 alarm_name.setText(tmp.getString("medicine_name"));
                 alarm_id = tmp.getInt("alarm_id");
                 medicine_id = tmp.getInt("medicine_id");
-//                if (tmp.getString("date") != "")
-//                    dateText.setText(tmp.getString("date"));
                 int nVisible = tmp.getString("time").split(" ").length;
                 for (int i = 2; i <= nVisible; i++)
                     timeLayout[i].setVisibility(View.VISIBLE);

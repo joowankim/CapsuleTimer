@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:contentPadding="20dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="#9999ff"
+        app:cardBackgroundColor="#55ffffff"
         android:layout_margin="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <TableLayout
@@ -24,6 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
                 android:text="약 이름: "
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -31,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/medicine_name"
+                android:textColor="@color/primary_text"
                 android:textStyle="bold"
                 android:textSize="20dp"/>
             </TableRow>
@@ -40,11 +42,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
                 android:text="제조사: "
                 android:textSize="16dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
                 android:textSize="16dp"
                 android:id="@+id/company"/>
             </TableRow>
@@ -54,11 +58,13 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/primary_text"
                     android:text="주요 성분: "
                     android:textSize="16dp"/>
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/primary_text"
                     android:textSize="16dp"
                     android:id="@+id/ingredient"/>
             </TableRow>
