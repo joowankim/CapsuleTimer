@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +26,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 /**
- * @brief get alarm information from database and make cardview with alarm data
+ * @brief
  * @author Knight
  * @date 2018.05.04
  * @version 1.0.0.1
@@ -41,35 +40,34 @@ public class AlarmAdapter extends BaseAdapter {
     public LayoutInflater inflater;
     private int idx = 0;
 
+    public int Modul;
+
+    Random random = new Random();
     JSONObject tmp = null;
 
-//    public int[] color = {
-//            Color.rgb(239,222,239),
-//            Color.rgb(222,239,255),
-//            Color.rgb(184,243,184),
-//            Color.rgb(255,185,0),
-//            Color.rgb(255,221,166),
-//            Color.rgb(255,204,204),
-//            Color.rgb(187,209,232),
-//            Color.rgb(140,189,237),
-//            Color.rgb(255,173,197),
-//            Color.rgb(204,209,255),
-//            Color.rgb(168,200,249),
-//            Color.rgb(184,215,255),
-//            Color.rgb(220,173,103),
-//            Color.rgb(236,175,181),
-//            Color.rgb(255,230,90),
-//            Color.rgb(255,198,165),
-//            Color.rgb(236,175,181),
-//            Color.rgb(240,180,105),
-//            Color.rgb(109,214,109),
-//            Color.rgb(203,255,117)
-//    };
+    public int[] color = {
+            Color.rgb(239,222,239),
+            Color.rgb(222,239,255),
+            Color.rgb(184,243,184),
+            Color.rgb(255,185,0),
+            Color.rgb(255,221,166),
+            Color.rgb(255,204,204),
+            Color.rgb(187,209,232),
+            Color.rgb(140,189,237),
+            Color.rgb(255,173,197),
+            Color.rgb(204,209,255),
+            Color.rgb(168,200,249),
+            Color.rgb(184,215,255),
+            Color.rgb(220,173,103),
+            Color.rgb(236,175,181),
+            Color.rgb(255,230,90),
+            Color.rgb(255,198,165),
+            Color.rgb(236,175,181),
+            Color.rgb(240,180,105),
+            Color.rgb(109,214,109),
+            Color.rgb(203,255,117)
+    };
 
-    /**
-     * @brief search data from alarm database and store string value into JSONObject
-     * @param context
-     */
     public AlarmAdapter(Context context) {
         this.context = context;
         db = new DB(context, "Alarm.db", null, 1);
@@ -83,20 +81,11 @@ public class AlarmAdapter extends BaseAdapter {
         db.close();
     }
 
-    /**
-     * @brief calculate JSONArray length
-     * @return JSONArray length
-     */
     @Override
     public int getCount() {
         return result.length();
     }
 
-    /**
-     * @brief get item from JSONArray
-     * @param position
-     * @return item value with proper position
-     */
     @Override
     public Object getItem(int position) {
         try {
@@ -106,23 +95,11 @@ public class AlarmAdapter extends BaseAdapter {
         }
     }
 
-    /**
-     * @brief get position
-     * @param position
-     * @return position
-     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    /**
-     * @brief make cardview with alarm information that user setting
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return cardview object
-     */
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder = new ViewHolder();
@@ -151,64 +128,9 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Toast.makeText(context.getApplicationContext(), "taken button clicked", Toast.LENGTH_SHORT).show();
-                        AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                        Calendar c = Calendar.getInstance();
-
-                        try {
-                            JSONObject current = result.getJSONObject(position);
-                            String times = current.getString("time");
-                            String[] time = times.split(" ");
-
-                            if (current.get("auto") == "false")
-                                return;
-                            if (c.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || c.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
-                                return;
-
-                            double interval = 0.0;
-                            for (int idx = 1; idx < time.length; idx ++) {
-                                String []hhmm1 = time[idx].split(":");
-                                String []hhmm2 = time[idx-1].split(":");
-                                interval += (Double.parseDouble(hhmm1[0]) - Double.parseDouble(hhmm2[0]))*3600;
-                                interval += (Double.parseDouble(hhmm1[1]) - Double.parseDouble(hhmm2[1]))*60;
-                            }
-                            interval *= 1000;
-                            interval /= time.length - 1;
-
-                            for (int idx = 1; idx < time.length; idx ++) {
-                                long tmpTime = c.getTimeInMillis() + (long) interval * idx;
-                                Calendar currentTime = Calendar.getInstance();
-                                currentTime.setTimeInMillis(tmpTime);
-                                String curHHMM = String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(currentTime.get(Calendar.MINUTE));
-                                Intent intent = new Intent("com.example.knight.alarm.AlarmRinging");
-                                intent.setClass(context, MyBroadcastReceiver.class);
-                                intent.putExtra("Title", current.getString("medicine_name"));
-                                intent.putExtra("Type", "Alarm");
-                                intent.putExtra("repeat_no", current.getInt("repeat_no"));
-                                intent.putExtra("original_repeat_no", current.getInt("repeat_no"));
-                                intent.putExtra("repeat_time", current.getInt("repeat_time"));
-                                intent.putExtra("date", current.getString("date"));
-                                intent.putExtra("time", curHHMM);
-                                intent.putExtra("weekOfDate", current.getInt("weekOfDate"));
-                                intent.putExtra("auto", "true");
-                                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-                                if (Build.VERSION.SDK_INT >= 23) {
-                                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }else if (Build.VERSION.SDK_INT >= 19){
-                                    alarm.setExact(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
-                                else {
-                                    alarm.set(AlarmManager.RTC_WAKEUP, tmpTime, pendingIntent);
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        ((ListView) parent).performItemClick(v, position, 3);
                     }
                 });
-
 
                 viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -230,26 +152,34 @@ public class AlarmAdapter extends BaseAdapter {
                         ((ListView) parent).performItemClick(v, position, 2);
                     }
                 });
-//                Modul = 0;
-//                String[] splitTime = tmp.getString("time").split(" ");
-//                for(int i=0; i<splitTime.length; i++){
-//                    String[] s = splitTime[i].split(":");
-//                    Log.i("split time", s[0] + ", " + s[1]);
-//                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
-//                }
-//                Modul = Modul % 100;
-//                if(Modul>20)
-//                    Modul = Modul% 5;
-//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
-//                convertView.setTag(viewHolder);
+                Modul = 0;
+                String[] splitTime = tmp.getString("time").split(" ");
+                for(int i=0; i<splitTime.length; i++){
+                    String[] s = splitTime[i].split(":");
+                    Log.i("split time", s[0] + ", " + s[1]);
+                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
+                }
+                Modul = Modul % 100;
+                if(Modul>20)
+                    Modul = Modul% 5;
+                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+                convertView.setTag(viewHolder);
 
             } else {
+
                 viewHolder = (ViewHolder)convertView.getTag();
                 viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
                 viewHolder.title.setText(tmp.getString("medicine_name"));
                 viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
                 viewHolder.idx = position;
 
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((ListView) parent).performItemClick(v, position, 3);
+                    }
+                });
+
                 viewHolder.card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -271,25 +201,23 @@ public class AlarmAdapter extends BaseAdapter {
                     }
                 });
 
-//                Modul = 0;
-//                String[] splitTime = tmp.getString("time").split(" ");
-//                for(int i=0; i<splitTime.length; i++){
-//                    String[] s = splitTime[i].split(":");
-//                    Log.i("split time", s[0] + ", " + s[1]);
-//                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
-//                }
-//                Modul = Modul % 100;
-//                if(Modul>20)
-//                    Modul = Modul% 5;
-//                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
-//                convertView.setTag(viewHolder);
+                Modul = 0;
+                String[] splitTime = tmp.getString("time").split(" ");
+                for(int i=0; i<splitTime.length; i++){
+                    String[] s = splitTime[i].split(":");
+                    Modul += Integer.parseInt(s[0]) + Integer.parseInt(s[1]);
+                }
+                Modul = Modul % 100;
+                if(Modul>20)
+                    Modul = Modul% 5;
+                viewHolder.cardView.setCardBackgroundColor(color[Modul]);
+                convertView.setTag(viewHolder);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return convertView;
     }
-
 
     public class ViewHolder {
         public TextView title;

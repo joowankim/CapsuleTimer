@@ -51,6 +51,7 @@ public class showGraph extends AppCompatActivity {
     TextView alarmType;
     TextView alarmDate;
     TextView weekDay;
+    TextView medi_name;
 
     TextView dosageLabel;
     TextView remainderLabel;
@@ -110,6 +111,7 @@ public class showGraph extends AppCompatActivity {
         alarmType = findViewById(R.id.alarmType);
         alarmDate = findViewById(R.id.date);
         weekDay = findViewById(R.id.weekDay);
+        medi_name = findViewById(R.id.medi_name);
 
         dosageLabel = findViewById(R.id.dosage_label);
         remainderLabel = findViewById(R.id.remainder_label);
@@ -128,6 +130,7 @@ public class showGraph extends AppCompatActivity {
 
         intent = getIntent();
         medicine_name = intent.getStringExtra("Medicine_Name");
+        medi_name.setText(medicine_name);
 
         try {
 

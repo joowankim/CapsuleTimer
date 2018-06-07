@@ -151,6 +151,7 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         repeat_interval.setClickable(false);
 
         if (exist.compareTo("") != 0) {
+            Log.d("EXIST", exist);
             try {
                 JSONObject tmp = new JSONObject(exist);
                 alarm_name.setText(tmp.getString("medicine_name"));

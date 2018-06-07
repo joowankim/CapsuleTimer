@@ -77,6 +77,9 @@ public class AlarmService extends Service {
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
 
+                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.split(" ")[idx].split(":")[0]));
+                    calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(" ")[idx].split(":")[1]));
+
                     if (date.compareTo("") != 0) {
                         calendar.set(Calendar.YEAR, Integer.parseInt(date.split("/")[0]));
                         calendar.set(Calendar.MONTH, Integer.parseInt(date.split("/")[1]) - 1);
@@ -90,15 +93,18 @@ public class AlarmService extends Service {
 
                         for (int i = 0; i < 7; i++) {
                             if ((weekOfDate & (0x00000001 << (4 * i))) > 0 && today.get(Calendar.DAY_OF_WEEK) <= (i + 1)) {
-                                if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) > Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) > Integer.parseInt(time.split(":")[1]))) {
-                                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                                    flag = 1;
-                                    break;
-                                }
-                                if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
-                                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                                    flag = 1;
-                                    break;
+                                if (((i == 0 || i == 6) && alarmInfo.get("auto").toString().compareTo("false") == 0) || (1 <= i && i <= 5)) {
+                                    Log.d("VALUE", i + ", " + alarmInfo.get("auto").toString());
+                                    if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) > Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) > Integer.parseInt(time.split(":")[1]))) {
+                                        calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                        flag = 1;
+                                        break;
+                                    }
+                                    if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
+                                        calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                        flag = 1;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -106,7 +112,10 @@ public class AlarmService extends Service {
                         if (flag == 0) {
                             if ((weekOfDate & 0x00000001) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
                                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                            } else if ((weekOfDate & 0x00000010) > 0) {
+                            } else if ((weekOfDate & 0x01000000) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
+                                Log.d("TEST", calendar.getTime() + "");
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                            } else if ((weekOfDate & 0x00111110) > 0) {
                                 if ((weekOfDate & 0x00000010) > 0) {
                                     calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                                 } else if ((weekOfDate & 0x00000100) > 0) {
@@ -118,20 +127,15 @@ public class AlarmService extends Service {
                                 } else if ((weekOfDate & 0x00100000) > 0) {
                                     calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
                                 }
-                            } else if ((weekOfDate & 0x01000000) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
                             }
+                        }
 
-                            if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
-                                calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                            }
+                        if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
                         }
                     }
 
                     Log.d("TIME", calendar.getTimeInMillis() + ", " + reqId);
-
-                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.split(" ")[idx].split(":")[0]));
-                    calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(" ")[idx].split(":")[1]));
 
                     if (Build.VERSION.SDK_INT >= 23) {
                         Log.d("VER", 0 + "");
@@ -189,6 +193,9 @@ public class AlarmService extends Service {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(reqId), intent, PendingIntent.FLAG_ONE_SHOT);
 
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.split(" ")[idx].split(":")[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(" ")[idx].split(":")[1]));
+
                 if (date.compareTo("") != 0) {
                     calendar.set(Calendar.YEAR, Integer.parseInt(date.split("/")[0]));
                     calendar.set(Calendar.MONTH, Integer.parseInt(date.split("/")[1]) - 1);
@@ -202,15 +209,18 @@ public class AlarmService extends Service {
 
                     for (int i = 0; i < 7; i++) {
                         if ((weekOfDate & (0x00000001 << (4 * i))) > 0 && today.get(Calendar.DAY_OF_WEEK) <= (i + 1)) {
-                            if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) > Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) > Integer.parseInt(time.split(":")[1]))) {
-                                calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                                flag = 1;
-                                break;
-                            }
-                            if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
-                                calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                                flag = 1;
-                                break;
+                            if (((i == 0 || i == 6) && alarmInfo.get("auto").toString().compareTo("false") == 0) || (1 <= i && i <= 5)) {
+                                Log.d("VALUE", i+", "+alarmInfo.get("auto").toString());
+                                if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) > Integer.parseInt(time.split(" ")[idx].split(":")[0]) && today.get(Calendar.MINUTE) > Integer.parseInt(time.split(" ")[idx].split(":")[1]))) {
+                                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                    flag = 1;
+                                    break;
+                                }
+                                if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
+                                    calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                    flag = 1;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -218,7 +228,10 @@ public class AlarmService extends Service {
                     if (flag == 0) {
                         if ((weekOfDate & 0x00000001) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
                             calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                        } else if ((weekOfDate & 0x00000010) > 0) {
+                        } else if ((weekOfDate & 0x01000000) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
+                            Log.d("TEST", calendar.getTime()+"");
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                        } else if ((weekOfDate & 0x00111110) > 0) {
                             if ((weekOfDate & 0x00000010) > 0) {
                                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                             } else if ((weekOfDate & 0x00000100) > 0) {
@@ -230,31 +243,27 @@ public class AlarmService extends Service {
                             } else if ((weekOfDate & 0x00100000) > 0) {
                                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
                             }
-                        } else if ((weekOfDate & 0x01000000) > 0 && alarmInfo.get("auto").toString().compareTo("false") == 0) {
-                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
                         }
+                    }
 
-                        if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
-                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                        }
+                    if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                        calendar.add(Calendar.WEEK_OF_YEAR, 1);
                     }
                 }
 
                 Log.d("TIME", calendar.getTimeInMillis() + ", "+reqId);
 
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.split(" ")[idx].split(":")[0]));
-                calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(" ")[idx].split(":")[1]));
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                    Log.d("VER", 0+"");
-                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                }else if (Build.VERSION.SDK_INT >= 19){
-                    Log.d("VER", 0+"");
-                    alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                }
-                else {
-                    Log.d("VER", 0+"");
-                    alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                if (alarmInfo.get("auto").toString().compareTo("false") == 0 || (alarmInfo.get("auto").toString().compareTo("true") == 0 && today.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY && today.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY)) {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        Log.d("VER", 0 + "");
+                        alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    } else if (Build.VERSION.SDK_INT >= 19) {
+                        Log.d("VER", 0 + "");
+                        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    } else {
+                        Log.d("VER", 0 + "");
+                        alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    }
                 }
             }
         } catch(Exception e){

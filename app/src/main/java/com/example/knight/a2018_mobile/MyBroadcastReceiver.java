@@ -187,59 +187,66 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             if (weekOfDate > 0) {
 
+//                Log.d("VALUE", today.get(Calendar.HOUR_OF_DAY) + ", " + Integer.parseInt(time.split(":")[0]) + ", " + today.get(Calendar.MINUTE) + ", " + Integer.parseInt(time.split(":")[1]));
+//                Log.d("STATEMENT", !(today.get(Calendar.HOUR_OF_DAY) >= Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) >= Integer.parseInt(time.split(":")[1])) + "");
+
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.split(":")[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(":")[1]));
+
                 for (int i = 0; i < 7; i++) {
-                    if ((weekOfDate & (0x00000001 << (4*i))) > 0 && today.get(Calendar.DAY_OF_WEEK) <= (i + 1)) {
-                        Log.d("DATE", i+"");
-                        if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) >= Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) >= Integer.parseInt(time.split(":")[1]))) {
-                            calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                            flag = 1;
-                            break;
-                        }
-                        if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
-                            calendar.set(Calendar.DAY_OF_WEEK, i + 1);
-                            flag = 1;
-                            break;
+                    if ((weekOfDate & (0x00000001 << (4 * i))) > 0 && today.get(Calendar.DAY_OF_WEEK) <= (i + 1)) {
+                        if (((i == 0 || i == 6) && intent.getStringExtra("auto").toString().compareTo("false") == 0) || (1 <= i && i <= 5)) {
+                            Log.d("VALUE", i + ", " + intent.getStringExtra("auto").toString());
+                            if (today.get(Calendar.DAY_OF_WEEK) == (i + 1) && !(today.get(Calendar.HOUR_OF_DAY) > Integer.parseInt(time.split(":")[0]) && today.get(Calendar.MINUTE) > Integer.parseInt(time.split(":")[1]))) {
+                                calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                flag = 1;
+                                break;
+                            }
+                            if (today.get(Calendar.DAY_OF_WEEK) < (i + 1)) {
+                                calendar.set(Calendar.DAY_OF_WEEK, i + 1);
+                                flag = 1;
+                                break;
+                            }
                         }
                     }
                 }
 
                 if (flag == 0) {
-                    if ((weekOfDate & 0x00000001) > 0 && intent.getStringExtra("auto").compareTo("false") == 0) {
+                    if ((weekOfDate & 0x00000001) > 0 && intent.getStringExtra("auto").toString().compareTo("false") == 0) {
                         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                    } else if ((weekOfDate & 0x00000010) > 0) {
-                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    } else if ((weekOfDate & 0x00000100) > 0) {
-                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                    } else if ((weekOfDate & 0x00001000) > 0) {
-                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                    } else if ((weekOfDate & 0x00010000) > 0) {
-                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                    } else if ((weekOfDate & 0x00100000) > 0) {
-                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                    } else if ((weekOfDate & 0x01000000) > 0 && intent.getStringExtra("auto").compareTo("false") == 0) {
+                    } else if ((weekOfDate & 0x01000000) > 0 && intent.getStringExtra("auto").toString().compareTo("false") == 0) {
+                        Log.d("TEST", calendar.getTime() + "");
                         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                    }
-
-                    if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
-                        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                    } else if ((weekOfDate & 0x00111110) > 0) {
+                        if ((weekOfDate & 0x00000010) > 0) {
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                        } else if ((weekOfDate & 0x00000100) > 0) {
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                        } else if ((weekOfDate & 0x00001000) > 0) {
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                        } else if ((weekOfDate & 0x00010000) > 0) {
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                        } else if ((weekOfDate & 0x00100000) > 0) {
+                            calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                        }
                     }
                 }
-            }
 
-            calendar.set(Calendar.HOUR, Integer.parseInt(time.split(":")[0]));
-            calendar.set(Calendar.MINUTE, Integer.parseInt(time.split(":")[1]));
+                if (calendar.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()) {
+                    calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                }
 
-            Log.d("TIME", calendar.getTimeInMillis() + "");
-            if (Build.VERSION.SDK_INT >= 23) {
-                Log.d("VER", 0+"");
-                alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }else if (Build.VERSION.SDK_INT >= 19){
-                Log.d("VER", 0+"");
-                alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-            else {
-                Log.d("VER", 0+"");
-                alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                Log.d("TIME", calendar.getTimeInMillis() + "");
+                if (Build.VERSION.SDK_INT >= 23) {
+                    Log.d("VER", 0 + "");
+                    alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                } else if (Build.VERSION.SDK_INT >= 19) {
+                    Log.d("VER", 0 + "");
+                    alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                } else {
+                    Log.d("VER", 0 + "");
+                    alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
             }
 
 
