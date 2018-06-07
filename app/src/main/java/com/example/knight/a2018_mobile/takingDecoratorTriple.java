@@ -10,7 +10,6 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
-
 /**
  * @brief decorate day when user taked medicine four times
  * @author Joo wan Kim

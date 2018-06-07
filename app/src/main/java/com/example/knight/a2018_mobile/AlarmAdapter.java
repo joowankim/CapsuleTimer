@@ -119,9 +119,22 @@ public class AlarmAdapter extends BaseAdapter {
                 viewHolder.card = convertView.findViewById(R.id.card);
                 viewHolder.cardView = convertView.findViewById(R.id.cardView);
 
-                viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
+                if(tmp.getString("repeat").equalsIgnoreCase("false"))
+                    viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
+                else{
+                    int date = tmp.getInt("weekOfDate");
+                    String week_date = "";
+                    if((date & 0x00000010) >0) week_date += "월 ";
+                    if((date & 0x00000100) >0) week_date += "화 ";
+                    if((date & 0x00001000) >0) week_date += "수 ";
+                    if((date & 0x00010000) >0) week_date += "목 ";
+                    if((date & 0x00100000) >0) week_date += "금 ";
+                    if((date & 0x01000000) >0) week_date += "토 ";
+                    if((date & 0x00000001) >0) week_date += "일 ";
+                    viewHolder.date.setText(week_date);
+                }
                 viewHolder.title.setText(tmp.getString("medicine_name"));
-                viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
+                viewHolder.repeat.setText("매 " + tmp.getString("repeat_type") + ", " + tmp.getString("repeat_no") + "회");
                 viewHolder.idx = position;
 
                 //taken button event
@@ -168,9 +181,22 @@ public class AlarmAdapter extends BaseAdapter {
             } else {
 
                 viewHolder = (ViewHolder)convertView.getTag();
-                viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
+                if(tmp.getString("repeat").equalsIgnoreCase("false"))
+                    viewHolder.date.setText(tmp.getString("date") + " " + tmp.getString("time"));
+                else{
+                    int date = tmp.getInt("weekOfDate");
+                    String week_date = "";
+                    if((date & 0x00000010) >0) week_date += "월 ";
+                    if((date & 0x00000100) >0) week_date += "화 ";
+                    if((date & 0x00001000) >0) week_date += "수 ";
+                    if((date & 0x00010000) >0) week_date += "목 ";
+                    if((date & 0x00100000) >0) week_date += "금 ";
+                    if((date & 0x01000000) >0) week_date += "토 ";
+                    if((date & 0x00000001) >0) week_date += "일 ";
+                    viewHolder.date.setText(week_date);
+                }
                 viewHolder.title.setText(tmp.getString("medicine_name"));
-                viewHolder.repeat.setText("Every " + tmp.getString("repeat_no") + " " + tmp.getString("repeat_type"));
+                viewHolder.repeat.setText("매 " + tmp.getString("repeat_type") + ", " + tmp.getString("repeat_no") + "회");
                 viewHolder.idx = position;
 
                 viewHolder.btn.setOnClickListener(new View.OnClickListener() {

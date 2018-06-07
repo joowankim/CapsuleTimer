@@ -24,11 +24,9 @@ public class AppHomepage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-
         browser = findViewById(R.id.webkit);
         browser.getSettings().setJavaScriptEnabled(true);
         browser.setWebViewClient(new WebViewClient());
         browser.loadUrl("http://" + "106.10.40.50:5000");
     }
-
 }

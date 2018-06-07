@@ -64,12 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView img;
     private Toolbar toolbar;
 
-//    ButtonRectangle to_memo;
-//    ButtonRectangle to_report;
-//    ButtonRectangle login;
-//    ButtonRectangle logout;
-//    ButtonRectangle to_alarmList;
-
 //    String res;
     String Server_IP="106.10.40.50";
     private int Server_PORT=6000;

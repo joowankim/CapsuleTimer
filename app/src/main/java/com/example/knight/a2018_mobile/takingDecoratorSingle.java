@@ -15,8 +15,6 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
-
-
 /**
  * @brief decorate day when user taked medicine one time
  * @author Joo wan Kim
