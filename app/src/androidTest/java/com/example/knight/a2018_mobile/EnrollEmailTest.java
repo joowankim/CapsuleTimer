@@ -37,10 +37,10 @@ public class EnrollEmailTest {
 
         // error남 ;;
         onView(withText("Email 등록")).check(matches(isDisplayed()));
-        onView(withText("아래에 있는 탭을 올려 수신자를 추가해주세요")).check(matches(isDisplayed()));
-        onView(withId(R.id.name_hospital)).perform(typeText("this is a test"));
-        onView(withId(R.id.name_doctor)).perform(typeText("this is a test"));
-        onView(withId(R.id.email)).perform(typeText("this is a test"));
+        //onView(withText("아래에 있는 탭을 올려 수신자를 추가해주세요")).check(matches(isDisplayed()));
+        onView(withId(R.id.name_hospital)).perform(typeText(MESSAGE));
+        onView(withId(R.id.name_doctor)).perform(typeText(MESSAGE));
+        onView(withId(R.id.email)).perform(typeText(MESSAGE));
         onView(withId(R.id.update)).perform(click());
         onView(withId(R.id.delete)).perform(click());
     }
