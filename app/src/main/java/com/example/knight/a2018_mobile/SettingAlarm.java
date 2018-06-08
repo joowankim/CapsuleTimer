@@ -150,6 +150,12 @@ public class SettingAlarm extends AppCompatActivity implements DatePickerDialog.
         repeat_No.setClickable(false);
         repeat_interval.setClickable(false);
 
+        try {
+            alarm_name.setText(intent.getStringExtra("Medicine_Name"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (exist.compareTo("") != 0) {
             Log.d("EXIST", exist);
             try {
