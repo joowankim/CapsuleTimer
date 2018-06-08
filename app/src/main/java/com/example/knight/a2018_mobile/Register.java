@@ -44,6 +44,7 @@ public class Register extends AppCompatActivity {
                     request.put("Type", "Validation");
                     request.put("Id", id.getText().toString());
                     result = new JSONObject(sock.request(request.toString()));
+                    sock = new MySocket(Server_IP, Server_PORT);
                     if (result.get("result").toString().compareTo("No") == 0) {
                         Toast.makeText(getApplicationContext(), "ID is duplicated", Toast.LENGTH_LONG).show();
                     } else if (pw.getText().toString().length() < 4) {
@@ -59,6 +60,8 @@ public class Register extends AppCompatActivity {
                         if (result.get("result").toString().compareTo("No") == 0) {
                             Toast.makeText(getApplicationContext(), "Register failed", Toast.LENGTH_LONG).show();
                         } else {
+                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Register successed", Toast.LENGTH_LONG).show();
                             finish();
                         }

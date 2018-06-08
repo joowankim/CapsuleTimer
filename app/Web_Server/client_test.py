@@ -54,5 +54,8 @@
 #
 # print json.loads(MedicineSearch.crawler("//bxsSearchDrugProduct.jsp?item_Seq=199402278"))["usage"]
 
+result = {"1":[1, 2, 3, 4], "2":[1, 4], "3":[1, 2, 3, 4, 5, 6], "4":[1], "5":[1, 2, 3]}
+
 print hex(17895697)
 print 0x01000000 & 1118480
+print max(map(len, result.values()))

@@ -4,6 +4,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+import collections
+import copy
 import time
 import socket
 import json
@@ -35,7 +37,7 @@ def hello_world():
     if "userID" in request.cookies:
         print 1
         result["login"] = {"bool":"true"}
-        result["memos"] = json.loads(DB.search_memo(request.cookies.get("userID")))
+        result["memos"] = json.loads(DB.search_memo(request.cookies.get("userID"), "*"))
         if len(result["memos"]) < 4:
             result["memos1"] = result["memos"]
             result["memos2"] = []
@@ -59,13 +61,21 @@ def report(medicine_name):
     taken = json.loads(taken)
     result = {}
     total = {}
+
+    total["memos"] = json.loads(DB.search_memo(request.cookies.get("userID"), medicine_name))
+
     for item in taken['record']:
         tmp = item['Date'].split(' ')[1].split(':')
         timeConversion = float(tmp[0]) + float(tmp[1])/60.0 + float(tmp[2])/3600.0
         try:
-            result[item['Date'].split(' ')[0]].append(timeConversion)
+            result[item['Date'].split(' ')[0]].insert(0, timeConversion)
         except:
             result[item['Date'].split(' ')[0]] = [timeConversion]
+    result2 = copy.deepcopy(result)
+    for key in result2.keys():
+        result2[key].reverse()
+    result = collections.OrderedDict(sorted(result.items()))
+    result2 = collections.OrderedDict(sorted(result2.items()))
     print result
     maxLen = max(map(len, result.values()))
     for key, value in result.items():
@@ -73,7 +83,12 @@ def report(medicine_name):
 #            value[idx] = value[idx] - value[idx-1]
         if len(value) < maxLen:
             value += [0] * (maxLen - len(value))
+    for key, value in result2.items():
+        if len(value) < maxLen:
+            value += [0] * (maxLen - len(value))
     total["result"] = result
+    total["result2"] = result2
+    total["length"] = max(map(len, result.values()))
     total["login"] = {"bool":"true"}
     return render_template('report.html', total = total)
 
@@ -143,7 +158,7 @@ def memo_list():
     result = {}
     if "userID" in request.cookies:
         result["login"] = {"bool":"true"}
-        result["memos"] = json.loads(DB.search_memo(request.cookies.get("userID")))
+        result["memos"] = json.loads(DB.search_memo(request.cookies.get("userID"), "*"))
         if len(result["memos"]) < 4:
             result["memos1"] = result["memos"]
             result["memos2"] = []
