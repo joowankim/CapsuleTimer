@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+import re
 import collections
 import copy
 import time
@@ -16,6 +17,7 @@ import sqlite3
 from flask import Flask
 from flask import request, url_for
 from flask import render_template, redirect, make_response
+from jinja2 import evalcontextfilter, Markup, escape
 import threading
 import os
 from werkzeug import secure_filename
@@ -26,6 +28,17 @@ app = Flask(__name__, static_url_path="/image", static_folder="image")
 UPLOAD_FOLDER = './image'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+_paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+
+@app.template_filter()
+@evalcontextfilter
+def nl2br(eval_ctx, value):
+    _paragraph_re = re.compile(r'(?:\r\n|\r(?!\n)|\n){2,}')
+    result = u'\n\n'.join(u'<p>%s</p>' % p.replace(u'\r\n', u'<br/>') for p in _paragraph_re.split(value))
+    print result
+    if eval_ctx.autoescape:
+        result = Markup(result)
+    return result
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -35,7 +48,6 @@ def allowed_file(filename):
 def hello_world():
     result = {}
     if "userID" in request.cookies:
-        print 1
         result["login"] = {"bool":"true"}
         result["memos"] = json.loads(DB.search_memo(request.cookies.get("userID"), "*"))
         if len(result["memos"]) < 4:
@@ -55,10 +67,24 @@ def hello_world():
     print result
     return render_template('home.html', result=result)
 
+@app.route('/report')
+def report_list():
+    alarm = json.loads(DB.medicine_search(request.cookies.get("userID")))
+    print alarm
+    result = {}
+    if "userID" in request.cookies:
+        result["login"] = {"bool":"true"}
+    else:
+        result["login"] = {"bool":"false"}
+    result["medicine"] = alarm
+    return render_template("Medicine_list.html", result = result)
+
+
 @app.route('/report/<medicine_name>',)
 def report(medicine_name):
     taken = DB.medicine_taking(str(request.cookies.get('userID')),str(medicine_name), "19700101", datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d'))
     taken = json.loads(taken)
+    print taken
     result = {}
     total = {}
 
@@ -77,7 +103,10 @@ def report(medicine_name):
     result = collections.OrderedDict(sorted(result.items()))
     result2 = collections.OrderedDict(sorted(result2.items()))
     print result
-    maxLen = max(map(len, result.values()))
+    try:
+        maxLen = max(map(len, result.values()))
+    except Exception, e:
+        maxLen = 0
     for key, value in result.items():
 #        for idx in range(1, len(value)):
 #            value[idx] = value[idx] - value[idx-1]
@@ -88,7 +117,7 @@ def report(medicine_name):
             value += [0] * (maxLen - len(value))
     total["result"] = result
     total["result2"] = result2
-    total["length"] = max(map(len, result.values()))
+    total["length"] = maxLen
     total["login"] = {"bool":"true"}
     return render_template('report.html', total = total)
 
@@ -108,7 +137,7 @@ def login():
             response.set_cookie("userID", userID)
             return response
         else:
-            return render_template("login.html", result=result)
+            return redirect("/login")
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -247,4 +276,8 @@ def smartphone_connection():
 
 if __name__ == '__main__':
 #    threading.Thread(target=smartphone_connection).start()
+    with app.test_client() as c:
+        rv = c.get('http://0.0.0.0:5000/')
+        print rv
     app.run(host="0.0.0.0")
+    # unittest.main()

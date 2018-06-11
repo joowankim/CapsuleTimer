@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/list_back"
-    tools:context="com.example.knight.a2018_mobile.memo_list">
+    tools:context="com.mobile_term_project.knight.a2018_mobile.memo_list">
 
     <!--<RelativeLayout-->
         <!--android:layout_width="match_parent"-->

@@ -54,8 +54,15 @@
 #
 # print json.loads(MedicineSearch.crawler("//bxsSearchDrugProduct.jsp?item_Seq=199402278"))["usage"]
 
-result = {"1":[1, 2, 3, 4], "2":[1, 4], "3":[1, 2, 3, 4, 5, 6], "4":[1], "5":[1, 2, 3]}
+# import random
+#
+# print [random.randrange(1, 10) for _ in range(10)]
+# import time
+# print time.time()
+import datetime
+import datetime
+import calendar
+import time
+# print datetime.datetime.now()
 
-print hex(17895697)
-print 0x01000000 & 1118480
-print max(map(len, result.values()))
+print calendar.timegm(time.struct_time(time.strptime(datetime.datetime.fromtimestamp(), '%Y-%m-%d %H:%M:%S')))

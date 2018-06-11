@@ -52,7 +52,6 @@ def medicine_info_parser(html):
         res["notice"] += "\n"
         # print ""
 
-    print res["notice"]
     res['image'] = soup.findAll('div', attrs={'class':'main_img_02'})[0].findAll('img')[0]['src']
     return json.dumps(res)
 

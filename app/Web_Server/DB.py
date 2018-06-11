@@ -1,3 +1,8 @@
+# -*- encoding: utf-8 -*-
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 import sqlite3
 import json
 import datetime
@@ -17,12 +22,19 @@ validation = "select * from User where id=?"
 login = "select * from User where id=? and password=?"
 
 medicine_add_sql = "insert into Medicine_name (User, medicine_name) values (?, ?)"
-medicine_search_sql = "select * from Medicine_name"
+medicine_search_sql = "select * from Medicine_name where User = ?"
 medicine_taking_sql = "select * from Medicine where User=? and Medicine_Name=? and Date >= ? and Date <= ?"
 medicine_taken_sql = "insert into Medicine (User, Medicine_Name, Date) values (?, ?, ?)"
 
 conn = sqlite3.connect("CapsuleTimer.db", check_same_thread=False)
 cur = conn.cursor()
+
+# Only for test
+def change_DB(db):
+    global conn
+    global cur
+    conn = sqlite3.connect(db, check_same_thread=False)
+    cur = conn.cursor()
 
 def web_insert_memo(user, date, text="", image="", medicine_name=""):
     result = {}
@@ -162,10 +174,10 @@ def medicine_add(user, medicine_name):
     return json.dumps(result)
 
 def medicine_search(user):
-    index = ["User, medicine"]
+    index = ["medicine_id", "User", "medicine"]
     result = {}
     result["record"] = []
-    cur.execute(medicine_search_sql, (user))
+    cur.execute(medicine_search_sql, (user, ))
     data = cur.fetchall()
     for d in data:
         d = list(d)

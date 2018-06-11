@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.knight.a2018_mobile.Show_medicine_list"
+    tools:context="com.mobile_term_project.knight.a2018_mobile.Show_medicine_list"
     android:background="@drawable/list_back"
     >
 

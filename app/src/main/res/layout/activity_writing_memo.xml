@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/triple"
     android:id="@+id/image_layout"
-    tools:context="com.example.knight.a2018_mobile.writing_memo"
+    tools:context="com.mobile_term_project.knight.a2018_mobile.writing_memo"
     android:orientation="vertical">
 
         <ImageView

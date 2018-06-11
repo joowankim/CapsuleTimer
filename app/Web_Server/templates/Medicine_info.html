@@ -57,24 +57,27 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h2>{{ result.medicine.name }}</h2></div>
         <div class="panel-body">
+            {% autoescape false %}
             <div class="col-md-2">
                 <span>효능, 효과:</span>
             </div>
             <div class="col-md-10">
-                <p>{{ result.medicine.effect }}</p>
+                <p>{{ result.medicine.effect|nl2br }}</p>
             </div>
             <div class="col-md-2">
                 <span>사용법:</span>
             </div>
             <div class="col-md-10">
-                <p>{{ result.medicine.usage }}</p>
+                <p>{{ result.medicine.usage|nl2br }}</p>
             </div>
             <div class="col-md-2">
                 <span>주의사항</span>
             </div>
             <div class="col-md-10">
-                <p>{{ result.medicine.notice }}</p>
+                <p>{{ result.medicine.notice|nl2br }}</p>
             </div>
+            {% endautoescape %}
+            {{ "TEST\nTEST" | nl2br }}
         </div>
     </div>
 </div>

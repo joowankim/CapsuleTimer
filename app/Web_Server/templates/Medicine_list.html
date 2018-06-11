@@ -54,26 +54,10 @@
 </nav>
 
 <div class="container" style="margin-top: 20px;">
-    {% for medicine in result.medicines.medicine %}
-    <a href="/search/medicine/{{ medicine.link }}">
+    {% for medicine in result.medicine.record %}
+    <a href="/report/{{ medicine.medicine }}">
         <div class="panel panel-default">
-            <div class="panel-heading"><h2>{{ medicine.name }}</h2></div>
-            <div class="panel-body">
-                <table>
-                    <tr>
-                        <td>제조사:</td>
-                        <td>{{ medicine.company }}</td>
-                    </tr>
-                    <tr>
-                        <td>주요성분:</td>
-                        <td>{{ medicine.ingredient }}</td>
-                    </tr>
-                    <tr>
-                        <td style="margin-right: 10px;">의약품분류:</td>
-                        <td>{{ medicine.type }}</td>
-                    </tr>
-                </table>
-            </div>
+            <div class="panel-heading"><h2>{{ medicine.medicine }}</h2></div>
         </div>
     </a>
     {% endfor %}

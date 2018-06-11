@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.knight.a2018_mobile"> <!-- for calendar appWidget -->
+    package="com.mobile_term_project.knight.a2018_mobile"> <!-- for calendar appWidget -->
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="18" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -66,7 +66,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.example.knight.alarm.AlarmRinging" />
+                <action android:name="com.mobile_term_project.knight.alarm.AlarmRinging" />
             </intent-filter>
         </receiver>
         <receiver android:name=".buttonAppWidget">
