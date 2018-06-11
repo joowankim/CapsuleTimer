@@ -53,10 +53,12 @@ public class Module {
 
     public final static String genPendingIntentId(int id, String time) {
         String reqId = "";
-        if (time.split(":")[0].length() == 1)
-            reqId = id+"0"+time.split(":")[0]+time.split(":")[1];
-        else if (time.split(":")[0].length() == 2)
-            reqId = id+time.split(":")[0]+time.split(":")[1];
+        String[] splitedTime = time.split(":");
+
+        if (splitedTime[0].length() == 1)
+            reqId = id+"0"+splitedTime[0]+splitedTime[1];
+        else if (splitedTime[0].length() == 2)
+            reqId = id+splitedTime[0]+splitedTime[1];
         return reqId;
     }
 
