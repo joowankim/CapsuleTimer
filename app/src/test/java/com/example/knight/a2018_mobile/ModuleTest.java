@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class ModuleTest extends AndroidTestCase {
 
     /**
-     * @brief it changes visualized month (previous or next)
+     * @brief Testing for which it changes visualized month (previous or next)
      */
     @Test
     public void calendarMonthChaning() {
@@ -49,10 +49,22 @@ public class ModuleTest extends AndroidTestCase {
 
     }
 
+    /**
+     * @brief Testing for setting pending intent ID
+     */
     @Test
     public void genPendingIntentId() {
 
+        int id = 22;
+        String time;
 
+        time = "13:43";
+        String reqId = Module.genPendingIntentId(id, time);
+        assertTrue(reqId == "221343");
+
+        time = "6:32";
+        reqId = Module.genPendingIntentId(id, time);
+        assertTrue(reqId == "220632");
     }
 
     /**
@@ -61,10 +73,6 @@ public class ModuleTest extends AndroidTestCase {
     @Test
     public void lineSetting() {
 
-        /**
-         * Testing case
-         * 제시해준 x,y 좌표에 그래프를 그릴 수 있는지
-         */
         List<Entry> entries = new ArrayList<>();
         entries.add(new Entry(2, 23));
         entries.add(new Entry(1, 22));
@@ -75,11 +83,5 @@ public class ModuleTest extends AndroidTestCase {
         assertTrue(lineDataSet.isDrawCirclesEnabled());
         assertTrue(lineDataSet.isDrawCircleHoleEnabled());
     }
-
-    @Test
-    public void settingAlarm() {
-    }
-
-
 
 }
