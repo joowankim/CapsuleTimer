@@ -17,7 +17,6 @@ import sqlite3
 from flask import Flask
 from flask import request, url_for
 from flask import render_template, redirect, make_response
-from jinja2 import evalcontextfilter, Markup, escape
 import threading
 import os
 from werkzeug import secure_filename
@@ -30,6 +29,9 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 _paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 @app.template_filter()
 @evalcontextfilter
 def nl2br(eval_ctx, value):
@@ -39,10 +41,6 @@ def nl2br(eval_ctx, value):
     if eval_ctx.autoescape:
         result = Markup(result)
     return result
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
 
 @app.route('/')
 def hello_world():
@@ -77,7 +75,56 @@ def report_list():
     else:
         result["login"] = {"bool":"false"}
     result["medicine"] = alarm
-    return render_template("Medicine_list.html", result = result)
+    return render_template("report_list.html", result = result)
+
+@app.route('/report/instant/<hash_value>')
+def instant_report(hash_value):
+
+    medicine_name = json.loads(DB.instant_report_search(hash_value))
+    print DB.instant_report_delete(hash_value)
+    user_id = medicine_name['user_id']
+    medicine_name = medicine_name['medicine_name']
+
+    print user_id, medicine_name
+
+    taken = DB.medicine_taking(user_id, str(medicine_name), "19700101", datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d'))
+    print taken
+    taken = json.loads(taken)
+    print taken
+    result = {}
+    total = {}
+
+    total["memos"] = json.loads(DB.search_memo(user_id, medicine_name))
+
+    for item in taken['record']:
+        tmp = item['Date'].split(' ')[1].split(':')
+        timeConversion = float(tmp[0]) + float(tmp[1]) / 60.0 + float(tmp[2]) / 3600.0
+        try:
+            result[item['Date'].split(' ')[0]].insert(0, timeConversion)
+        except:
+            result[item['Date'].split(' ')[0]] = [timeConversion]
+    result2 = copy.deepcopy(result)
+    for key in result2.keys():
+        result2[key].reverse()
+    result = collections.OrderedDict(sorted(result.items()))
+    result2 = collections.OrderedDict(sorted(result2.items()))
+    print result
+    try:
+        maxLen = max(map(len, result.values()))
+    except Exception, e:
+        maxLen = 0
+    for key, value in result.items():
+        if len(value) < maxLen:
+            value += [0] * (maxLen - len(value))
+    for key, value in result2.items():
+        if len(value) < maxLen:
+            value += [0] * (maxLen - len(value))
+    total["result"] = result
+    total["result2"] = result2
+    total["length"] = maxLen
+    total["login"] = {"bool": "true"}
+    print total["memos"]
+    return render_template('report.html', total=total)
 
 
 @app.route('/report/<medicine_name>',)
@@ -119,6 +166,7 @@ def report(medicine_name):
     total["result2"] = result2
     total["length"] = maxLen
     total["login"] = {"bool":"true"}
+    print total["memos"]
     return render_template('report.html', total = total)
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -235,6 +283,34 @@ def smartphone_connection():
                 client.send(MedicineSearch.crawler(req["Name"]))
             if req['Type'] == 'Write_Memo':
                 client.send("1\n")
+		print addr
+                length = int(client.recv(1024))
+                client.send("1\n")
+                image = ""
+                print length
+                if length%1024 == 0:
+                    length /= 1024
+                else:
+                    length = length/1024+1
+		print length
+                while length > 0:
+                    length -= 1
+                    image += client.recv(1024)
+                    client.send("1\n")
+                print image
+                client.send(DB.insert_memo(req['Id'], time.time(), req['Text'], image, req["Medicine_Name"]))
+            if req['Type'] == 'Search_Memo':
+                client.send(DB.search_memo(req['User'], req['Medicine_Name']))
+            if req['Type'] == "Register":
+                client.send(DB.user_register(req['Id'], req['Password']))
+            if req['Type'] == "Validation":
+                client.send(DB.user_validation(req['Id']))
+            if req['Type'] == 'Login':
+                client.send(DB.user_login(req['Id'], req['Password']))
+            if req['Type'] == 'Edit_Memo':
+                client.send(DB.search_memos(req['Id'], req['Position'], req["Medicine_Name"]))
+            if req['Type'] == 'Edit_Content':
+                client.send("1\n")
                 length = int(client.recv(1024))
                 client.send("1\n")
                 image = ""
@@ -248,19 +324,7 @@ def smartphone_connection():
                     image += client.recv(1024)
                     client.send("1\n")
                 print image
-                client.send(DB.insert_memo(req['Id'], time.time(), req['Text'], image))
-            if req['Type'] == 'Search_Memo':
-                client.send(DB.search_memo(req['User']))
-            if req['Type'] == "Register":
-                client.send(DB.user_register(req['Id'], req['Password']))
-            if req['Type'] == "Validation":
-                client.send(DB.user_validation(req['Id']))
-            if req['Type'] == 'Login':
-                client.send(DB.user_login(req['Id'], req['Password']))
-            if req['Type'] == 'Edit_Memo':
-                client.send(DB.search_memos(req['Id'], req['Position']))
-            if req['Type'] == 'Edit_Content':
-                client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], req['Image'], req["Medicine_name"]))
+                client.send(DB.change_memo(req['Id'], req['Position'], req['Text'], image, req["Medicine_Name"], time.time()))
             if req['Type'] == 'Delete_Memo':
                 client.send(DB.delete_memo(req['Id'], req['Position']))
             if req['Type'] == 'Medicine_Record':
@@ -269,15 +333,14 @@ def smartphone_connection():
                 client.send(DB.medicine_taken(req["Id"], req["Medicine_Name"], req["Date"]))
             if req["Type"] == "Add_Medicine":
                 client.send(DB.medicine_add(req["Id"], req["Medicine_Name"]))
+            if req["Type"] == "Create_Instant_Report":
+                client.send(DB.instant_report_insert(req['Hash'], req['Medicine_Name'], req['Id']))
             client.close()
     except Exception, e:
         print e
         sock.close()
 
 if __name__ == '__main__':
-#    threading.Thread(target=smartphone_connection).start()
-    with app.test_client() as c:
-        rv = c.get('http://0.0.0.0:5000/')
-        print rv
+    threading.Thread(target=smartphone_connection).start()
     app.run(host="0.0.0.0")
     # unittest.main()

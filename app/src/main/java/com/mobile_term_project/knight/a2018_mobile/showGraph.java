@@ -8,6 +8,7 @@
 package com.mobile_term_project.knight.a2018_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -87,6 +88,13 @@ public class showGraph extends AppCompatActivity {
     DBforEmail helper;
     String[] emailInfo;
 
+    // for bottom sheet
+    LinearLayout bottomSheet;
+    BottomSheetBehavior bottomSheetBehavior;
+
+    String user_id;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     String from = "19700101", to = "21001231";    //20180508 form
     String medicine_name;
@@ -103,6 +111,9 @@ public class showGraph extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_graph);
+
+        sharedPreferences = getSharedPreferences("Login_Session", MODE_PRIVATE);
+        user_id = sharedPreferences.getString("Id", "None");
 
         dosage = findViewById(R.id.dosage);
         remainder = findViewById(R.id.remainder);
@@ -259,6 +270,8 @@ public class showGraph extends AppCompatActivity {
         // memo list
         memoList = new FragmentMemoList();
 
+        bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         ViewPager pager = (ViewPager) findViewById(R.id.container);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -317,12 +330,24 @@ public class showGraph extends AppCompatActivity {
         // get the ID of selected item
         int id = item.getItemId();
 
+        MySocket sock = new MySocket(Server_IP, Server_PORT);
+        try {
+            JSONObject req = new JSONObject();
+            req.put("Type", "Create_Instant_Report");
+            req.put("Id", user_id);
+            req.put("Hash", Module.MD5(user_id+medicine_name));
+            req.put("Medicine_Name", medicine_name);
+            sock.request(req.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // inflate sending E-mail activity set from and to
         Intent it = new Intent(Intent.ACTION_SEND);
         String[] address = {emailInfo[id]};
         it.putExtra(Intent.EXTRA_EMAIL, address);
         it.putExtra(Intent.EXTRA_TEXT, "레포트를 확인하려면 아래 링크를 클릭하세요\r\n\r\n" +
-                "https://106.10.40.50:5000");
+                "http://106.10.40.50:5000/report/instant/"+Module.MD5(user_id+medicine_name));
         it.putExtra(Intent.EXTRA_SUBJECT, "[Report] " + intent.getStringExtra("Id") + "의 복용기록");
         it.setType("message/rfc822");
         startActivity(Intent.createChooser(it, "Choose Email Client"));
@@ -357,6 +382,7 @@ public class showGraph extends AppCompatActivity {
          */
         @Override
         public int getCount() {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             return TITLES.length;
         }
 

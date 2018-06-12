@@ -10,12 +10,9 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
 
 /**
  * Created by leejisung on 2018-06-08.
@@ -25,6 +22,7 @@ import static org.junit.Assert.*;
 public class MainActivityTest {
 
     private static final String MESSAGE = "This is a test";
+    private SettingAlarm s;
 
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
@@ -32,9 +30,23 @@ public class MainActivityTest {
     @Test
     public void onCreate() throws Exception {
 
-        onView(withId(R.id.medicine_name)).perform(typeText(MESSAGE));
-        onView(withId(R.id.medicine_search_btn)).perform(click());
+        onView(withId(R.id.fab)).perform(click());
+
+        onView(withId(R.id.reminder_title)).perform(typeText("Tylenol"));
+        onView(withId(R.id.tgbtn_mon_repeat)).perform(click());
+        onView(withId(R.id.test)).perform(click());
+        Thread.sleep(1000);
+
+        onView(withId(R.id.list)).perform(click());
+        Thread.sleep(1000);
+
+        onView(withId(R.id.container)).perform(swipeLeft());
+        onView(withId(R.id.linear)).perform(swipeLeft());
+
+        onView(withId(R.id.add)).perform(click());
+        onView(withId(R.id.memo_content)).perform(typeText("this is test"));
+        onView(withId(R.id.memo_upload)).perform(click());
+
+
     }
-
-
 }

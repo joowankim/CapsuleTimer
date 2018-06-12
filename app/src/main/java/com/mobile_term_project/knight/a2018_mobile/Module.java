@@ -21,12 +21,50 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 
 public class Module {
 
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
+
+    public static final String MD5(String str){
+
+        String MD5 = "";
+
+        try{
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            md.update(str.getBytes());
+
+            byte byteData[] = md.digest();
+
+            StringBuffer sb = new StringBuffer();
+
+            for(int i = 0 ; i < byteData.length ; i++){
+
+                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+
+            }
+
+            MD5 = sb.toString();
+
+
+
+        }catch(NoSuchAlgorithmException e){
+
+            e.printStackTrace();
+
+            MD5 = null;
+
+        }
+
+        return MD5;
+
+    }
 
     public final static void notiVersion(AlarmManager alarm, Calendar calendar, PendingIntent pendingIntent) {
         if (Build.VERSION.SDK_INT >= 23) {

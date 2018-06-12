@@ -59,10 +59,27 @@
 # print [random.randrange(1, 10) for _ in range(10)]
 # import time
 # print time.time()
-import datetime
-import datetime
-import calendar
-import time
-# print datetime.datetime.now()
+# import datetime
+# import datetime
+# import calendar
+# import time
+# # print datetime.datetime.now()
+#
+# print calendar.timegm(time.struct_time(time.strptime(datetime.datetime.fromtimestamp(), '%Y-%m-%d %H:%M:%S')))
+# import weasyprint
+# pdf = weasyprint.HTML('http://www.google.com').write_pdf()
+# file('google.pdf', 'w').write(pdf)
 
-print calendar.timegm(time.struct_time(time.strptime(datetime.datetime.fromtimestamp(), '%Y-%m-%d %H:%M:%S')))
+third = [80.46, 82.52, 80.44, 90.77, 82.48, 90.65, 89.06, 84.06, 91.13, 90.77, 83.52, 82.77, 66.77]
+second = [78.5, 94.1042, 88.5208, 90.4375, 81.9583, 76.7292, 90.375, 76.25, 85.9167, 89.35417, 81.9375, 78.75, 69.4792]
+first = [93.1667, 87.3125, 88.0625, 90.5625, 83.9167, 88.75, 81.1667, 87.375, 84.0625, 96.58333, 93.0833, 90.0625, 76.6875]
+
+res = []
+for idx in range(len(first)):
+    res.append(first[idx] + second[idx] + third[idx])
+
+# for idx in range(1, len(res)):
+#     if res[0] < res[idx]:
+#         print res[idx],
+
+print sorted(res)[::-1][0] - res[0]

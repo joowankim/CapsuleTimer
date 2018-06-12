@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body style="background-image: /url( image/background3.jpg ); background-size: cover; background-position: center center;">
+<body style="background-image: url( /image/background3.jpg ); background-size: cover; background-position: center center;">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -56,8 +56,7 @@
 <div class="container" style="margin-top: 20px;">
     <div class="panel panel-default">
         <div class="panel-heading"><h2>{{ result.medicine.name }}</h2></div>
-        <div class="panel-body">
-            {% autoescape false %}
+        <div class="panel-body " style="background: rgba(255, 255, 255, 0.2)">
             <div class="col-md-2">
                 <span>효능, 효과:</span>
             </div>
@@ -76,15 +75,13 @@
             <div class="col-md-10">
                 <p>{{ result.medicine.notice|nl2br }}</p>
             </div>
-            {% endautoescape %}
-            {{ "TEST\nTEST" | nl2br }}
         </div>
     </div>
 </div>
 
 <br><br>
 
-<footer class="container-fluid text-center">
+<footer class="container-fluid text-center" style="background: rgba(0, 0, 0, 0)">
     <p>Footer Text</p>
 </footer>
 </body>
