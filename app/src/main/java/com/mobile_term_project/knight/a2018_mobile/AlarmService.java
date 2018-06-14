@@ -1,20 +1,16 @@
 package com.mobile_term_project.knight.a2018_mobile;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.Calendar;
 
 /**
  * @brief make alarm with data that user settings and check whether alarm is repeat type or not

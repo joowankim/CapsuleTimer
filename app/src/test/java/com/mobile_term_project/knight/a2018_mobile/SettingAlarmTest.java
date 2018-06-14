@@ -3,16 +3,11 @@ package com.mobile_term_project.knight.a2018_mobile;
 import android.content.Context;
 import android.test.AndroidTestCase;
 import android.test.mock.MockContext;
-import android.util.AttributeSet;
 
 import org.junit.Test;
 
 import java.util.Calendar;
 
-import static org.junit.Assert.*;
-
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 
 /**
  * Created by leejisung on 2018-06-07.

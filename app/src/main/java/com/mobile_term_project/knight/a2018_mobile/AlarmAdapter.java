@@ -1,11 +1,7 @@
 package com.mobile_term_project.knight.a2018_mobile;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +18,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.Random;
 
 /**

@@ -1,7 +1,6 @@
 package com.mobile_term_project.knight.a2018_mobile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +59,6 @@ public class MedicineListAdapter extends BaseAdapter {
     }
 
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        LinearLayout view = null;
         ViewHolder viewHolder = new ViewHolder();
         try {
             final JSONObject medicine = medicines.getJSONObject(position);

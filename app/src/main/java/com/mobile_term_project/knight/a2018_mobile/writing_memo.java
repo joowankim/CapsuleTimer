@@ -2,8 +2,6 @@ package com.mobile_term_project.knight.a2018_mobile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -173,7 +171,6 @@ public class writing_memo extends AppCompatActivity {
         spinner.setAdapter(adapter);
         if (flag == 0) {
             flag = 1;
-            //Log.d("TEST", getIntents.getStringExtra("Medicine_Name"));
             spinner.setSelection(adapter.getPosition(getIntents.getStringExtra("Medicine_Name")));
         }
     }

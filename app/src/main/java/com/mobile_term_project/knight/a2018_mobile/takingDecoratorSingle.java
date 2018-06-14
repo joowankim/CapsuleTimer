@@ -1,12 +1,7 @@
 package com.mobile_term_project.knight.a2018_mobile;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.text.style.BackgroundColorSpan;
-import android.view.View;
 import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
